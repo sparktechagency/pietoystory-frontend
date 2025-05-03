@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Footer: React.FC = () => {
   return (
     <div className="backgroundColor pt-12 pb-20">
-      <div className="max-w-[1519px] mx-auto px-4">
+      <div className="max-w-[1519px] mx-auto lg:px-0 px-4">
         <div className="flex flex-col lg:flex-row justify-between gap-12">
           {/* Left Side */}
           <div className="text-white max-w-[517px]">
@@ -44,13 +44,13 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Middle Side */}
-          <div className="text-center lg:text-left">
+          <div className="text-center ">
             <h1 className="text-xl text-white underline font-degular font-medium">Quick Access</h1>
             <ul className="mt-6 text-xl text-white font-degular font-thin space-y-3">
-              <li><Link to="">Home</Link></li>
-              <li><Link to="">Privacy Policy</Link></li>
-              <li><Link to="">Terms and conditions</Link></li>
-              <li><Link to="">Refer a friend</Link></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link to="/term-condiction">Terms and conditions</Link></li>
+              <li><Link to="/refer-list">Refer a friend</Link></li>
             </ul>
           </div>
 
