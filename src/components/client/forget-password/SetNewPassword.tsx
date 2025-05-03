@@ -1,37 +1,11 @@
-import React, { useState, useRef } from 'react';
-import { Form, Input, Button, message } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { Button, Form, Input } from 'antd';
+import { MdLockOutline } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
-const OtpVerify: React.FC = () => {
-    const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
-    const inputRefs = useRef<(Input | null)[]>([]);
-
-    const handleChange = (value: string, index: number) => {
-        if (/^[0-9]?$/.test(value)) {
-            const newOtp = [...otp];
-            newOtp[index] = value;
-            setOtp(newOtp);
-
-            if (value && index < 5) {
-                inputRefs.current[index + 1]?.focus();
-            }
-        }
-    };
-
-    const navigate = useNavigate();
-
-    const handleSubmit = () => {
-        const otpCode = otp.join('');
-        if (otpCode.length === 6) {
-            message.success(`OTP Submitted: ${otpCode}`);
-            return navigate("/password-change")
-        } else {
-            message.error('Please enter a valid 6-digit OTP');
-        }
-    };
-
+const SetNewPassword: React.FC = () => {
     return (
-        <div className="flex flex-col lg:flex-row max-w-[1519px] mx-auto lg:mt-10 md:mt-6 mt-3 px-4 lg:pb-[151px] md:pb-[100px] pb-[50px] ">
+        <div className="flex flex-col lg:flex-row max-w-[1519px] mx-auto lg:mt-10 md:mt-6 mt-3 px-4 lg:pb-[118px] md:pb-[70px] pb-[30px] ">
             {/* Left Side - Form */}
             <div className="w-full max-w-[748px]">
                 <div className='  ' >
@@ -43,38 +17,39 @@ const OtpVerify: React.FC = () => {
                     </Link>
 
                 </div>
-                <h2 className="lg:text-3xl text-xl font-degular font-medium text-black lg:mt-[53px] md:mt-7 mt-3  lg:mb-2 ">Enter Code</h2>
-                <p className=' lg:text-xl font-degular lg:mb-7 mb-3 ' >Enter the code that we sent to your email.</p>
+                <h2 className="lg:text-3xl text-xl font-degular font-medium text-black lg:mt-[53px] md:mt-7 mt-3  lg:mb-2 ">Change Password</h2>
+                <p className=' lg:text-xl font-degular lg:mb-7 mb-3 ' >Password must contain 8 characters.</p>
 
-                <Form onFinish={handleSubmit} className="space-y-6">
-                    <div className="flex  lg:gap-5 gap-2 ">
-                        {otp.map((digit, index) => (
-                            <Input
-                                key={index}
-                                value={digit}
-                                maxLength={1}
-                                ref={(el) => (inputRefs.current[index] = el)}
-                                onChange={(e) => handleChange(e.target.value, index)}
-                                className="text-center font-semibold text-xl !lg:w-16 !lg:h-16 border !w-12 !h-12 border-gray-300 lg:rounded-[16px] focus:!border-blue-500"
-                            />
-                        ))}
-                    </div>
+                <Form  className="space-y-6">
+                    <Form.Item style={{ marginTop: "20px" }}>
+                        <Input.Password
+                            size="large"
+                            placeholder="Password"
+                            prefix={<MdLockOutline />}
+                            className="rounded-xl custom-placeholder  "
+                            style={{ padding: "14px 20px", outline: "none", border: `1px solid #00000033` }}
+                        />
+                    </Form.Item>
 
+                    <Form.Item style={{ marginTop: "20px" }}>
+                        <Input.Password
+                            size="large"
+                            placeholder="Confirm password"
+                            prefix={<MdLockOutline />}
+                            className="rounded-xl custom-placeholder  "
+                            style={{ padding: "14px 20px", outline: "none", border: `1px solid #00000033` }}
+                        />
+                    </Form.Item>
                     <Button
                         type="primary"
                         htmlType="submit"
-                        className="border-none bg-bgColor hover:bg-bgColor text-black font-medium font-degular lg:text-xl h-12 lg:!mt-[39px]  w-full rounded-xl "
+                        className="border-none bg-bgColor hover:bg-bgColor text-black font-medium font-degular lg:text-xl h-12 w-full lg:!mt-[39px]  rounded-xl "
                     >
-                        Verify Code
+                        Change password
                     </Button>
 
                 </Form>
-                <Button
-                    htmlType="submit"
-                    className=" bgTransparentColor border-none text-[#003361] lg:text-xl font-thin font-degular mt-4  "
-                >
-                    Resend OTP
-                </Button>
+                
 
             </div>
 
@@ -335,7 +310,7 @@ const OtpVerify: React.FC = () => {
                 </span>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default OtpVerify;
+export default SetNewPassword

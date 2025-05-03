@@ -69,7 +69,7 @@ const EmailVerify: React.FC = () => {
               block
               size="large"
               htmlType="submit"
-              className="border-none bg-bgColor hover:bg-bgColor text-black font-medium font-degular lg:text-xl h-12 "
+              className="border-none bg-bgColor hover:bg-bgColor text-black font-medium font-degular lg:text-xl h-12  "
             >
               Send Code
             </Button>
