@@ -50,3 +50,9 @@
     font-weight: 600 !important ;
     padding: 11px 0 !important;
   }
+
+
+.backgroundColor  {
+    background: #7474BF;
+    background: linear-gradient(90deg,rgba(116, 116, 191, 1) 0%, rgba(52, 138, 199, 1) 50%);
+}
