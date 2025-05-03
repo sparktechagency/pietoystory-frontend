@@ -5,6 +5,13 @@ import { Link, NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const Navbar: React.FC = () => {
+    const token = localStorage.getItem("token");
+console.log(token)
+    const config = {
+        headers: {
+            Authorization: `${token}`,
+        },
+    };
     const [open, setOpen] = useState(false)
     const [accountOpen, setAccountOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement | null>(null)
@@ -64,16 +71,40 @@ const Navbar: React.FC = () => {
 
                 {/* Create Account - Desktop only */}
                 <div className="hidden lg:block relative" ref={dropdownRef}>
-                    <button
-                        onClick={() => setAccountOpen(!accountOpen)}
-                        className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2"
-                    >
-                        <svg width="63" height="62" viewBox="0 0 63 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
-                            <path d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z" fill="black" />
-                        </svg>
-                        <span className="text-xl font-degular font-medium text-black">Create account</span>
-                    </button>
+                    {
+                        !config ? (
+                            <>
+                                <button
+                                    onClick={() => setAccountOpen(!accountOpen)}
+                                    className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2"
+                                >
+                                    <svg width="63" height="62" viewBox="0 0 63 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
+                                        <path
+                                            d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
+                                            fill="black"
+                                        />
+                                    </svg>
+                                    <span className="text-xl font-degular font-medium text-black">Create account</span>
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to={`/create-account`}
+                                    className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2 "
+                                >
+                                    <svg width="63" height="62" viewBox="0 0 63 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
+                                        <path
+                                            d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
+                                            fill="black"
+                                        />
+                                    </svg>
+                                    <span className="text-xl font-degular font-medium text-black">Create account</span>
+                                </Link>
+                            </>
+                        )
+                    }
 
                     {/* Dropdown */}
                     <AnimatePresence>
