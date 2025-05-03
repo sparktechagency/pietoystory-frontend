@@ -9,7 +9,10 @@ export default {
       backgroundColor : {
         bgColor : `#BAE9FF`
       },
-    },
+      fontFamily : {
+        degular: ['"Degular Display"', 'sans-serif'],
+      }
+    }
   },
   plugins: [],
 }
