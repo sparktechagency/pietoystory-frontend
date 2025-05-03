@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor : {
+        bgColor : `#BAE9FF`
+      },
+      fontFamily : {
+        degular: ['"Degular Display"', 'sans-serif'],
+      }
+    }
   },
   plugins: [],
 }
