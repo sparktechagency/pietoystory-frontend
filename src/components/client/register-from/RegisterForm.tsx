@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-const CreateAccount = () => {
+const CreateAccount:React.FC = () => {
     const [showPhone, setShowPhone] = useState(false);
 
     return (

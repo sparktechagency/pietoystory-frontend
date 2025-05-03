@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import RegisterForm from "../components/client/register-from/RegisterForm";
 import LoginFrom from "../components/client/login-from/LoginFrom";
+import EmailVerify from "../components/client/forget-password/EmailVerify";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
             {
                 path : "login",
                 element : <LoginFrom></LoginFrom>
+            },
+            {
+                path : "email-verify",
+                element : <EmailVerify></EmailVerify>
             }
         ]
     }
