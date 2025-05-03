@@ -56,3 +56,10 @@
     background: #7474BF;
     background: linear-gradient(90deg,rgba(116, 116, 191, 1) 0%, rgba(52, 138, 199, 1) 50%);
 }
+
+.bgTransparentColor{
+  background-color: transparent !important;
+  box-shadow: none;
+  display: flex;
+  justify-self: end;
+}

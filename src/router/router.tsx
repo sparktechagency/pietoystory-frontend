@@ -3,6 +3,8 @@ import MainLayout from "../layout/MainLayout";
 import RegisterForm from "../components/client/register-from/RegisterForm";
 import LoginFrom from "../components/client/login-from/LoginFrom";
 import EmailVerify from "../components/client/forget-password/EmailVerify";
+import OtpVerify from "../components/client/forget-password/OtpVerify";
+import SetNewPassword from "../components/client/forget-password/SetNewPassword";
 
 export const router = createBrowserRouter([
     {
@@ -24,6 +26,14 @@ export const router = createBrowserRouter([
             {
                 path : "email-verify",
                 element : <EmailVerify></EmailVerify>
+            },
+            {
+                path : "otp-verify",
+                element : <OtpVerify></OtpVerify>
+            },
+            {
+                path : "password-change",
+                element : <SetNewPassword></SetNewPassword>
             }
         ]
     }
