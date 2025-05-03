@@ -113,10 +113,10 @@ const CreateAccount = () => {
                         </Form.Item>
                     </Form>
 
-                    <p className="text-center text-sm text-gray-600">
+                    <p className="text-center text-sm text-[#000000]">
                         Already have an account?{' '}
-                        <Link to="/login" className="text-blue-600 hover:underline">
-                            Login here
+                        <Link to="/login" className=" text-black ">
+                            <span className=' text-[#0063E5] underline ' >Login here</span>
                         </Link>
                     </p>
                 </div>
