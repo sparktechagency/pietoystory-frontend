@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import {
     UserOutlined,
@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-const LoginFrom = () => {
+const LoginFrom:React.FC = () => {
     const [showPhone, setShowPhone] = useState(false);
 
     return (
@@ -74,7 +74,7 @@ const LoginFrom = () => {
                         </div>
                         <div className='' >
                             <Form.Item style={{marginBottom:"0"}} >
-                                <Link className={` block lg:text-xl font-degular text-black hover:text-black `} to={`/forget-password`}>Forgot password ?</Link>
+                                <Link className={` block lg:text-xl font-degular text-black hover:text-black `} to={`/email-verify`}>Forgot password ?</Link>
                             </Form.Item>
                         </div>
                     </div>
