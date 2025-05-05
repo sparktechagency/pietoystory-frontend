@@ -7,6 +7,7 @@ import OtpVerify from "../components/client/forget-password/OtpVerify";
 import SetNewPassword from "../components/client/forget-password/SetNewPassword";
 import PrivacyPolicy from "../pages/client/privacy-policy-page/PrivacyPolicy";
 import TermCondiction from "../pages/client/term-condiction-page/TermCondiction";
+import Home from "../pages/client/home-page/Home";
 
 export const router = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
         children : [
             {
                 path : "/",
-                element : <h1>home page</h1>
+                element : <Home></Home>
             },
             {
                 path : "create-account",

@@ -29,7 +29,7 @@ const TermCondiction: React.FC = () => {
                         <div className='relative w-full max-w-[1006px] h-[423px] lg:ml-[10%] '>
                             {/* Background Image */}
                             <img
-                                src="/images/privacy/privacyImg.jpg"
+                                src="/images/term-condiction/termCondiction.jpg"
                                 className="w-full h-full object-cover rounded-[20px]"
                                 alt="Terms & Conditions"
                             />
