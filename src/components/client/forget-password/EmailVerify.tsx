@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import {
   MailOutlined,
-  LockOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 
 const EmailVerify: React.FC = () => {
-  const [form] = Form.useForm()
+  // const [form] = Form.useForm()
   const [showPhone, setShowPhone] = useState(false);
   const navigate = useNavigate();
 
