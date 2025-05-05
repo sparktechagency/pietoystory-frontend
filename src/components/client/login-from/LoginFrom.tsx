@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import {
-    UserOutlined,
     MailOutlined,
-    EnvironmentOutlined,
     LockOutlined,
     EyeTwoTone,
     EyeInvisibleOutlined,
-    TeamOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
@@ -95,9 +92,9 @@ const LoginFrom:React.FC = () => {
                     </Form.Item>
                 </Form>
 
-                <p className="text-center mt-6 text-[#000000] font-degular lg:text-xl ">
+                <p className="text-center mt-6 text-[#000000] font-degular lg:text-xl lg:pb-20 ">
                     Don’t have an account?{' '}
-                    <Link to="/login" className="text-[#0063E5] underline">
+                    <Link to="/create-account" className="text-[#0063E5] underline">
                         <span>Register Here</span>
                     </Link>
                 </p>

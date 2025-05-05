@@ -15,7 +15,7 @@ const CreateAccount:React.FC = () => {
     const [showPhone, setShowPhone] = useState(false);
 
     return (
-        <div className="flex flex-col lg:flex-row max-w-[1519px] mx-auto mt-12 px-4 gap-8">
+        <div className="flex flex-col lg:flex-row mx-auto mt-12 px-4 gap-8">
             {/* Left Side - Form */}
             <div className="w-full lg:w-1/2 flex items-center justify-center">
                 <div className="w-full max-w-xl">
@@ -113,7 +113,7 @@ const CreateAccount:React.FC = () => {
                         </Form.Item>
                     </Form>
 
-                    <p className="text-center text-sm text-[#000000]">
+                    <p className="text-center text-sm text-[#000000] lg:pb-16 ">
                         Already have an account?{' '}
                         <Link to="/login" className=" text-black ">
                             <span className=' text-[#0063E5] underline ' >Login here</span>
@@ -127,7 +127,7 @@ const CreateAccount:React.FC = () => {
                 <img
                     src="/images/registration/regImg.png"
                     alt="Registration Illustration"
-                    className="object-cover rounded-xl mt-[22%] block "
+                    className="object-cover rounded-xl mt-[22%] mx-auto block "
                 />
             </div>
         </div>
