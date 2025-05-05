@@ -2,6 +2,7 @@ import React from 'react'
 import Banner from './Banner'
 import PromisseRefer from './PromisseRefer'
 import About from './About'
+import Location from './Location'
 
 const Home: React.FC = () => {
     return (
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
             <PromisseRefer></PromisseRefer>
             <div id='about' >
                 <About></About>
+                <Location></Location>
             </div>
         </div>
     )
