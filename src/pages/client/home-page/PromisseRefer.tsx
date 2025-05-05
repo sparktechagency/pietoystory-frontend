@@ -24,7 +24,7 @@ const PromisseRefer: React.FC = () => {
             title: "Health and Safety Commitment",
             description: "Swoop Scoop® prioritizes health and safety by using sanitary practices and eco-friendly disposal methods, ensuring a clean, safe environment for The PNW pets and families."
         }
-    ]
+    ];
 
 
     return (
