@@ -27,7 +27,7 @@ const About: React.FC = () => {
                             and less time worrying about the mess.
                         </p>
                         <button className='mt-6 md:mt-7 px-4 md:px-12 py-4 md:py-6 bg-bgColor rounded-[40px] font-degular text-sm md:text-xl'>
-                            <Link to="/refer" className='flex items-center gap-3 font-medium'>
+                            <Link to="/quote" className='flex items-center gap-3 font-medium'>
                                 Get a Quote
                                 <span>
                                     <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
