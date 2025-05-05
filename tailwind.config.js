@@ -6,10 +6,11 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundColor : {
-        bgColor : `#BAE9FF`
+      colors: {
+        bgColor: "#BAE9FF",
+        textColor: "#000000",
       },
-      fontFamily : {
+      fontFamily: {
         degular: ['"Degular Display"', 'sans-serif'],
       }
     }
