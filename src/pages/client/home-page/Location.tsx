@@ -38,7 +38,7 @@ const Location: React.FC = () => {
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                 {region.location.map((loc, j) => (
                                     <div key={j} className="border rounded-[20px] text-center bg-white shadow-sm hover:shadow-md transition">
-                                        <p className="text-sm font-degular text-textColor px-4 py-2">{loc}</p>
+                                        <p className="text-sm font-degular text-textColor px-1 py-2">{loc}</p>
                                     </div>
                                 ))}
                             </div>

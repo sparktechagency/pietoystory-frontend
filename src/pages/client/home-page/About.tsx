@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const About: React.FC = () => {
     return (
-        <div className='bg-[#f6f6f6] pt-10 md:pt-10'>
+        <div className='bg-[#f6f6f6] pt-10 md:pt-10' id='/about' >
             <div className='max-w-[1519px] mx-auto px-4 md:px-6'>
                 <h1 className='text-center text-2xl md:text-[40px] font-degular text-textColor font-thin'>
                     About us
