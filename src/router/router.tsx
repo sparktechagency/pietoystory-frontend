@@ -11,6 +11,7 @@ import Home from "../pages/client/home-page/Home";
 import About from "../pages/client/home-page/About";
 import Referral from "../pages/client/referral-page/Referral";
 import Profile from "../pages/client/profile/Profile";
+import HistoryPage from "../pages/client/history/HistoryPage";
 
 export const router = createBrowserRouter([
     {
@@ -62,5 +63,9 @@ export const router = createBrowserRouter([
     {
         path : "/profile",
         element : <Profile></Profile>
+    },
+    {
+        path : "/history",
+        element : <HistoryPage></HistoryPage>
     }
 ])
