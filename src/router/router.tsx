@@ -12,6 +12,9 @@ import About from "../pages/client/home-page/About";
 import Referral from "../pages/client/referral-page/Referral";
 import Profile from "../pages/client/profile/Profile";
 import HistoryPage from "../pages/client/history/HistoryPage";
+import GetTouchPage from "../pages/client/home-page/GetTouchPage";
+import Checkout from "../pages/client/checkout-page/Checkout";
+import Quote from "../pages/client/quote-page/Quote";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +52,11 @@ export const router = createBrowserRouter([
                 path : "refer",
                 element : <Referral></Referral>
             },
+            {
+                path : "contact",
+                element : <GetTouchPage></GetTouchPage>
+            }
+            
         ]
     },
     {
@@ -67,5 +75,13 @@ export const router = createBrowserRouter([
     {
         path : "/history",
         element : <HistoryPage></HistoryPage>
+    },
+    {
+        path : "/checkout",
+        element : <Checkout></Checkout>
+    },
+    {
+        path : "/quote",
+        element : <Quote></Quote>
     }
 ])
