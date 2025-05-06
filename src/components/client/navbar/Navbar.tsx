@@ -65,7 +65,7 @@ console.log(token)
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/about">About Us</NavLink>
                         <NavLink to="/contact">Contact Us</NavLink>
-                        <NavLink to="/referrals">Referrals</NavLink>
+                        <NavLink to="/refer">Referrals</NavLink>
                     </nav>
                 </div>
 

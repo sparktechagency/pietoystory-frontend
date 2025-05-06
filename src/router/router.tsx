@@ -10,6 +10,7 @@ import TermCondiction from "../pages/client/term-condiction-page/TermCondiction"
 import Home from "../pages/client/home-page/Home";
 import About from "../pages/client/home-page/About";
 import Referral from "../pages/client/referral-page/Referral";
+import Profile from "../pages/client/profile/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
                 path : "about",
                 element : <About></About>
             },{
-                path : "referrals",
+                path : "refer",
                 element : <Referral></Referral>
             },
         ]
@@ -56,5 +57,10 @@ export const router = createBrowserRouter([
     {
         path : "/term-condiction",
         element : <TermCondiction></TermCondiction>
+    }
+    ,
+    {
+        path : "/profile",
+        element : <Profile></Profile>
     }
 ])
