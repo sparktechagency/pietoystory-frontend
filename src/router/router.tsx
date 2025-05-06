@@ -8,6 +8,7 @@ import SetNewPassword from "../components/client/forget-password/SetNewPassword"
 import PrivacyPolicy from "../pages/client/privacy-policy-page/PrivacyPolicy";
 import TermCondiction from "../pages/client/term-condiction-page/TermCondiction";
 import Home from "../pages/client/home-page/Home";
+import About from "../pages/client/home-page/About";
 
 export const router = createBrowserRouter([
     {
@@ -37,7 +38,11 @@ export const router = createBrowserRouter([
             {
                 path : "password-change",
                 element : <SetNewPassword></SetNewPassword>
-            }
+            },
+            {
+                path : "about",
+                element : <About></About>
+            },
         ]
     },
     {

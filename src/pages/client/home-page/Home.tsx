@@ -4,6 +4,8 @@ import PromisseRefer from './PromisseRefer'
 import About from './About'
 import Location from './Location'
 import ChooseUs from './ChooseUs'
+import GetTouchPage from './GetTouchPage'
+import ChangePassword from '../setting/ChangePassword'
 
 const Home: React.FC = () => {
     return (
@@ -17,6 +19,10 @@ const Home: React.FC = () => {
             <div>
                 <ChooseUs></ChooseUs>
             </div>
+            <div>
+                <GetTouchPage></GetTouchPage>
+            </div>
+            
         </div>
     )
 }
