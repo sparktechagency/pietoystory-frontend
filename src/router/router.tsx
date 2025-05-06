@@ -9,6 +9,7 @@ import PrivacyPolicy from "../pages/client/privacy-policy-page/PrivacyPolicy";
 import TermCondiction from "../pages/client/term-condiction-page/TermCondiction";
 import Home from "../pages/client/home-page/Home";
 import About from "../pages/client/home-page/About";
+import Referral from "../pages/client/referral-page/Referral";
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +43,9 @@ export const router = createBrowserRouter([
             {
                 path : "about",
                 element : <About></About>
+            },{
+                path : "referrals",
+                element : <Referral></Referral>
             },
         ]
     },

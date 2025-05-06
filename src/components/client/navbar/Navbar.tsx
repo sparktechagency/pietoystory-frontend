@@ -49,7 +49,7 @@ console.log(token)
     }, [])
 
     return (
-        <div className="">
+        <div className=" bg-[#f6f6f6] ">
             <div className="max-w-[1519px] mx-auto flex gap-x-4 items-center justify-between py-2 lg:px-0 px-4">
 
                 {/* Logo */}
