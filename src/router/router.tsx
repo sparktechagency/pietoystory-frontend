@@ -15,6 +15,7 @@ import HistoryPage from "../pages/client/history/HistoryPage";
 import GetTouchPage from "../pages/client/home-page/GetTouchPage";
 import Checkout from "../pages/client/checkout-page/Checkout";
 import Quote from "../pages/client/quote-page/Quote";
+import StripePayment from "../components/client/payment/StripePayment";
 
 export const router = createBrowserRouter([
     {
@@ -83,5 +84,9 @@ export const router = createBrowserRouter([
     {
         path : "/quote",
         element : <Quote></Quote>
+    },
+    {
+        path : "/payment",
+        element :<StripePayment/>
     }
 ])

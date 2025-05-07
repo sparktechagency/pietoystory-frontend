@@ -21,13 +21,15 @@ const Quote: React.FC = () => {
         <div className='bg-[#f6f6f6]  pt-[46px] pb-[87px] ' >
             <div className=' max-w-[1519px] mx-auto lg:px-0 px-4 ' >
                 <div className='' >
-                    <div className='flex flex-row items-center gap-5 ' >
+                    <div className='flex flex-row items-center gap-5 cursor-pointer ' >
                         <div className=' lg:w-[55px] lg:h-[53px] w-[33px] h-[30px]  bg-white rounded-full flex items-center  justify-center  ' >
-                            <span>
-                                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
-                                </svg>
-                            </span>
+                            <Link to={"/"}>
+                                <span>
+                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
+                                    </svg>
+                                </span>
+                            </Link>
                         </div>
                         <div>
                             <h1 className=' lg:text-3xl text-xl font-degular text-textColor ' >Back</h1>
@@ -71,8 +73,8 @@ const Quote: React.FC = () => {
                                     <span
                                         key={idx}
                                         className={`${idx === frequency
-                                                ? "font-degular text-[16px] font-medium text-[#404040]"
-                                                : ""
+                                            ? "font-degular text-[16px] font-medium text-[#404040]"
+                                            : ""
                                             }`}
                                     >
                                         {label}
