@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Input } from 'antd';
 import { MdLockOutline } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 const SetNewPassword: React.FC = () => {
+    const 
+    const [form] = Form.useForm();
+    const [loading,setLoading] = useState<boolean>(false)
+    const handleSubmit = async(values)=>{
+        try {
+            setLoading(true)
+        } catch (error) {
+            
+        }
+    }
+
     return (
         <div className="flex flex-col lg:flex-row max-w-[1519px] mx-auto lg:mt-10 md:mt-6 mt-3 px-4 lg:pb-[118px] md:pb-[70px] pb-[30px] ">
             {/* Left Side - Form */}
@@ -20,7 +31,7 @@ const SetNewPassword: React.FC = () => {
                 <h2 className="lg:text-3xl text-xl font-degular font-medium text-black lg:mt-[53px] md:mt-7 mt-3  lg:mb-2 ">Change Password</h2>
                 <p className=' lg:text-xl font-degular lg:mb-7 mb-3 ' >Password must contain 8 characters.</p>
 
-                <Form  className="space-y-6">
+                <Form onFinish={handleSubmit} form={form} className="space-y-6">
                     <Form.Item style={{ marginTop: "20px" }}>
                         <Input.Password
                             size="large"

@@ -110,13 +110,17 @@ const LoginFrom: React.FC = () => {
                             />
                         </Form.Item>
 
-                        <div className='flex flex-col items-start lg:flex-row lg:items-center justify-between lg:my-9 my-3 ' >
-                            <Form.Item name="remember" required rules={[{
+                        <div className='flex flex-col items-center lg:flex-row lg:items-center justify-between lg:my-9 my-3 ' >
+                            <Form.Item  name="remember" required rules={[{
                                 required: true,
                                 message: "Remember me"
                             }]} valuePropName="checked">
-                                <Checkbox>Remember me</Checkbox>
+                                <Checkbox style={{color:"#000000",}}  className=' text-[#000000] font-degular font-medium lg:text-xl ' >Remember me</Checkbox>
                             </Form.Item>
+
+                            <div className=' -mt-5 ' >
+                                <Link to = {"/email-verify"} className=' text-[#000000] font-degular font-medium lg:text-xl '>Forgot password ?</Link>
+                            </div>
 
                         </div>
 
