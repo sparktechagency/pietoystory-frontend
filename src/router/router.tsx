@@ -16,6 +16,7 @@ import GetTouchPage from "../pages/client/home-page/GetTouchPage";
 import Checkout from "../pages/client/checkout-page/Checkout";
 import Quote from "../pages/client/quote-page/Quote";
 import StripePayment from "../components/client/payment/StripePayment";
+import UserOtpVerify from "../components/client/user-otp-verify/UserOtpVerify";
 
 export const router = createBrowserRouter([
     {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
             {
                 path : "contact",
                 element : <GetTouchPage></GetTouchPage>
+            },
+            {
+                path : "user-otp-verify",
+                element : <UserOtpVerify></UserOtpVerify>
             }
             
         ]
