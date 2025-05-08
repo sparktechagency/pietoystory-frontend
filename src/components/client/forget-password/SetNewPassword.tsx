@@ -1,17 +1,46 @@
 import React, { useState } from 'react'
-import { Button, Form, Input } from 'antd';
-import { MdLockOutline } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Button, Form, Input, message } from 'antd';
+import { MdEmail, MdLockOutline } from 'react-icons/md';
+import { Link, useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
+import { setNewPasswordPayloadType, setPasswordApiResponse } from '../../../type/setPasswordType';
 
 const SetNewPassword: React.FC = () => {
-    const 
+    const axiosPublic = useAxiosPublic();
     const [form] = Form.useForm();
-    const [loading,setLoading] = useState<boolean>(false)
-    const handleSubmit = async(values)=>{
+    const token = localStorage.getItem("setToken");
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const navigate = useNavigate();
+
+
+    const [loading, setLoading] = useState<boolean>(false)
+    const handleSubmit = async (values: setNewPasswordPayloadType) => {
         try {
-            setLoading(true)
-        } catch (error) {
-            
+            setLoading(true);
+            const res = await axiosPublic.post<setPasswordApiResponse>(`/change-password`, {
+                email: values.email,
+                password: values.password,
+                password_confirmation: values.password_confirmation
+            }, config);
+            if (res.status === 200) {
+                message.success(`Password set successfully`);
+                form.resetFields();
+                localStorage.removeItem("setToken");
+                navigate("/");
+                return;
+            }
+        } catch (error: any) {
+            console.log(error)
+            return message.error(`${error.response?.data?.message}`)
+
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -32,7 +61,22 @@ const SetNewPassword: React.FC = () => {
                 <p className=' lg:text-xl font-degular lg:mb-7 mb-3 ' >Password must contain 8 characters.</p>
 
                 <Form onFinish={handleSubmit} form={form} className="space-y-6">
-                    <Form.Item style={{ marginTop: "20px" }}>
+                    <Form.Item required name={"email"} rules={[{
+                        required: true,
+                        message: "Enter your email"
+                    }]} style={{ marginTop: "20px" }}>
+                        <Input.Password
+                            size="large"
+                            placeholder="Email"
+                            prefix={<MdEmail />}
+                            className="rounded-xl custom-placeholder  "
+                            style={{ padding: "14px 20px", outline: "none", border: `1px solid #00000033` }}
+                        />
+                    </Form.Item>
+                    <Form.Item name={"password"} rules={[{
+                        required: true,
+                        message: "Enter your password"
+                    }]} style={{ marginTop: "20px" }}>
                         <Input.Password
                             size="large"
                             placeholder="Password"
@@ -42,7 +86,10 @@ const SetNewPassword: React.FC = () => {
                         />
                     </Form.Item>
 
-                    <Form.Item style={{ marginTop: "20px" }}>
+                    <Form.Item name={"password_confirmation"} rules={[{
+                        required: true,
+                        message: "Enter your password confirmation"
+                    }]} style={{ marginTop: "20px" }}>
                         <Input.Password
                             size="large"
                             placeholder="Confirm password"
@@ -53,6 +100,8 @@ const SetNewPassword: React.FC = () => {
                     </Form.Item>
                     <Button
                         type="primary"
+                        disabled={loading}
+                        loading={loading}
                         htmlType="submit"
                         className="border-none bg-bgColor hover:bg-bgColor text-black font-medium font-degular lg:text-xl h-12 w-full lg:!mt-[39px]  rounded-xl "
                     >
@@ -60,7 +109,7 @@ const SetNewPassword: React.FC = () => {
                     </Button>
 
                 </Form>
-                
+
 
             </div>
 

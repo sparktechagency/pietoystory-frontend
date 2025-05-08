@@ -5,11 +5,14 @@ import useAxiosPublic from '../../../hooks/UseAxiosPublic';
 import { otpApiType } from '../../../type/otpType';
 
 const OtpVerify: React.FC = () => {
-    const [form] = Form.useForm()
-    const [loading, setLoading] = useState<boolean>(false)
-    const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
     const inputRefs = useRef<(Input | null)[]>([]);
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
+
+    // 👉 Handle OTP input change
     const handleChange = (value: string, index: number) => {
         if (/^[0-9]?$/.test(value)) {
             const newOtp = [...otp];
@@ -22,33 +25,27 @@ const OtpVerify: React.FC = () => {
         }
     };
 
-    const navigate = useNavigate();
-
+    // 👉 Handle OTP submission
     const handleSubmit = async () => {
-        const otpCode = otp.join('');
+        const otpCode = otp.join("");
         if (otpCode.length === 6) {
-            message.success(`OTP Submitted: ${otpCode}`);
-            
-
             try {
                 setLoading(true);
-                const res = await axiosPublic.post<otpApiType>(`/verify-otp`, { otp: otpCode });
-                console.log(res);
-                if(res.status===200){
-                    message.success(res.data?.message);
-                    form.resetFields();
-                    navigate("/password-change");
-                    return;
-                }
-            } catch (error:any) {
-                console.log(error)
-                message.error(`${error.response.data.message}`)
-            } finally {
-                setLoading(false)
-            }
+                const res = await axiosPublic.post<otpApiType>("/verify-otp", { otp: otpCode });
 
+                if (res.status === 200) {
+                    message.success(res.data?.message || "OTP Verified Successfully!");
+                    form.resetFields();
+                    localStorage.setItem(`setToken`,res.data?.access_token)
+                    navigate("/password-change");
+                }
+            } catch (error: any) {
+                message.error(error.response?.data?.message || "OTP Verification Failed!");
+            } finally {
+                setLoading(false);
+            }
         } else {
-            message.error('Please enter a valid 6-digit OTP');
+            message.error("Please enter a valid 6-digit OTP");
         }
     };
 
