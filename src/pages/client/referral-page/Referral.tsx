@@ -1,10 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Copy } from 'lucide-react';
 import { message } from 'antd';
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
+import moment from 'moment';
 
 const Referral: React.FC = () => {
     const [copied, setCopied] = useState(false);
-    const referralLink = 'https://www.Clearpath.com/refferal/C0FHS7';
+
+
+    const axiosPublic = useAxiosPublic();
+
+    const token = localStorage.getItem("token");
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const [loading,setLoading] = useState(false);
+    const [totalRefer,setTotalRefer] = useState("");
+    const [totalReferList,setTotalReferList] = useState([]);
+    const [user,setUser] = useState(null);
+    const [userCoinData,setUserCoinData] = useState(null);
+
+    useEffect(()=>{
+        const getData = async ()=>{
+            try {
+                setLoading(true)
+                const res = await axiosPublic.get(`/all-referred-info`,config);
+                console.log(res.data)
+                if(res.data?.ok){
+                    setTotalRefer(res.data?.totalRefer);
+                    setTotalReferList(res.data?.totalReferList);
+                    setUser(res.data?.user);
+                    setUserCoinData(res.data?.userCoinData)
+                }
+            } catch (error) {
+                console.log(error)
+            }finally{
+                setLoading(false)
+            }
+        }
+        getData()
+    },[]);
+
+    console.log(user)
+
+    const referralLink = `http://localhost:5173/user-register?referral_code=${user?.referral_code}`;
 
     const handleCopy = () => {
         navigator.clipboard.writeText(referralLink);
@@ -13,44 +56,9 @@ const Referral: React.FC = () => {
         message.success("Copy successfully.")
     };
 
-    const referData = [
-        {
-            name: "Sazzat Islam",
-            email: "sazzat@gmail.com",
-            date: "10-04-2025",
-            num: "+2"
-        },
-        {
-            name: "Sazzat Islam",
-            email: "sazzat@gmail.com",
-            date: "10-04-2025",
-            num: "+2"
-        },
-        {
-            name: "Sazzat Islam",
-            email: "sazzat@gmail.com",
-            date: "10-04-2025",
-            num: "+2"
-        },
-        {
-            name: "Sazzat Islam",
-            email: "sazzat@gmail.com",
-            date: "10-04-2025",
-            num: "+2"
-        },
-        {
-            name: "Sazzat Islam",
-            email: "sazzat@gmail.com",
-            date: "10-04-2025",
-            num: "+2"
-        },
-        {
-            name: "Sazzat Islam",
-            email: "sazzat@gmail.com",
-            date: "10-04-2025",
-            num: "+2"
-        },
-    ]
+    console.log(user)
+
+
 
     return (
         <div className="bg-[#f6f6f6] pb-10 lg:pb-[76px] ">
@@ -71,10 +79,10 @@ const Referral: React.FC = () => {
                     </div>
 
                     {/* Referral Link */}
-                    <div className=" mt-3 lg:mt-10 lg:w-[763px] flex lg:flex-row flex-col items-center lg:gap-x-4 lg:mb-4 lg:mr-36  ">
+                    <div className=" mt-3 lg:mt-10 lg:w-[863px] flex lg:flex-row flex-col items-center lg:gap-x-4 lg:mb-4 lg:mr-36  ">
                         <p className="lg:text-xl text-sm font-degular text-textColor lg:min-w-[130px] mb-3 lg:mb-0 ">Referral link:</p>
 
-                        <div className="flex items-center lg:w-full border rounded-full lg:px-4 px-2 py-3  relative">
+                        <div className="flex items-center lg:w-full border border-black rounded-full lg:px-4 px-2 py-3   relative">
                             <span className=" text-textColor font-degular text-sm lg:text-[22px] ">{referralLink}</span>
 
                             <button
@@ -89,7 +97,7 @@ const Referral: React.FC = () => {
 
                 </div>
                 <div>
-                    <h1 className=' text-textColor font-degular lg:text-xl mb-2 my-3 lg:my-0 ' >Total refer: {referData.length} </h1>
+                    <h1 className=' text-textColor font-degular lg:text-xl mb-2 my-3 lg:my-0 ' >Total refer: {totalRefer} </h1>
                 </div>
                 <div className='  flex lg:flex-row flex-col gap-2.5  ' >
                     <div className=' bg-white  p-7 rounded-[20px]  flex-1  ' >
@@ -102,20 +110,23 @@ const Referral: React.FC = () => {
                             </span>
                         </h1>
                         <div className="p-5">
-                            {referData.map((item, i) => (
+                            {totalReferList.map((item, i) => (
+                                
                                 <div key={i} className="mb-4">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-4">
                                         <h1 className="text-base sm:text-lg md:text-xl text-textColor font-degular">
-                                            {i + 1}. {item.name}
+                                            {i + 1}. {item?.user.full_name}
                                         </h1>
                                         <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
-                                            {item.email}
+                                            {item?.user?.email}
                                         </p>
                                         <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
-                                            {item.date}
+-                                            {
+                                                moment(item?.created_at).format('DD MMMM YYYY')
+                                            }
                                         </p>
                                         <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
-                                            {item.num}
+                                            +{2}
                                         </p>
                                     </div>
                                 </div>
@@ -139,15 +150,15 @@ const Referral: React.FC = () => {
                             </h1>
                             <div className=' flex justify-between py-2 px-5 border rounded-[20px] text-textColor lg:text-xl font-degular mt-7 ' >
                                 <h1>Total earned</h1>
-                                <p>12</p>
+                                <p>{userCoinData?.earn_coins}</p>
                             </div>
                             <div className=' flex justify-between py-2 px-5 border rounded-[20px] text-textColor lg:text-xl font-degular mt-7 ' >
                                 <h1>Used</h1>
-                                <p>4</p>
+                                <p> {userCoinData?.used_coins} </p>
                             </div>
                             <div className=' flex justify-between py-2 px-5 border rounded-[20px] text-textColor lg:text-xl font-degular mt-7 ' >
                                 <h1>Remaining</h1>
-                                <p>8</p>
+                                <p>{userCoinData?.remaining_coins}</p>
                             </div>
 
                         </div>
