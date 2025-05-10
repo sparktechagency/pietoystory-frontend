@@ -18,19 +18,19 @@ const Referral: React.FC = () => {
         },
     };
 
-    const [loading,setLoading] = useState(false);
-    const [totalRefer,setTotalRefer] = useState("");
-    const [totalReferList,setTotalReferList] = useState([]);
-    const [user,setUser] = useState(null);
-    const [userCoinData,setUserCoinData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [totalRefer, setTotalRefer] = useState("");
+    const [totalReferList, setTotalReferList] = useState([]);
+    const [user, setUser] = useState(null);
+    const [userCoinData, setUserCoinData] = useState(null);
 
-    useEffect(()=>{
-        const getData = async ()=>{
+    useEffect(() => {
+        const getData = async () => {
             try {
                 setLoading(true)
-                const res = await axiosPublic.get(`/all-referred-info`,config);
+                const res = await axiosPublic.get(`/all-referred-info`, config);
                 console.log(res.data)
-                if(res.data?.ok){
+                if (res.data) {
                     setTotalRefer(res.data?.totalRefer);
                     setTotalReferList(res.data?.totalReferList);
                     setUser(res.data?.user);
@@ -38,14 +38,13 @@ const Referral: React.FC = () => {
                 }
             } catch (error) {
                 console.log(error)
-            }finally{
+            } finally {
                 setLoading(false)
             }
         }
         getData()
-    },[]);
+    }, []);
 
-    console.log(user)
 
     const referralLink = `http://localhost:5173/user-register?referral_code=${user?.referral_code}`;
 
@@ -56,7 +55,14 @@ const Referral: React.FC = () => {
         message.success("Copy successfully.")
     };
 
-    console.log(user)
+    if(loading){
+        return(
+            <div className=' h-screen flex flex-col items-center justify-center  ' >
+                <h1 className=' font-degular font-semibold text-lg ' >Loading.... </h1>
+            </div>
+        )
+    }
+
 
 
 
@@ -110,27 +116,28 @@ const Referral: React.FC = () => {
                             </span>
                         </h1>
                         <div className="p-5">
-                            {totalReferList.map((item, i) => (
-                                
-                                <div key={i} className="mb-4">
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-4">
-                                        <h1 className="text-base sm:text-lg md:text-xl text-textColor font-degular">
-                                            {i + 1}. {item?.user.full_name}
-                                        </h1>
-                                        <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
-                                            {item?.user?.email}
-                                        </p>
-                                        <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
--                                            {
-                                                moment(item?.created_at).format('DD MMMM YYYY')
-                                            }
-                                        </p>
-                                        <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
-                                            +{2}
-                                        </p>
+                            {Array.isArray(totalReferList) && totalReferList.length > 0 ? (
+                                totalReferList.map((item, i) => (
+                                    <div key={i} className="mb-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-4">
+                                            <h1 className="text-base sm:text-lg md:text-xl text-textColor font-degular">
+                                                {i + 1}. {item?.user?.full_name || 'N/A'}
+                                            </h1>
+                                            <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
+                                                {item?.user?.email || 'No Email Provided'}
+                                            </p>
+                                            <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
+                                                {item?.created_at ? moment(item?.created_at).format('DD MMMM YYYY') : 'Date Not Available'}
+                                            </p>
+                                            <p className="text-base sm:text-lg md:text-xl font-degular font-thin text-textColor">
+                                                +2
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))
+                            ) : (
+                                <p className="text-center text-gray-500">No Referrals Found</p>
+                            )}
                         </div>
 
 
