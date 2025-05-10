@@ -17,6 +17,8 @@ import Checkout from "../pages/client/checkout-page/Checkout";
 import Quote from "../pages/client/quote-page/Quote";
 import StripePayment from "../components/client/payment/StripePayment";
 import UserOtpVerify from "../components/client/user-otp-verify/UserOtpVerify";
+import ChangePassword from "../pages/client/setting/ChangePassword";
+import UserRegister from "../components/client/user-register/UserRegister";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +63,10 @@ export const router = createBrowserRouter([
             {
                 path : "user-otp-verify",
                 element : <UserOtpVerify></UserOtpVerify>
+            },
+            {
+                path : "user-register",
+                element : <UserRegister/>
             }
             
         ]
@@ -93,5 +99,9 @@ export const router = createBrowserRouter([
     {
         path : "/payment",
         element :<StripePayment/>
+    },
+    {
+        path : "/change-password",
+        element : <ChangePassword/>
     }
 ])
