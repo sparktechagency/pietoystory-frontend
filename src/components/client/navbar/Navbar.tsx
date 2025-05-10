@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Drawer, Button } from 'antd'
+import { Drawer, Button, message } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
 import { Link, NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import useAxiosPublic from '../../../hooks/UseAxiosPublic'
+import { UserProfile, UserProfileApiResponse } from '../../../type/UserProfileDataType'
 
 const Navbar: React.FC = () => {
     const token = localStorage.getItem("token");
-console.log(token)
+
     const config = {
         headers: {
-            Authorization: `${token}`,
+            Authorization: `Bearer ${token}`,
         },
     };
+
+
     const [open, setOpen] = useState(false)
     const [accountOpen, setAccountOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement | null>(null)
@@ -46,16 +50,45 @@ console.log(token)
         }
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
-    }, [])
+    }, []);
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+
+    const axiosPublic = useAxiosPublic();
+
+    const [profileData, setProfileData] = useState<UserProfile | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const res = await axiosPublic.get<UserProfileApiResponse>(`/profile`, config);
+                setProfileData(res.data?.data); // Save data to state
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []); // 👈 Empty dependency array to run only once
+
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        window.location.href = ""
+    }
 
     return (
         <div className=" bg-[#f6f6f6] ">
             <div className="max-w-[1519px] mx-auto flex gap-x-4 items-center justify-between py-2 lg:px-0 px-4">
 
                 {/* Logo */}
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 mx-auto lg:mx-0    ">
                     <NavLink to="/">
-                        <img src="/images/navbar/logo.png" alt="Logo" className="h-12" />
+                        <img src="/images/navbar/logo.png" alt="Logo" className="h-12   " />
                     </NavLink>
                 </div>
 
@@ -72,37 +105,44 @@ console.log(token)
                 {/* Create Account - Desktop only */}
                 <div className="hidden lg:block relative" ref={dropdownRef}>
                     {
-                        !config ? (
-                            <>
-                                <button
-                                    onClick={() => setAccountOpen(!accountOpen)}
-                                    className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2"
-                                >
-                                    <svg width="63" height="62" viewBox="0 0 63 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        token && profileData ? (
+                            <button
+                                onClick={() => setAccountOpen(!accountOpen)}
+                                className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2"
+                            >
+                                {profileData.avatar ? (
+                                    <img
+                                        src={`${profileData.avatar}`}
+                                        alt="Profile Avatar"
+                                        className="w-12 h-12 rounded-full"
+                                    />
+                                ) : (
+                                    <svg width="63" height="62" viewBox="0 0 63 62" fill="none">
                                         <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
                                         <path
                                             d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
                                             fill="black"
                                         />
                                     </svg>
-                                    <span className="text-xl font-degular font-medium text-black">Create account</span>
-                                </button>
-                            </>
+                                )}
+                                <span className="text-xl font-degular font-medium text-black">
+                                    {profileData.full_name || "User"}
+                                </span>
+                            </button>
                         ) : (
-                            <>
-                                <Link to={`/create-account`}
-                                    className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2 "
-                                >
-                                    <svg width="63" height="62" viewBox="0 0 63 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
-                                        <path
-                                            d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
-                                            fill="black"
-                                        />
-                                    </svg>
-                                    <span className="text-xl font-degular font-medium text-black">Create account</span>
-                                </Link>
-                            </>
+                            <Link
+                                to={`/create-account`}
+                                className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2 "
+                            >
+                                <svg width="63" height="62" viewBox="0 0 63 62" fill="none">
+                                    <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
+                                    <path
+                                        d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
+                                        fill="black"
+                                    />
+                                </svg>
+                                <span className="text-xl font-degular font-medium text-black">Create account</span>
+                            </Link>
                         )
                     }
 
@@ -117,7 +157,7 @@ console.log(token)
                                 className="absolute right-0 mt-2 w-[320px] bg-[#4b4b4b] shadow-lg rounded-[20px] z-50  space-y-2 text-white p-7 text-xl  "
                             >
                                 <div>
-                                    <Link to="/account" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  ">
+                                    <Link to="/profile" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  ">
                                         <span>
                                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M10 0.5C11.3261 0.5 12.5979 1.02678 13.5355 1.96447C14.4732 2.90215 15 4.17392 15 5.5C15 6.82608 14.4732 8.09785 13.5355 9.03553C12.5979 9.97322 11.3261 10.5 10 10.5C8.67392 10.5 7.40215 9.97322 6.46447 9.03553C5.52678 8.09785 5 6.82608 5 5.5C5 4.17392 5.52678 2.90215 6.46447 1.96447C7.40215 1.02678 8.67392 0.5 10 0.5ZM10 13C15.525 13 20 15.2375 20 18V20.5H0V18C0 15.2375 4.475 13 10 13Z" fill="white" />
@@ -142,7 +182,7 @@ console.log(token)
                                     </Link>
                                 </div>
                                 <div>
-                                    <Link to="/my-reffer" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  mb-7 ">
+                                    <Link to="/refer" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  mb-7 ">
                                         <span>
                                             <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6.1233 8.56078H5.41676C4.45259 8.52665 3.49155 8.68696 2.59327 9.03176C1.69499 9.37657 0.87865 9.89851 0.194906 10.5652L0 10.7879V17.3738H3.3134V13.6355L3.76006 13.1423L3.96309 12.9116C5.02039 11.8478 6.3367 11.0649 7.78812 10.6368C7.0617 10.095 6.48864 9.38037 6.1233 8.56078Z" fill="white" />
@@ -172,7 +212,7 @@ console.log(token)
 
                                         </span>
 
-                                        <span>Logout</span>
+                                        <span onClick={handleLogout} >Logout</span>
 
                                     </button>
                                 </div>

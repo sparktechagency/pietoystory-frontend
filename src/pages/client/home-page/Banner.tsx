@@ -1,6 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
+import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const Banner: React.FC = () => {
+    const axiosPublic = useAxiosPublic();
+    const [zipData, setZipData] = useState<string | null>("");
+    const token = localStorage.getItem("token");
+    const [loading, setLoading] = useState<boolean>(false);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const navigate = useNavigate();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+        if (zipData?.length === 0) {
+            return console.log(`zipcode not found`)
+        } else {
+            try {
+                setLoading(true);
+                const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData }, config);
+                navigate(`/quote?zip-code=${zipData}`)
+                console.log(res)
+            } catch (error : any) {
+                message.error(error.response.data.message)
+                console.log(error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+    }
     return (
         <div>
             <div className="bg-[url('/images/home-page/home-banner.jpg')] bg-cover bg-center w-full lg:h-[765px] pb-6 border">
@@ -19,27 +52,31 @@ const Banner: React.FC = () => {
                         </div>
 
                         {/* Input + Button Responsive */}
-                        <div className="mt-5 relative w-full max-w-[590px]">
-                            <input
-                                className="border border-white hover:outline-none focus:outline-none py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] placeholder:text-2xl font-degular"
-                                type="text"
-                                placeholder="Zip Code"
-                            />
+                        <form onSubmit={handleSubmit} >
+                            <div className="mt-5 relative w-full max-w-[590px]">
+                                <input
+                                    className="border border-white hover:outline-none focus:outline-none py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] placeholder:text-2xl font-degular"
+                                    type="text"
+                                    onChange={(e) => { setZipData(e.target.value) }}
+                                    placeholder="Zip Code"
+                                />
 
-                            {/* Button inside input on large screens */}
-                            <button
-                                className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-2 bg-white text-black py-5 px-12 w-[200px] rounded-[40px] font-degular text-xl"
-                            >
-                                Get Quote
-                            </button>
+                                {/* Button inside input on large screens */}
+                                <button
+                                    className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-1 bg-white text-black py-5 px-12 w-[220px] rounded-[40px] font-degular text-xl"
+                                >
+                                    Instant Quote
+                                </button>
 
-                            {/* Button below input on small/medium screens */}
-                            <button
-                                className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl"
-                            >
-                                Get Quote
-                            </button>
-                        </div>
+                                {/* Button below input on small/medium screens */}
+                                <button
+                                    type='submit'
+                                    className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl"
+                                >
+                                    Instant Quote
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                     {/* Review Box */}
@@ -48,7 +85,7 @@ const Banner: React.FC = () => {
                             <img className="w-12 h-12 rounded-full" src="/images/home-page/banner-1.jpg" />
                         </div>
                         <div>
-                            <h1 className="text-black font-degular text-xl">Jenifer Lopej</h1>
+                            <h1 className="lg:text-black text-white font-degular text-xl">Jenifer Lopej</h1>
                             <div className="flex">
                                 {Array(5).fill(0).map((_, i) => (
                                     <svg key={i} width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,21 +1,23 @@
-import { Input, Button, Upload } from 'antd';
-import { CameraOutlined } from '@ant-design/icons';
+import { Input, Button, Upload, Form } from 'antd';
 import React from 'react'
 import Footer from '../../../components/client/footer/Footer';
 import { Link } from 'react-router-dom';
 
 const Profile: React.FC = () => {
+    const [form] = Form.useForm()
     return (
         <div className=" bg-[#f6f6f6] px-4 lg:px-0 ">
             <div className=' max-w-[1519px] mx-auto ' >
                 <div className=' flex justify-between items-center pt-11 ' >
                     <div className='flex items-center gap-5 ' >
                         <div className=' w-[55px] h-[53px] bg-white rounded-full flex items-center  justify-center  ' >
-                            <span>
-                                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
-                                </svg>
-                            </span>
+                            <Link to={"/"}>
+                                <span>
+                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
+                                    </svg>
+                                </span>
+                            </Link>
                         </div>
                         <div>
                             <h1 className=' text-3xl font-degular text-textColor ' >My profile</h1>
@@ -43,41 +45,43 @@ const Profile: React.FC = () => {
                                     alt="Profile"
                                     className="w-24 h-24 rounded-full object-cover"
                                 />
-                                <Upload showUploadList={false}>
-                                    <div className="absolute bottom-0 -right-2    cursor-pointer">
-                                        <svg width="52" height="46" viewBox="0 0 52 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <g filter="url(#filter0_d_41_1120)">
-                                                <rect x="6" y="6.5" width="40" height="33" rx="3" fill="white" shape-rendering="crispEdges" />
-                                                <g filter="url(#filter1_d_41_1120)">
-                                                    <path d="M33 14C33.7956 14 34.5587 14.3161 35.1213 14.8787C35.6839 15.4413 36 16.2044 36 17V29C36 29.7956 35.6839 30.5587 35.1213 31.1213C34.5587 31.6839 33.7956 32 33 32H19C18.2044 32 17.4413 31.6839 16.8787 31.1213C16.3161 30.5587 16 29.7956 16 29V17C16 16.2044 16.3161 15.4413 16.8787 14.8787C17.4413 14.3161 18.2044 14 19 14H33ZM26 18C24.6739 18 23.4021 18.5268 22.4645 19.4645C21.5268 20.4021 21 21.6739 21 23C21 24.3261 21.5268 25.5979 22.4645 26.5355C23.4021 27.4732 24.6739 28 26 28C27.3261 28 28.5979 27.4732 29.5355 26.5355C30.4732 25.5979 31 24.3261 31 23C31 21.6739 30.4732 20.4021 29.5355 19.4645C28.5979 18.5268 27.3261 18 26 18ZM26 20C26.7956 20 27.5587 20.3161 28.1213 20.8787C28.6839 21.4413 29 22.2044 29 23C29 23.7956 28.6839 24.5587 28.1213 25.1213C27.5587 25.6839 26.7956 26 26 26C25.2044 26 24.4413 25.6839 23.8787 25.1213C23.3161 24.5587 23 23.7956 23 23C23 22.2044 23.3161 21.4413 23.8787 20.8787C24.4413 20.3161 25.2044 20 26 20ZM33 17H32C31.7451 17.0003 31.5 17.0979 31.3146 17.2728C31.1293 17.4478 31.0178 17.687 31.0028 17.9414C30.9879 18.1958 31.0707 18.4464 31.2343 18.6418C31.3979 18.8373 31.6299 18.9629 31.883 18.993L32 19H33C33.2549 18.9997 33.5 18.9021 33.6854 18.7272C33.8707 18.5522 33.9822 18.313 33.9972 18.0586C34.0121 17.8042 33.9293 17.5536 33.7657 17.3582C33.6021 17.1627 33.3701 17.0371 33.117 17.007L33 17Z" fill="black" />
+                                <Form.Item>
+                                    <Upload.Dragger showUploadList={false}>
+                                        <div className="absolute bottom-0 -right-2    cursor-pointer">
+                                            <svg width="52" height="46" viewBox="0 0 52 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g filter="url(#filter0_d_41_1120)">
+                                                    <rect x="6" y="6.5" width="40" height="33" rx="3" fill="white" shape-rendering="crispEdges" />
+                                                    <g filter="url(#filter1_d_41_1120)">
+                                                        <path d="M33 14C33.7956 14 34.5587 14.3161 35.1213 14.8787C35.6839 15.4413 36 16.2044 36 17V29C36 29.7956 35.6839 30.5587 35.1213 31.1213C34.5587 31.6839 33.7956 32 33 32H19C18.2044 32 17.4413 31.6839 16.8787 31.1213C16.3161 30.5587 16 29.7956 16 29V17C16 16.2044 16.3161 15.4413 16.8787 14.8787C17.4413 14.3161 18.2044 14 19 14H33ZM26 18C24.6739 18 23.4021 18.5268 22.4645 19.4645C21.5268 20.4021 21 21.6739 21 23C21 24.3261 21.5268 25.5979 22.4645 26.5355C23.4021 27.4732 24.6739 28 26 28C27.3261 28 28.5979 27.4732 29.5355 26.5355C30.4732 25.5979 31 24.3261 31 23C31 21.6739 30.4732 20.4021 29.5355 19.4645C28.5979 18.5268 27.3261 18 26 18ZM26 20C26.7956 20 27.5587 20.3161 28.1213 20.8787C28.6839 21.4413 29 22.2044 29 23C29 23.7956 28.6839 24.5587 28.1213 25.1213C27.5587 25.6839 26.7956 26 26 26C25.2044 26 24.4413 25.6839 23.8787 25.1213C23.3161 24.5587 23 23.7956 23 23C23 22.2044 23.3161 21.4413 23.8787 20.8787C24.4413 20.3161 25.2044 20 26 20ZM33 17H32C31.7451 17.0003 31.5 17.0979 31.3146 17.2728C31.1293 17.4478 31.0178 17.687 31.0028 17.9414C30.9879 18.1958 31.0707 18.4464 31.2343 18.6418C31.3979 18.8373 31.6299 18.9629 31.883 18.993L32 19H33C33.2549 18.9997 33.5 18.9021 33.6854 18.7272C33.8707 18.5522 33.9822 18.313 33.9972 18.0586C34.0121 17.8042 33.9293 17.5536 33.7657 17.3582C33.6021 17.1627 33.3701 17.0371 33.117 17.007L33 17Z" fill="black" />
+                                                    </g>
                                                 </g>
-                                            </g>
-                                            <defs>
-                                                <filter id="filter0_d_41_1120" x="0" y="0.5" width="52" height="45" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                                    <feOffset />
-                                                    <feGaussianBlur stdDeviation="3" />
-                                                    <feComposite in2="hardAlpha" operator="out" />
-                                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_41_1120" />
-                                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_41_1120" result="shape" />
-                                                </filter>
-                                                <filter id="filter1_d_41_1120" x="12" y="14" width="28" height="26" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                                    <feOffset dy="4" />
-                                                    <feGaussianBlur stdDeviation="2" />
-                                                    <feComposite in2="hardAlpha" operator="out" />
-                                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_41_1120" />
-                                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_41_1120" result="shape" />
-                                                </filter>
-                                            </defs>
-                                        </svg>
+                                                <defs>
+                                                    <filter id="filter0_d_41_1120" x="0" y="0.5" width="52" height="45" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                                        <feOffset />
+                                                        <feGaussianBlur stdDeviation="3" />
+                                                        <feComposite in2="hardAlpha" operator="out" />
+                                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_41_1120" />
+                                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_41_1120" result="shape" />
+                                                    </filter>
+                                                    <filter id="filter1_d_41_1120" x="12" y="14" width="28" height="26" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                                        <feOffset dy="4" />
+                                                        <feGaussianBlur stdDeviation="2" />
+                                                        <feComposite in2="hardAlpha" operator="out" />
+                                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_41_1120" />
+                                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_41_1120" result="shape" />
+                                                    </filter>
+                                                </defs>
+                                            </svg>
 
-                                    </div>
-                                </Upload>
+                                        </div>
+                                    </Upload.Dragger>
+                                </Form.Item>
                             </div>
                             <h2 className="text-xl font-semibold mt-1">Maria Johns</h2>
                             <p className=" text-textColor text-lg font-degular ">example@gmail.com</p>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Copy } from 'lucide-react';
+import { message } from 'antd';
 
 const Referral: React.FC = () => {
     const [copied, setCopied] = useState(false);
@@ -9,6 +10,7 @@ const Referral: React.FC = () => {
         navigator.clipboard.writeText(referralLink);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        message.success("Copy successfully.")
     };
 
     const referData = [
@@ -69,7 +71,7 @@ const Referral: React.FC = () => {
                     </div>
 
                     {/* Referral Link */}
-                    <div className=" mt-3 lg:mt-10 lg:w-[763px] flex lg:flex-row flex-col items-start lg:gap-x-4 lg:mb-4 lg:mr-36  ">
+                    <div className=" mt-3 lg:mt-10 lg:w-[763px] flex lg:flex-row flex-col items-center lg:gap-x-4 lg:mb-4 lg:mr-36  ">
                         <p className="lg:text-xl text-sm font-degular text-textColor lg:min-w-[130px] mb-3 lg:mb-0 ">Referral link:</p>
 
                         <div className="flex items-center lg:w-full border rounded-full lg:px-4 px-2 py-3  relative">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 
 
@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom'
 const Quote: React.FC = () => {
     const [frequency, setFrequency] = useState(0);
     const [dogCount, setDogCount] = useState(1);
-
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get('zip-code');
+    console.log(id)
 
     const frequencyLabels = [
         "Two times a week",

@@ -4,24 +4,20 @@ import { Link } from 'react-router-dom';
 const PromisseRefer: React.FC = () => {
     interface dataInt {
         icon: string;
-        title: string;
         description: string
     }
 
     let data: dataInt[] = [
         {
             icon: "/images/home-page/icon-1.png",
-            title: "Reliable, Hassle free Service",
             description: "Our reliable, hassle-free The PNW’s dog waste removal service ensures timely, efficient visits, leaving your yard pristine. Enjoy more time with your dog—let us handle the mess!"
         },
         {
             icon: "/images/home-page/icon-2.png",
-            title: "Satisfaction Guaranteed",
             description: "At Clearpath, we guarantee your satisfaction with our Seattle pooper scooper service. If you’re not happy, we’ll make it right—your happiness is our priority."
         },
         {
             icon: "/images/home-page/icon-3.png",
-            title: "Health and Safety Commitment",
             description: "Swoop Scoop® prioritizes health and safety by using sanitary practices and eco-friendly disposal methods, ensuring a clean, safe environment for The PNW pets and families."
         }
     ];
@@ -32,9 +28,7 @@ const PromisseRefer: React.FC = () => {
             <div className="bg-[url('/images/home-page/banner-2.png')] bg-cover bg-center w-full bg-[#f6f6f6] pt-10 md:pt-16">
                 <div className='max-w-[1519px] mx-auto md:px-4 '>
                     <div>
-                        <h1 className='text-black text-xl md:text-3xl font-degular font-semibold text-center mb-6 md:mb-7'>
-                            Our Promises for our clients
-                        </h1>
+                        
                     </div>
 
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-10 md:pb-14'>
@@ -48,9 +42,7 @@ const PromisseRefer: React.FC = () => {
                                             className='w-[40px] h-[40px] md:w-[50px] md:h-[50px] object-cover'
                                         />
                                     </div>
-                                    <h1 className='text-center text-textColor text-xl md:text-[30px] font-degular mt-4'>
-                                        {item?.title}
-                                    </h1>
+                                
                                     <p className='text-center text-textColor mt-4 md:mt-6 font-degular text-base md:text-xl font-thin'>
                                         {item?.description}
                                     </p>
