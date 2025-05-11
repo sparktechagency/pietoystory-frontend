@@ -18,14 +18,15 @@ const Banner: React.FC = () => {
 
         e.preventDefault();
         if (zipData?.length === 0) {
-            return console.log(`zipcode not found`)
+            return message.error(`Please enter a zipcode!`)
         } else {
             try {
                 setLoading(true);
                 const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData }, config);
+                console.log(res.data)
                 navigate(`/quote?zip-code=${zipData}`)
                 console.log(res)
-            } catch (error : any) {
+            } catch (error: any) {
                 message.error(error.response.data.message)
                 console.log(error)
             } finally {
@@ -70,10 +71,16 @@ const Banner: React.FC = () => {
 
                                 {/* Button below input on small/medium screens */}
                                 <button
-                                    type='submit'
-                                    className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl"
+                                    type="submit"
+                                    
+                                    className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl flex items-center justify-center"
+                                    disabled={loading} // Disable the button when loading
                                 >
-                                    Instant Quote
+                                    {loading ? (
+                                        <span>loading</span>// You can add a loading spinner
+                                    ) : (
+                                        <>Instant Quote</> // Show "Instant Quote" when not loading
+                                    )}
                                 </button>
                             </div>
                         </form>

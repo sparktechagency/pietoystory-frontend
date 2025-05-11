@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { message } from 'antd';
 
 
 
@@ -16,7 +17,6 @@ const Quote: React.FC = () => {
     const frequencyLabels = [
         "Once a week",
         "Two times a week",
-
         "Bi-weekly",
         "Once a month",
     ];
@@ -37,6 +37,219 @@ const Quote: React.FC = () => {
     // } else {
     //     console.log("No area selected");
     // }
+
+    console.log(selectAreaSqar)
+    const [price, setPrice] = useState(0)
+
+    useEffect(() => {
+
+        // 1 acer 
+
+        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+            setPrice(65)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+            setPrice(69)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+            setPrice(76)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+            setPrice(82)
+        }
+        // Two times a week
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+            setPrice(100)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+            setPrice(105)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+            setPrice(108)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+            setPrice(112)
+        }
+
+        // Bi-weekly
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+            setPrice(53)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+            setPrice(56)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+            setPrice(61)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+            setPrice(67)
+        }
+
+        // Once a month
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+            setPrice(42)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+            setPrice(46.2)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+            setPrice(52)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+            setPrice(59)
+        }
+
+
+        // 2 acer 
+        // Once a week
+        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+            setPrice(90)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+            setPrice(96)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+            setPrice(103)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+            setPrice(110)
+        }
+        // Two times a week
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+            setPrice(140)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+            setPrice(146)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+            setPrice(152)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+            setPrice(158)
+        }
+
+        // Bi-weekly
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+            setPrice(72)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+            setPrice(80)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+            setPrice(88)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+            setPrice(95)
+        }
+
+        // Once a month
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+            setPrice(58)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+            setPrice(65)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+            setPrice(72)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+            setPrice(80)
+        }
+
+        // 3 acer 
+
+
+
+        // Once a week
+        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+            setPrice(120)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+            setPrice(128)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+            setPrice(133)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+            setPrice(140)
+        }
+        // Two times a week
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+            setPrice(180)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+            setPrice(186)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+            setPrice(192)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+            setPrice(199)
+        }
+
+        // Bi-weekly
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+            setPrice(100)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+            setPrice(107)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+            setPrice(114)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+            setPrice(121)
+        }
+
+        // Once a month
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+            setPrice(70)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+            setPrice(85)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+            setPrice(90)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+            setPrice(95)
+        }
+
+
+        // 4 acer 
+
+
+
+        // Once a week
+        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+            setPrice(165)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+            setPrice(174)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+            setPrice(183)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+            setPrice(193)
+        }
+        // Two times a week
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+            setPrice(210)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+            setPrice(220)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+            setPrice(230)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+            setPrice(240)
+        }
+
+        // Bi-weekly
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+            setPrice(130)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+            setPrice(140)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+            setPrice(150)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+            setPrice(160)
+        }
+
+        // Once a month
+
+        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+            setPrice(90)
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+            setPrice(100)
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+            setPrice(110)
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+            setPrice(120)
+        }
+
+
+
+
+
+
+
+
+    }, [dogCount, frequency, selectAreaSqar]);
+
+
+
 
 
 
@@ -155,6 +368,7 @@ const Quote: React.FC = () => {
                                     <option>1 acre</option>
                                     <option>2 acre</option>
                                     <option>3 acre</option>
+                                    <option>4 acre</option>
                                 </select>
 
                                 {/* Custom Dropdown Icon */}
@@ -263,10 +477,10 @@ const Quote: React.FC = () => {
                             <div className='flex justify-between items-center ' >
                                 <div className='  ' >
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Price per  visit:</h1>
-                                    <p className=' lg:text-lg font-degular text-[#343434] ' >Billed monthly</p>
+                                    <p className=' lg:text-lg font-degular text-[#343434] ' >{frequencyLabels[frequency]}</p>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >$18.00</p>
+                                    <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' > ${price} </p>
                                 </div>
                             </div>
                         </div>
@@ -278,7 +492,7 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >50% off for first time cleaning:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >- $9.00</p>
+                                    <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >- ${price / 2}</p>
                                 </div>
                             </div>
                         </div>

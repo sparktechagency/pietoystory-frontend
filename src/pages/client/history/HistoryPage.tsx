@@ -76,9 +76,9 @@ const PreviousHistory: React.FC = () => {
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.cleanArea}</td>
                                     <td className=" text-center px-10 py-[26px] text-[26px] font-degular font-bold ">{item.cost}</td>
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">
-                                        <button className=" py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
+                                        <Link to={"/checkout"}><button className=" py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
                                             <Link to={"/checkout"}>Reorder</Link>
-                                        </button>
+                                        </button></Link>
                                     </td>
                                 </tr>
                             ))}

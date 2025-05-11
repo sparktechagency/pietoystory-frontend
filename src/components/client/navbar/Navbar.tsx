@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
                 <div className="hidden lg:block w-[1006px] mx-auto">
                     <nav className="flex justify-between px-16 items-center bg-[#b9ecff] h-16 rounded-full font-degular font-medium text-xl">
                         <NavLink to="/">Home</NavLink>
-                        <NavLink to="/about">About Us</NavLink>
+                        <NavLink to="">About Us</NavLink>
                         <NavLink to="/contact">Contact Us</NavLink>
                         <NavLink to="/refer">Referrals</NavLink>
                     </nav>
@@ -221,6 +221,8 @@ const Navbar: React.FC = () => {
                     </AnimatePresence>
                 </div>
 
+
+
                 {/* Mobile - Menu Icon */}
                 <div className="lg:hidden">
                     <Button type="text" icon={<MenuOutlined className="text-2xl" />} onClick={showDrawer} />
@@ -237,23 +239,52 @@ const Navbar: React.FC = () => {
             >
                 <nav className="flex flex-col gap-y-4 font-degular text-[15px]">
                     <NavLink to="/" onClick={onClose}>Home</NavLink>
-                    <NavLink to="/about" onClick={onClose}>About Us</NavLink>
+                    <NavLink to="/" onClick={onClose}>About Us</NavLink>
                     <NavLink to="/contact" onClick={onClose}>Contact Us</NavLink>
                     <NavLink to="/referrals" onClick={onClose}>Referrals</NavLink>
 
                     {/* Create Account inside drawer (mobile only) */}
-                    <Link
-                        to="/create-account"
-                        // onClick={onClose}
-                        onClick={() => setAccountOpen(!accountOpen)}
-                        className="flex items-center mt-4 bg-[#b9ecff] rounded-xl px-4 py-2 space-x-2"
-                    >
-                        <svg width="40" height="40" viewBox="0 0 63 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
-                            <path d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z" fill="black" />
-                        </svg>
-                        <span className="font-degular text-black text-base">Create account</span>
-                    </Link>
+                    {
+                        token && profileData ? (
+                            <button
+                                onClick={() => setAccountOpen(!accountOpen)}
+                                className="flex items-center bg-[#b9ecff] rounded-full lg:h-[70px] h-12 px-4 space-x-2"
+                            >
+                                {profileData.avatar ? (
+                                    <img
+                                        src={`${profileData.avatar}`}
+                                        alt="Profile Avatar"
+                                        className="lg:w-12 w-6 border border-black  h-6 lg:h-12 rounded-full"
+                                    />
+                                ) : (
+                                    <svg width="63" height="62" viewBox="0 0 63 62" fill="none">
+                                        <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
+                                        <path
+                                            d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
+                                            fill="black"
+                                        />
+                                    </svg>
+                                )}
+                                <span className="lg:text-xl font-degular font-medium text-black">
+                                    {profileData.full_name || "User"}
+                                </span>
+                            </button>
+                        ) : (
+                            <Link
+                                to={`/create-account`}
+                                className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2 "
+                            >
+                                <svg width="63" height="62" viewBox="0 0 63 62" fill="none">
+                                    <rect x="0.155273" width="62" height="62" rx="31" fill="white" />
+                                    <path
+                                        d="M31.1553 18C32.8792 18 34.5325 18.6848 35.7515 19.9038C36.9705 21.1228 37.6553 22.7761 37.6553 24.5C37.6553 26.2239 36.9705 27.8772 35.7515 29.0962C34.5325 30.3152 32.8792 31 31.1553 31C29.4314 31 27.7781 30.3152 26.5591 29.0962C25.3401 27.8772 24.6553 26.2239 24.6553 24.5C24.6553 22.7761 25.3401 21.1228 26.5591 19.9038C27.7781 18.6848 29.4314 18 31.1553 18ZM31.1553 34.25C38.3378 34.25 44.1553 37.1588 44.1553 40.75V44H18.1553V40.75C18.1553 37.1588 23.9728 34.25 31.1553 34.25Z"
+                                        fill="black"
+                                    />
+                                </svg>
+                                <span className="text-xl font-degular font-medium text-black">Create account</span>
+                            </Link>
+                        )
+                    }
                 </nav>
                 <AnimatePresence>
                     {accountOpen && (
@@ -262,10 +293,10 @@ const Navbar: React.FC = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
-                            className="absolute right-0 mt-2 w-[320px] bg-[#4b4b4b] shadow-lg rounded-[20px] z-50  space-y-2 text-white p-7 text-xl  "
+                            className="absolute right-0 mt-2 lg:w-[320px] bg-[#4b4b4b] shadow-lg rounded-[20px] z-50 space-y-1 lg:space-y-2 text-white p-3 lg:p-7 text-xl  "
                         >
                             <div>
-                                <Link to="/account" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  ">
+                                <Link to="/account" className=" lg:text-lg text-sm font-degular border border-white lg:py-[14px] py-1 px-3 lg:px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] justify-center  items-center  ">
                                     <span>
                                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M10 0.5C11.3261 0.5 12.5979 1.02678 13.5355 1.96447C14.4732 2.90215 15 4.17392 15 5.5C15 6.82608 14.4732 8.09785 13.5355 9.03553C12.5979 9.97322 11.3261 10.5 10 10.5C8.67392 10.5 7.40215 9.97322 6.46447 9.03553C5.52678 8.09785 5 6.82608 5 5.5C5 4.17392 5.52678 2.90215 6.46447 1.96447C7.40215 1.02678 8.67392 0.5 10 0.5ZM10 13C15.525 13 20 15.2375 20 18V20.5H0V18C0 15.2375 4.475 13 10 13Z" fill="white" />
@@ -277,7 +308,7 @@ const Navbar: React.FC = () => {
                                 </Link>
                             </div>
                             <div className=' ' >
-                                <Link to="/change-password" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center my-4   ">
+                                <Link to="/change-password" className=" font-degular border lg:text-lg text-sm border-white lg:py-[14px] py-1 px-3 lg:px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] justify-center items-center my-4   ">
                                     <span>
                                         <svg width="22" height="13" viewBox="0 0 22 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 4.5H11.65C11.2381 3.33048 10.4733 2.31762 9.46134 1.60116C8.44934 0.884703 7.23994 0.499954 6 0.5C2.69 0.5 0 3.19 0 6.5C0 9.81 2.69 12.5 6 12.5C7.23994 12.5 8.44934 12.1153 9.46134 11.3988C10.4733 10.6824 11.2381 9.66952 11.65 8.5H12L14 10.5L16 8.5L18 10.5L22 6.46L20 4.5ZM6 9.5C4.35 9.5 3 8.15 3 6.5C3 4.85 4.35 3.5 6 3.5C7.65 3.5 9 4.85 9 6.5C9 8.15 7.65 9.5 6 9.5Z" fill="white" />
@@ -290,7 +321,7 @@ const Navbar: React.FC = () => {
                                 </Link>
                             </div>
                             <div>
-                                <Link to="/my-reffer" className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  mb-7 ">
+                                <Link to="/my-reffer" className=" lg:text-lg text-sm font-degular border border-white lg:py-[14px] py-1 px-3 lg:px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] justify-center items-center my-4    mb-7 ">
                                     <span>
                                         <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6.1233 8.56078H5.41676C4.45259 8.52665 3.49155 8.68696 2.59327 9.03176C1.69499 9.37657 0.87865 9.89851 0.194906 10.5652L0 10.7879V17.3738H3.3134V13.6355L3.76006 13.1423L3.96309 12.9116C5.02039 11.8478 6.3367 11.0649 7.78812 10.6368C7.0617 10.095 6.48864 9.38037 6.1233 8.56078Z" fill="white" />
@@ -309,7 +340,7 @@ const Navbar: React.FC = () => {
                                 </Link>
                             </div>
                             <div>
-                                <button className=" font-degular border border-[#FF5E5E] py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center w-full mt-7 text-[#FF5E5E] bg-[#FFFFFF]  ">
+                                <button className=" lg:text-lg text-sm font-degular border border-[#FF5E5E] py-1 lg:py-[14px] px-3 lg:px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] justify-center items-center w-full mt-7 text-[#FF5E5E] bg-[#FFFFFF]  ">
                                     <span>
                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M10.016 19.5323C10.016 19.2756 10.1182 19.0294 10.2999 18.848C10.4817 18.6665 10.7282 18.5645 10.9852 18.5645H18.7386C18.8243 18.5645 18.9064 18.5305 18.967 18.47C19.0276 18.4095 19.0617 18.3275 19.0617 18.2419V2.75806C19.0617 2.67251 19.0276 2.59046 18.967 2.52997C18.9064 2.46947 18.8243 2.43548 18.7386 2.43548H10.9852C10.7282 2.43548 10.4817 2.33353 10.2999 2.15204C10.1182 1.97055 10.016 1.7244 10.016 1.46774C10.016 1.21108 10.1182 0.964932 10.2999 0.783445C10.4817 0.601958 10.7282 0.5 10.9852 0.5H18.7386C19.9869 0.5 21 1.51161 21 2.75806V18.2419C21 18.8408 20.7617 19.4152 20.3377 19.8386C19.9136 20.2621 19.3384 20.5 18.7386 20.5H10.9852C10.7282 20.5 10.4817 20.398 10.2999 20.2166C10.1182 20.0351 10.016 19.7889 10.016 19.5323Z" fill="#FF5E5E" />

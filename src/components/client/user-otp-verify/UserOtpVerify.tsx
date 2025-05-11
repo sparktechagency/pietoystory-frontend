@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import useAxiosPublic from '../../../hooks/UseAxiosPublic';
-import { otpApiType, otpValueType } from '../../../type/otpType';
+import { otpApiType } from '../../../type/otpType';
 import Swal from 'sweetalert2';
 
 const UserOtpVerify: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const email: string | null = searchParams.get('email');
   const axiosPublic = useAxiosPublic();
   const [loading, setLoading] = useState<boolean>(false)
   const [form] = Form.useForm()
@@ -23,6 +25,22 @@ const UserOtpVerify: React.FC = () => {
       }
     }
   };
+
+  const [loading2,setLoading2] = useState<boolean>(false)
+
+  const resendOtp = async ()=>{
+    try {
+      setLoading2(true);
+      const res = await axiosPublic.post(`/resend-otp`,{email:email});
+      if(res.data.ok){
+        message.success("Otp send successfully");
+      }
+    } catch (error:any) {
+      message.error(error.response.data.message)
+    }finally{
+      setLoading2(false)
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -101,6 +119,8 @@ const UserOtpVerify: React.FC = () => {
 
             <Form.Item>
               <Button
+              loading = {loading}
+              disabled = {loading}
                 type="primary"
                 htmlType="submit"
                 className="border-none bg-bgColor hover:bg-bgColor text-black font-medium font-degular lg:text-xl h-12 lg:!mt-[39px]  w-full rounded-xl "
@@ -111,9 +131,10 @@ const UserOtpVerify: React.FC = () => {
 
           </Form>
           <Button
+          onClick={resendOtp}
             htmlType="submit"
-            loading={loading}
-            disabled={loading}
+            loading={loading2}
+            disabled={loading2}
             className=" bgTransparentColor border-none text-[#003361] lg:text-xl font-thin font-degular mt-4  "
           >
             Resend OTP

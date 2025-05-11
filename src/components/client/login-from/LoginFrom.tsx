@@ -35,7 +35,7 @@ const LoginFrom: React.FC = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                navigate("/");
+                window.location.href = "/"
                 form.resetFields();
                 return;
             }
