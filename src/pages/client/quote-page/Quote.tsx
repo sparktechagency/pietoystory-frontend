@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
 
@@ -7,16 +7,41 @@ import { Link, useSearchParams } from 'react-router-dom'
 const Quote: React.FC = () => {
     const [frequency, setFrequency] = useState(0);
     const [dogCount, setDogCount] = useState(1);
+    const [selecetedArea, setSelectedeArea] = useState(null);
+    const [areaClean, setAreaClean] = useState(null);
+    const [selectAreaSqar, setSelectAreaSqar] = useState(null);
     const [searchParams] = useSearchParams();
-    const id = searchParams.get('zip-code');
-    console.log(id)
+    const postCode = searchParams.get('zip-code');
 
     const frequencyLabels = [
-        "Two times a week",
         "Once a week",
+        "Two times a week",
+
         "Bi-weekly",
         "Once a month",
     ];
+
+    useEffect(() => {
+        // Only update state when selecetedArea changes
+        const selectArea = selecetedArea ? parseFloat(selecetedArea.split(" ")[0]) : null;
+        if (selectArea !== null) {
+            setSelectAreaSqar(selectArea * 43560);
+        }
+    }, [selecetedArea]);
+
+    console.log(`dog number is ${dogCount}`)
+    console.log(`frequency is ${frequencyLabels[frequency]}`)
+
+    // if (selecetedArea) {
+    //     console.log(`selected area ${selecetedArea.split(" ")}`);
+    // } else {
+    //     console.log("No area selected");
+    // }
+
+
+
+
+
 
 
     return (
@@ -48,9 +73,13 @@ const Quote: React.FC = () => {
                     {/* left side  */}
 
                     <div className="max-w-[517px] w-full border-2 rounded-[20px] mx-auto p-5 lg:px-[50px] lg:py-[49px] bg-white space-y-6">
+
+
+
                         {/* Zip Code */}
                         <input
                             type="text"
+                            defaultValue={postCode}
                             placeholder="Zip Code"
                             className="w-full border border-gray-300 px-4 lg:px-6 py-3 lg:py-4 text-sm placeholder-gray-400 focus:outline-none rounded-[20px]"
                         />
@@ -116,14 +145,16 @@ const Quote: React.FC = () => {
                         <div className="w-full mt-9">
                             <div className="relative mt-5">
                                 <select
+                                    onChange={(e) => { setSelectedeArea(e.target.value) }}
+
                                     className="w-full lg:w-full px-4 lg:px-6 py-3 lg:py-4 bg-gray-100 rounded-xl text-[#40404080] border cursor-pointer appearance-none focus:outline-none focus:ring-0"
                                 >
                                     <option disabled selected value="">
                                         -select total area size-
                                     </option>
-                                    <option>0.2 - 1/3 acre</option>
-                                    <option>1/3 - 1/2 acre</option>
-                                    <option>1/2 - 3/4 acre</option>
+                                    <option>1 acre</option>
+                                    <option>2 acre</option>
+                                    <option>3 acre</option>
                                 </select>
 
                                 {/* Custom Dropdown Icon */}
@@ -151,6 +182,7 @@ const Quote: React.FC = () => {
                         <div className="w-full mt-9">
                             <div className="relative mt-5">
                                 <select
+                                    onChange={(e) => { setAreaClean(e.target.value) }}
                                     className="w-full lg:w-full px-4 lg:px-6 py-3 lg:py-4 bg-gray-100 rounded-xl text-[#40404080] border cursor-pointer appearance-none focus:outline-none focus:ring-0"
                                 >
                                     <option disabled selected value="">
@@ -180,6 +212,10 @@ const Quote: React.FC = () => {
                                 </span>
                             </div>
                         </div>
+
+
+
+
                     </div>
 
 
@@ -193,7 +229,7 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >How often:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-xl font-degular ' >Ones a week</p>
+                                    <p className='text-[#343434] lg:text-xl font-degular ' >{frequencyLabels[frequency]}</p>
                                 </div>
                             </div>
                             <div className='flex justify-between items-center ' >
@@ -201,7 +237,7 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >How many dogs:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-xl font-degular ' >2</p>
+                                    <p className='text-[#343434] lg:text-xl font-degular ' > {dogCount} </p>
                                 </div>
                             </div>
                             <div className='flex justify-between items-center ' >
@@ -209,7 +245,7 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total area:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-xl font-degular ' >1000 sq ft</p>
+                                    <p className='text-[#343434] lg:text-xl font-degular ' >{selectAreaSqar} sq ft</p>
                                 </div>
                             </div>
                             <div className='flex justify-between items-center ' >
@@ -217,7 +253,7 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Area to clean:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-xl font-degular ' >Back Yard</p>
+                                    <p className='text-[#343434] lg:text-xl font-degular ' >{areaClean}</p>
                                 </div>
                             </div>
                         </div>

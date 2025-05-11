@@ -26,7 +26,7 @@ const CreateAccount: React.FC = () => {
         try {
             setLoading(true);
             let res = await axiosPublic.post<ApiResponse>(`/register`, values);
-            if (res.status===201) {
+            if (res.status === 201) {
                 toast.success(res.data.message);
                 form.resetFields();
                 return navigate(`/user-otp-verify`)
@@ -171,8 +171,8 @@ const CreateAccount: React.FC = () => {
 
                             <Form.Item>
                                 <Button
-                                loading = {loading}
-                                disabled = {loading}
+                                    loading={loading}
+                                    disabled={loading}
                                     block
                                     size="large"
                                     htmlType="submit"
