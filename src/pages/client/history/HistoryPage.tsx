@@ -34,18 +34,20 @@ const PreviousHistory: React.FC = () => {
             <div className="max-w-[1520px] mx-auto">
                 <div className=' flex justify-between items-center pt-11 ' >
                     <div className='flex items-center gap-5 ' >
-                        <div className=' w-[55px] h-[53px] bg-white rounded-full flex items-center  justify-center  ' >
-                            <span>
-                                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
-                                </svg>
-                            </span>
-                        </div>
+                        <Link to={"/"}>
+                            <div className=' w-[55px] h-[53px] bg-white rounded-full flex items-center  justify-center  ' >
+                                <span>
+                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </Link>
                         <div>
                             <h1 className=' text-3xl font-degular text-textColor ' >Previous history</h1>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div className="overflow-x-auto pb-[57px] ">
