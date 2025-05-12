@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { message } from 'antd';
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
 
 
 
 
 const Quote: React.FC = () => {
+    const axiosPublic = useAxiosPublic()
     const [frequency, setFrequency] = useState(0);
     const [dogCount, setDogCount] = useState(1);
     const [selecetedArea, setSelectedeArea] = useState(null);
@@ -13,6 +15,13 @@ const Quote: React.FC = () => {
     const [selectAreaSqar, setSelectAreaSqar] = useState(null);
     const [searchParams] = useSearchParams();
     const postCode = searchParams.get('zip-code');
+    const token = localStorage.getItem("token")
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
 
     const frequencyLabels = [
         "Once a week",
@@ -249,6 +258,58 @@ const Quote: React.FC = () => {
     }, [dogCount, frequency, selectAreaSqar]);
 
 
+    // discount api integrate 
+
+
+
+    const [getDiscount, setDiscount] = useState<boolean>(true);
+    const [charge, setCharge] = useState<boolean>(true)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let res = await axiosPublic.get(`/discount-charge`, config);
+                console.log(res);
+                if (res.status === 200) {
+                    setDiscount(res.data?.getDiscount);
+                    setCharge(res.data?.getCharge);
+                }
+            } catch (error) {
+
+            }
+        }
+        fetchData();
+    }, [])
+
+
+
+    const handleSubmit = async () => {
+        console.log(postCode);
+        console.log(dogCount);
+
+        if (!postCode) {
+            return message.error("Select a postcode.");
+        }
+
+        if (!frequencyLabels[frequency]) {
+            return message.error("Select a time.");
+        }
+
+        if (dogCount <= 0) {
+            return message.error("Please select a dog!");
+        }
+
+        if (!selecetedArea) {
+            return message.error("Please select your area!");
+        }
+        if (!areaClean) {
+            return message.error("Please select your clean area!")
+        }
+
+
+
+        // Continue with form submission logic here...
+    };
 
 
 
@@ -492,7 +553,11 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >50% off for first time cleaning:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >- ${price / 2}</p>
+                                    <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >
+                                        {
+                                            getDiscount ? <>- ${price / 2}</> : <> ${price}</>
+                                        }
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -504,7 +569,9 @@ const Quote: React.FC = () => {
                                     <p className=' lg:text-lg font-degular text-[#343434] ' >Monthly</p>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >+ $15.00</p>
+                                    <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >{
+                                        charge ? "" : <>+ $15.00</>
+                                    }</p>
                                 </div>
                             </div>
                         </div>
@@ -516,17 +583,29 @@ const Quote: React.FC = () => {
                                     <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total cost:</h1>
                                 </div>
                                 <div>
-                                    <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >$24.00</p>
+                                    <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >
+                                        {
+                                            getDiscount && charge ? <>
+                                                ${
+                                                    (price/2) + 15
+                                                }
+                                            </> : <>
+                                            {
+                                                price
+                                            }
+                                            </>
+                                        }
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        <button className=' py-4 px-12 bg-bgColor w-full rounded-2xl mt-9 text-textColor text-2xl font-degular flex text-center justify-center mx-auto ' >
-                            <Link className=' flex items-center gap-2 ' to={"/checkout"}>Continue <span>
+                        <button onClick={handleSubmit} className=' py-4 px-12 bg-bgColor w-full rounded-2xl mt-9 text-textColor text-2xl font-degular flex text-center justify-center mx-auto ' >
+                            <span className=' flex items-center gap-2 ' >Continue <span>
                                 <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 7.34293L13.5298 7.34293L8.27482 2.1361L9.92604 0.5L18 8.5L9.92604 16.5L8.27482 14.8639L13.5298 9.65707L0 9.65707V7.34293Z" fill="black" />
                                 </svg>
-                            </span> </Link>
+                            </span> </span>
                         </button>
 
 
@@ -538,3 +617,5 @@ const Quote: React.FC = () => {
 }
 
 export default Quote
+
+// to={"/checkout"}

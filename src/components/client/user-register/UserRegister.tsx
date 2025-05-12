@@ -95,6 +95,7 @@ const UserRegister = () => {
             }
             console.log(res);
         } catch (error: any) {
+            console.log(error)
             return message.error(error.response.data.message)
         } finally {
             setLoading(false);
