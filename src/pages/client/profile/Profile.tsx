@@ -186,7 +186,7 @@ const Profile: React.FC = () => {
                                 <img
                                     src={profileImage} // Show uploaded image or default if none
                                     alt="Profile"
-                                    className="w-24 h-24 rounded-full object-cover"
+                                    className="w-24 h-24 border-2 border-black p-0.5 rounded-full object-cover"
                                 />
                                 <div
                                     className="absolute bottom-0 -right-2 cursor-pointer text-lg"

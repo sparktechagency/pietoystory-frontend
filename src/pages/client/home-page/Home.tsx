@@ -86,6 +86,15 @@ const Home: React.FC = () => {
         localStorage.removeItem("token");
         window.location.href = "/"
     }
+
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0, // Replace with the desired scroll position
+            behavior: 'smooth',
+        });
+    }, [])
+
     return (
         <div>
             <div className=" bg-[#f6f6f6] ">
@@ -138,33 +147,6 @@ const Home: React.FC = () => {
                                     </span>
                                 </button>
                             ) : <>
-                                <div className="relative flex justify-center items-center h-[70px] w-44 bg-[#b9ecff] rounded-full">
-                                    <svg
-                                        className="animate-spin h-5 w-5 text-black"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <circle
-                                            className="opacity-25"
-                                            cx="12"
-                                            cy="12"
-                                            r="10"
-                                            stroke="currentColor"
-                                            strokeWidth="4"
-                                        ></circle>
-                                        <path
-                                            className="opacity-75"
-                                            fill="currentColor"
-                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                                        ></path>
-                                    </svg>
-                                </div>
-                            </>
-                        }
-
-                        {
-                            !token && !profileData && (
                                 <Link
                                     to={`/create-account`}
                                     className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2 "
@@ -178,8 +160,10 @@ const Home: React.FC = () => {
                                     </svg>
                                     <span className="text-xl font-degular font-medium text-black">Create account</span>
                                 </Link>
-                            )
+                            </>
                         }
+
+
 
                         {/* Dropdown */}
                         <AnimatePresence>
@@ -247,7 +231,7 @@ const Home: React.FC = () => {
 
                                             </span>
 
-                                            <span o >Logout</span>
+                                            <span  >Logout</span>
 
                                         </button>
                                     </div>
@@ -399,16 +383,16 @@ const Home: React.FC = () => {
             </div>
             <Banner></Banner>
             <PromisseRefer></PromisseRefer>
-            <div id='about' >
-                <About></About>
-                <Location></Location>
-            </div>
-            <div>
-                <ChooseUs></ChooseUs>
-            </div>
-            <div id='touch' >
-                <GetTouchPage></GetTouchPage>
-            </div>
+
+            <About></About>
+            <Location></Location>
+
+
+            <ChooseUs></ChooseUs>
+
+
+            <GetTouchPage></GetTouchPage>
+
 
         </div>
     )

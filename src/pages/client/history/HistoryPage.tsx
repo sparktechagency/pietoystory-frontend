@@ -68,7 +68,7 @@ const PreviousHistory: React.FC = () => {
             <div className="max-w-[1520px] mx-auto">
                 <div className='flex justify-between items-center pt-11'>
                     <div className='flex items-center gap-5'>
-                        <Link to={"/"}>
+                        <Link to={"/profile"}>
                             <div className='w-[55px] h-[53px] bg-white rounded-full flex items-center justify-center'>
                                 <span>
                                     <svg width="16" height="14" viewBox="0 0 16 14">

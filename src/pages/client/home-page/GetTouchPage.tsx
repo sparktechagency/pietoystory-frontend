@@ -59,7 +59,7 @@ const GetTouchPage: React.FC = () => {
     }
   };
   return (
-    <div className='bg-[#f6f6f6] lg:pb-28 md:pb-20 pb-10 ' >
+    <section id='touch' className='bg-[#f6f6f6] lg:pb-28 md:pb-20 pb-10 ' >
       <div className=' max-w-[1731px] mx-auto bg-bgColor rounded-3xl lg:p-11 md:p-7 p-4  ' >
         <div className=' hidden lg:flex justify-between ' >
           <img src="/images/home-page/quote-1.png" className='  ' alt="" />
@@ -206,7 +206,7 @@ const GetTouchPage: React.FC = () => {
 
       </div>
 
-    </div>
+    </section>
   )
 }
 
