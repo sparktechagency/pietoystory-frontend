@@ -67,7 +67,7 @@ const Banner: React.FC = () => {
                 {/* Button inside input on large screens */}
                 <button
                   type="submit"
-                  className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-1 bg-white text-black py-5 px-12 w-[220px] rounded-[40px] font-degular text-xl"
+                  className="hidden lg:block text-lg absolute top-1/2 -translate-y-1/2 right-1 bg-white text-black py-5 px-12 w-[220px] rounded-[40px] font-degular "
                   disabled={loading}
                 >
                   {loading ? "Loading..." : "Instant Quote"}

@@ -18,6 +18,8 @@ import UserOtpVerify from "../components/client/user-otp-verify/UserOtpVerify";
 import ChangePassword from "../pages/client/setting/ChangePassword";
 import UserRegister from "../components/client/user-register/UserRegister";
 import PrivateRoute from "../private-route/PrivateRoute";
+import QuotePageTwo from "../components/client/quote-page-two/QuotePageTwo";
+import CheckoutPageTwo from "../components/client/quote-page-two/CheckoutPageTwo";
 
 export const router = createBrowserRouter([
     {
@@ -80,7 +82,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/history",
-        element: <HistoryPage></HistoryPage>
+        element: <PrivateRoute><HistoryPage></HistoryPage></PrivateRoute>
     },
     {
         path: "/checkout",
@@ -97,5 +99,13 @@ export const router = createBrowserRouter([
     {
         path: "/change-password",
         element: <ChangePassword />
+    },
+    {
+        path : "/quote-page",
+        element : <QuotePageTwo></QuotePageTwo>
+    },
+    {
+        path : "/checkout-page-two",
+        element : <CheckoutPageTwo></CheckoutPageTwo>
     }
 ])

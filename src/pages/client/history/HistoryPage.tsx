@@ -1,34 +1,88 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../../components/client/footer/Footer';
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
 
-const data = [
-    {
-        zip: '19801',
-        frequency: 'Once a week',
-        dogs: '3 dogs',
-        area: '1000 sq ft',
-        cleanArea: 'Backyard',
-        cost: '$20.50',
-    },
-    {
-        zip: '19801',
-        frequency: 'Once a week',
-        dogs: '3 dogs',
-        area: '1000 sq ft',
-        cleanArea: 'Backyard',
-        cost: '$20.50',
-    },
-    {
-        zip: '19801',
-        frequency: 'Once a week',
-        dogs: '3 dogs',
-        area: '1000 sq ft',
-        cleanArea: 'Backyard',
-        cost: '$20.50',
-    },
-]
+// const data = [
+//     {
+//         zip: '19801',
+//         frequency: 'Once a week',
+//         dogs: '3 dogs',
+//         area: '1000 sq ft',
+//         cleanArea: 'Backyard',
+//         cost: '$20.50',
+//     },
+//     {
+//         zip: '19801',
+//         frequency: 'Once a week',
+//         dogs: '3 dogs',
+//         area: '1000 sq ft',
+//         cleanArea: 'Backyard',
+//         cost: '$20.50',
+//     },
+//     {
+//         zip: '19801',
+//         frequency: 'Once a week',
+//         dogs: '3 dogs',
+//         area: '1000 sq ft',
+//         cleanArea: 'Backyard',
+//         cost: '$20.50',
+//     },
+// ]
+type EnquiryData = {
+    user_id: string;
+    zip_code: string;
+    how_often: string;
+    amount_of_dogs: number;
+    total_area: number;
+    area_to_clean: number;
+    cost: number;
+    payment_intent_id: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+};
+type apiResponse = {
+    ok : boolean;
+    message: string;
+    data : EnquiryData[]
+}
 const PreviousHistory: React.FC = () => {
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const axiosPublic = useAxiosPublic();
+    const [loading, setLoading] = useState<boolean>(false)
+    const [data, setData] = useState<EnquiryData[]>([]);
+    useEffect(() => {
+        const fetchData = async () => {
+
+            try {
+                setLoading(true);
+                const res = await axiosPublic.get(`/get-previous-history`, config);
+                console.log(res);
+                if (res.status === 200) {
+                    setData(res?.data?.data)
+                }
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setLoading(false);
+            }
+
+        }
+        fetchData();
+    }, []);
+    if(data.length===0){
+        return(
+            <div className=' flex h-screen justify-center items-center ' >
+                <h1 className=' text-xl font-degular text-center font-semibold ' >loading..</h1>
+            </div>
+        )
+    }
     return (
         <div className=" bg-[#f6f6f6] h-screen ">
             <div className="max-w-[1520px] mx-auto">
@@ -69,15 +123,15 @@ const PreviousHistory: React.FC = () => {
                                     key={i}
                                     className="bg-white rounded-[20px] border-2  border-black shadow-sm text-sm text-gray-700"
                                 >
-                                    <td className=" text-center px-10 py-[26px] text-textColor font-degular text-2xl font-semibold">{item.zip}</td>
-                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin ">{item.frequency}</td>
-                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.dogs}</td>
-                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.area}</td>
-                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.cleanArea}</td>
+                                    <td className=" text-center px-10 py-[26px] text-textColor font-degular text-2xl font-semibold">{item.zip_code}</td>
+                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin ">{item.how_often}</td>
+                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.amount_of_dogs}</td>
+                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.total_area}</td>
+                                    <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.area_to_clean}</td>
                                     <td className=" text-center px-10 py-[26px] text-[26px] font-degular font-bold ">{item.cost}</td>
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">
-                                        <Link to={"/checkout"}><button className=" py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
-                                            <Link to={"/checkout"}>Reorder</Link>
+                                        <Link to={"/quote-page"}><button className=" py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
+                                            <Link to={"/quote-page"}>Reorder</Link>
                                         </button></Link>
                                     </td>
                                 </tr>

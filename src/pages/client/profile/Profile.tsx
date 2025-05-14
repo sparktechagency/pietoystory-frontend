@@ -129,9 +129,12 @@ const Profile: React.FC = () => {
         try {
             setLoading(true);
             const response = await axiosPublic.post("/update-profile", form, config);
-
+            if(response){
+                return message.success(`Profile update successfully`)
+            }
         } catch (error: any) {
-            return message.error(error.response.data.message);
+            return message.error("Profile update fail")
+            // return message.error(error.response.data.message);
         } finally {
             setLoading(false);
         }

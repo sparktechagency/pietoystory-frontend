@@ -26,8 +26,7 @@ const About: React.FC = () => {
                             your outdoor spaces fresh and waste-free — so you can spend more time enjoying your pets
                             and less time worrying about the mess.
                         </p>
-                        <button className='mt-6 md:mt-7 px-4 md:px-12 py-4 md:py-6 bg-bgColor rounded-[40px] font-degular text-sm md:text-xl'>
-                            <Link to="/quote" className='flex items-center gap-3 font-medium'>
+                            <Link to="/quote-page" className='flex items-center w-[250px]  gap-3 font-medium mt-6 md:mt-7 px-4 md:px-12 py-4 md:py-6 bg-bgColor rounded-[40px] font-degular text-sm md:text-xl '>
                                 Instant Quote
                                 <span>
                                     <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +34,6 @@ const About: React.FC = () => {
                                     </svg>
                                 </span>
                             </Link>
-                        </button>
                     </div>
 
                     {/* Right Image Content */}

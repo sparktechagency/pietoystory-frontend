@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
+import { ApiResponse } from '../../../type/apiResponseType';
+import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const GetTouchPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    full_name: '',
     email: '',
     enquiry: '',
   });
+
+  const axiosPublic = useAxiosPublic();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -13,11 +20,43 @@ const GetTouchPage: React.FC = () => {
       [e.target.name]: e.target.value
     });
   };
+  const { full_name, email, enquiry } = formData;
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token} `
+    }
+  }
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
-    // You can send the data to an API here
+    try {
+      if(!full_name){
+        return message.error(`Enter your full name.`)
+      }
+      if(!email){
+        return message.error(`Enter your email.`)
+      }
+      if(!enquiry){
+        return message.error(`Enter your message.`)
+      }
+      setLoading(true);
+      const res = await axiosPublic.post<ApiResponse>(`/send-enquiry`, { full_name, email, enquiry }, config);
+      console.log(res);
+
+      if (res.status === 201) {
+        message.success(`Enquiry data sent successfully.`);
+        setFormData({ full_name: "", email: "", enquiry: "" }); // Clear the form data
+        return;
+      }
+    } catch (error: any) {
+      navigate("/login")
+      return message.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className='bg-[#f6f6f6] lg:pb-28 md:pb-20 pb-10 ' >
@@ -86,12 +125,12 @@ const GetTouchPage: React.FC = () => {
 
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
+                  name="full_name"
+                  value={formData.full_name}
                   onChange={handleChange}
                   className="w-full mt-1 px-[30px] rounded-[30px] py-4  border bg-[#F6F6F6] placeholder:text-[#000000] placeholder:text-lg placeholder:font-degular focus:outline-none focus:ring-0 "
                   placeholder="Your Full Name"
-                  required
+                  
                 />
               </div>
 
@@ -103,7 +142,7 @@ const GetTouchPage: React.FC = () => {
                   onChange={handleChange}
                   className="w-full mt-1 px-[30px] rounded-[30px] py-4  border bg-[#F6F6F6] placeholder:text-[#000000] placeholder:text-lg placeholder:font-degular focus:outline-none focus:ring-0 "
                   placeholder="Your Email"
-                  required
+                  
                 />
               </div>
 
@@ -115,22 +154,33 @@ const GetTouchPage: React.FC = () => {
                   className="w-full mt-1 px-[30px] rounded-[30px] py-4  border bg-[#F6F6F6] placeholder:text-[#000000] placeholder:text-lg placeholder:font-degular focus:outline-none focus:ring-0 "
                   placeholder="Your Enquiry"
                   rows="6"
-                  required
+                  
                 />
               </div>
 
               <div className=' flex justify-end ' >
                 <button
+                disabled = {loading}
                   type="submit"
                   className=" px-[30px] py-[18px] bg-white text-textColor font-degular text-lg rounded-[30px] flex items-center gap-5   "
                 >
-                  Send
-                  <span>
-                    <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.73269 17.9017C1.33305 18.0616 0.953393 18.0264 0.593715 17.7962C0.234038 17.566 0.0541992 17.2315 0.0541992 16.7927L0.0541992 11.3976L9.6456 8.99971L0.0541992 6.60186L0.0541992 1.2067C0.0541992 0.767092 0.234038 0.432593 0.593715 0.203198C0.953393 -0.026196 1.33305 -0.0613648 1.73269 0.0976925L20.1961 7.8907C20.6957 8.11051 20.9455 8.48017 20.9455 8.99971C20.9455 9.51924 20.6957 9.88891 20.1961 10.1087L1.73269 17.9017Z" fill="black" />
-                    </svg>
+                  {
+                    loading ? <>...Send
+                      <span>
+                        <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1.73269 17.9017C1.33305 18.0616 0.953393 18.0264 0.593715 17.7962C0.234038 17.566 0.0541992 17.2315 0.0541992 16.7927L0.0541992 11.3976L9.6456 8.99971L0.0541992 6.60186L0.0541992 1.2067C0.0541992 0.767092 0.234038 0.432593 0.593715 0.203198C0.953393 -0.026196 1.33305 -0.0613648 1.73269 0.0976925L20.1961 7.8907C20.6957 8.11051 20.9455 8.48017 20.9455 8.99971C20.9455 9.51924 20.6957 9.88891 20.1961 10.1087L1.73269 17.9017Z" fill="black" />
+                        </svg>
 
-                  </span>
+                      </span></> : <>
+                      Send
+                      <span>
+                        <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1.73269 17.9017C1.33305 18.0616 0.953393 18.0264 0.593715 17.7962C0.234038 17.566 0.0541992 17.2315 0.0541992 16.7927L0.0541992 11.3976L9.6456 8.99971L0.0541992 6.60186L0.0541992 1.2067C0.0541992 0.767092 0.234038 0.432593 0.593715 0.203198C0.953393 -0.026196 1.33305 -0.0613648 1.73269 0.0976925L20.1961 7.8907C20.6957 8.11051 20.9455 8.48017 20.9455 8.99971C20.9455 9.51924 20.6957 9.88891 20.1961 10.1087L1.73269 17.9017Z" fill="black" />
+                        </svg>
+
+                      </span>
+                    </>
+                  }
                 </button>
               </div>
             </form>

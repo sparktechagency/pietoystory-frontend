@@ -5,7 +5,7 @@ import StripePayment from '../../../components/client/payment/StripePayment'
 import useAxiosPublic from '../../../hooks/UseAxiosPublic'
 import { message } from 'antd';
 
-const Checkout: React.FC = () => {
+const CheckoutPageTwo: React.FC = () => {
 
     const token = localStorage.getItem("token");
     const config = {
@@ -497,4 +497,4 @@ const Checkout: React.FC = () => {
     )
 }
 
-export default Checkout
+export default CheckoutPageTwo
