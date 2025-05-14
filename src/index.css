@@ -51,6 +51,7 @@ body{
 
 html{
   color: black;
+  scroll-behavior: smooth;
 }
 
 
