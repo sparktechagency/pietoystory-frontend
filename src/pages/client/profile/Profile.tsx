@@ -146,13 +146,7 @@ const Profile: React.FC = () => {
     };
 
 
-    if(loading){
-        return(
-            <div className=' h-screen flex justify-center items-center  ' >
-                <h1 className=' font-semibold font-degular text-xl ' >Loading...</h1>
-            </div>
-        )
-    }
+    
 
 
 
