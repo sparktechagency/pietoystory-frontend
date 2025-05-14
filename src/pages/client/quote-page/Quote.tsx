@@ -569,8 +569,8 @@ const Quote: React.FC = () => {
                                 </div>
                                 <div>
                                     <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >
-                                        $0{
-                                            getDiscount ? totalPrice : <></>
+                                        ${
+                                            getDiscount ? <>{price/2}</> : <>0</>
                                         }
                                     </p>
                                 </div>

@@ -109,8 +109,6 @@ const CheckoutForm = ({ paymentId, paymentData, userDetails, secret }) => {
 
 
             } else if (paymentIntent?.status === "succeeded") {
-                message.success("Payment Successful!");
-
                 if (!payload.full_address) {
                     return message.error("Enter your full address.")
                 }
@@ -126,6 +124,10 @@ const CheckoutForm = ({ paymentId, paymentData, userDetails, secret }) => {
                 if (!payload?.contact_number) {
                     return message.error("Enter your phone number.")
                 }
+                
+                message.success("Payment Successful!");
+
+
 
                 // ✅ Step 3: Call the Payment Success API
                 try {
@@ -151,7 +153,7 @@ const CheckoutForm = ({ paymentId, paymentData, userDetails, secret }) => {
                         return navigate("/")
 
                     }
-                } catch (apiError:any) {
+                } catch (apiError: any) {
                     message.error("API Error:", apiError.response?.data?.message);
                     // message.error("API call to payment-success failed.");
                 }

@@ -51,12 +51,12 @@ export const router = createBrowserRouter([
                 path: "password-change",
                 element: <SetNewPassword></SetNewPassword>
             },
-            
+
             {
                 path: "refer",
                 element: <PrivateRoute><Referral></Referral></PrivateRoute>
             },
-            
+
             {
                 path: "user-otp-verify",
                 element: <UserOtpVerify></UserOtpVerify>
@@ -94,8 +94,8 @@ export const router = createBrowserRouter([
         element: <Quote></Quote>
     },
     {
-        path : "/reorder",
-        element : <ReOrderPage></ReOrderPage>
+        path: "/reorder",
+        element: <ReOrderPage></ReOrderPage>
     }
     ,
     {
@@ -107,11 +107,11 @@ export const router = createBrowserRouter([
         element: <ChangePassword />
     },
     {
-        path : "/quote-page",
-        element : <QuotePageTwo></QuotePageTwo>
+        path: "/quote-page",
+        element: <PrivateRoute><QuotePageTwo></QuotePageTwo></PrivateRoute>
     },
     {
-        path : "/checkout-page-two",
-        element : <CheckoutPageTwo></CheckoutPageTwo>
+        path: "/checkout-page-two",
+        element: <CheckoutPageTwo></CheckoutPageTwo>
     }
 ])

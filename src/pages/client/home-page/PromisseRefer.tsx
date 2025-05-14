@@ -28,7 +28,7 @@ const PromisseRefer: React.FC = () => {
             <div className="bg-[url('/images/home-page/banner-2.png')] bg-cover bg-center w-full bg-[#f6f6f6] pt-10 md:pt-16">
                 <div className='max-w-[1519px] mx-auto md:px-4 '>
                     <div>
-                        
+
                     </div>
 
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-10 md:pb-14'>
@@ -42,7 +42,7 @@ const PromisseRefer: React.FC = () => {
                                             className='w-[40px] h-[40px] md:w-[50px] md:h-[50px] object-cover'
                                         />
                                     </div>
-                                
+
                                     <p className='text-center text-textColor mt-4 md:mt-6 font-degular text-base md:text-xl font-thin'>
                                         {item?.description}
                                     </p>
@@ -61,9 +61,9 @@ const PromisseRefer: React.FC = () => {
                             you'll receive 2 free cleanings as a thank you. There's no limit — the more you refer,
                             the more you earn. It’s our way of saying thanks for helping us spread the clean yard joy!
                         </p>
-                        <button className='mt-6 px-6 md:px-20 py-3 bg-bgColor rounded-[20px] font-degular text-base md:text-xl'>
+                        <Link to={"/refer"}><button className='mt-6 px-6 md:px-20 py-3 bg-bgColor rounded-[20px] font-degular text-base md:text-xl'>
                             <Link to="/refer">Refer a friend</Link>
-                        </button>
+                        </button></Link>
                     </div>
 
                     <div className='flex justify-center lg:justify-end  '>

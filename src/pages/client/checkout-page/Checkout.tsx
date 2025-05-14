@@ -168,7 +168,6 @@ const Checkout: React.FC = () => {
 
 
     const userDetails = JSON.stringify(formData);
-    const parsedDetails = JSON.parse(userDetails);
 
 
 
@@ -183,7 +182,7 @@ const Checkout: React.FC = () => {
 
 
     const payload = {
-        full_address,first_name,last_name,dog_name,additional_comments,contact_email,contact_number,zip_code:postCode,area_to_clean:cleanArea,how_often:frequency,amount_of_dogs:dog,total_area:selectedArea,use_free_cleanup : 1
+        full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, zip_code: postCode, area_to_clean: cleanArea, how_often: frequency, amount_of_dogs: dog, total_area: selectedArea, use_free_cleanup: 1
 
     }
 
@@ -211,8 +210,10 @@ const Checkout: React.FC = () => {
         }
         try {
             setLoading(true);
-            const res = await axiosPublic.post("/payment-success",payload,config);
-            console.log(res);
+            const res = await axiosPublic.post("/payment-success", payload, config);
+            const response = await axiosPublic.get("/all-referred-info", config);
+            setDiscount(response.data?.getDiscount);
+            setCharge(response.data?.getCharge);
             return message.success("Service purchase successfully.")
         } catch (error) {
             console.log(error)
@@ -235,7 +236,7 @@ const Checkout: React.FC = () => {
             <div className=' max-w-[1519px] mx-auto   pb-12 px-4 lg:px-0 ' >
                 <div className=' lg:block hidden' >
                     <div className='flex items-center gap-5 cursor-pointer ' >
-                        <Link to={"/quote-page"}>
+                        <Link to={"/"}>
                             <div className=' w-[55px] h-[53px] bg-white rounded-full flex items-center  justify-center  ' >
                                 <span>
                                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
