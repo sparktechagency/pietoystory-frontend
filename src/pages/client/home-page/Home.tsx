@@ -101,10 +101,10 @@ const Home: React.FC = () => {
                     {/* Nav menu - Desktop only */}
                     <div className="hidden lg:block w-[1006px] mx-auto">
                         <nav className="flex justify-between px-16 items-center bg-[#b9ecff] h-16 rounded-full font-degular font-medium text-xl">
-                            <NavLink to="/">Home</NavLink>
-                            <a href="#about">About Us</a>
-                            <a href="#touch">Contact Us</a>
-                            <NavLink to="/refer">Referrals</NavLink>
+                            <NavLink  className={"text-black"}  to="/">Home</NavLink>
+                            <a className={"text-black"}  href="#about">About Us</a>
+                            <a className={"text-black"}  href="#touch">Contact Us</a>
+                            <NavLink className={"text-black"}  to="/refer">Referrals</NavLink>
                         </nav>
                     </div>
 
@@ -365,6 +365,8 @@ const Home: React.FC = () => {
                         )}
                     </AnimatePresence>
                 </Drawer>
+
+
             </div>
             <Banner></Banner>
             <PromisseRefer></PromisseRefer>

@@ -38,6 +38,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  color: black;
+  
+}
+
+html{
+  color: black;
+}
+
 
 .custom-input input::placeholder {
     color: black !important;
