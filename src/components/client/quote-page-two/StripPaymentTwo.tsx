@@ -1,22 +1,21 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
-import CheckoutForm from "./CheckoutFrom";
 import useAxiosPublic from "../../../hooks/UseAxiosPublic";
 import { message, Spin } from 'antd';
+import CheckoutForm from "../payment/CheckoutFrom";
 
 // 🚀 Stripe publishable key
 const stripePromise = loadStripe("pk_test_51R5URpFLtaovuyYZIfRsWYtWarN29hwk4CE93lpgduD1wb4xEMHNpjIfA13e16Cj5DZdvlt8B65aLal1S3jbgiqM00JmcGBQDa");
 
-const StripePayment = ({ data, userDetails }) => {
+const StripePaymentTwo = ({ data, userDetails }) => {
 
     const token = localStorage.getItem("token");
     const [clientSecret, setClientSecret] = useState("");
     const [paymentId, setPaymentId] = useState("");
     const axiosPublic = useAxiosPublic();
     const price = data?.price;
-
-    console.log(userDetails)
+    console.log(price)
 
 
     useEffect(() => {
@@ -35,22 +34,28 @@ const StripePayment = ({ data, userDetails }) => {
                         }
                     }
                 );
-                setClientSecret(response.data?.data?.client_secret);  
-                setPaymentId(response.data?.data?.id);               
-            } catch (error:any) {
-                message.error("Error creating payment intent:", error.response.data.message);
+
+                console.log("Payment Intent Response:", response.data);
+                console.log(response.data?.data?.id)
+                setClientSecret(response.data?.data?.client_secret);
+                setPaymentId(response.data?.data?.id);
+
+            } catch (error) {
+                console.error("Error creating payment intent:", error);
             }
+
         };
 
         createPaymentIntent();
+
     }, [price]);
 
 
 
 
-    
 
-    const appearance = {
+
+    const appearance  = {
         theme: "stripe",
     };
 
@@ -74,4 +79,4 @@ const StripePayment = ({ data, userDetails }) => {
     );
 };
 
-export default StripePayment;
+export default StripePaymentTwo;

@@ -3,6 +3,7 @@ import { message } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone, UserOutlined, MailOutlined, PhoneOutlined, HomeOutlined, IdcardOutlined } from '@ant-design/icons';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import useAxiosPublic from '../../../hooks/UseAxiosPublic';
+import Swal from 'sweetalert2';
 
 const UserRegister = () => {
     const [searchParams] = useSearchParams();
@@ -95,6 +96,15 @@ const UserRegister = () => {
             }
             console.log(res);
         } catch (error: any) {
+
+            message.error("Something went wrong.Please try again!")
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: `Something went wrong.Please try again!`,
+                showConfirmButton: false,
+                timer: 1500
+            });
             return message.error(error.response.data.message)
         } finally {
             setLoading(false);
@@ -228,7 +238,7 @@ const UserRegister = () => {
                                         Submit
                                         {
                                             loading && (
-                                                <span>loading..</span>
+                                                <span>..</span>
                                             )
                                         }
                                     </button>

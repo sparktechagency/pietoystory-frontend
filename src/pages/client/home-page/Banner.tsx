@@ -17,24 +17,23 @@ const Banner: React.FC = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (zipData?.length === 0) {
-      return console.log(`zipcode not found`);
-    } else {
-      try {
-        setLoading(true);
-        const res = await axiosPublic.post(
-          `/check-zip-code`,
-          { zip_code: zipData },
-          config
-        );
-        navigate(`/quote?zip-code=${zipData}`);
-        console.log(res);
-      } catch (error: any) {
-        message.error(error.response.data.message);
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
+
+    if (!zipData) {
+      return message.error("Please enter a zip code!");
+    }
+
+    try {
+      setLoading(true);
+      const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData }, config);
+
+      navigate(`/quote?zip-code=${zipData}`);
+      console.log(res);
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Something went wrong!";
+      message.error(errorMessage);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -61,26 +60,26 @@ const Banner: React.FC = () => {
                 <input
                   className="border border-white hover:outline-none focus:outline-none py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] placeholder:text-2xl font-degular"
                   type="text"
-                  onChange={(e) => {
-                    setZipData(e.target.value);
-                  }}
+                  onChange={(e) => setZipData(e.target.value)}
                   placeholder="Zip Code"
                 />
 
                 {/* Button inside input on large screens */}
-                <Link
-                  to={"/quote"}
-                  className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-1 bg-white text-black py-5 px-12 w-[220px] rounded-[40px] font-degular text-xl"
+                <button
+                  type="submit"
+                  className="hidden lg:block text-lg absolute top-1/2 -translate-y-1/2 right-1 bg-white text-black py-5 px-12 w-[220px] rounded-[40px] font-degular "
+                  disabled={loading}
                 >
-                  Instant Quote
-                </Link>
+                  {loading ? "Loading..." : "Instant Quote"}
+                </button>
 
                 {/* Button below input on small/medium screens */}
                 <button
                   type="submit"
-                  className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl"
+                  className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl flex items-center justify-center"
+                  disabled={loading}
                 >
-                  Instant Quote
+                  {loading ? "Loading..." : "Instant Quote"}
                 </button>
               </div>
             </form>

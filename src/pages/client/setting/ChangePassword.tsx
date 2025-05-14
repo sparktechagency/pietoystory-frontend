@@ -55,7 +55,7 @@ const ChangePassword: React.FC = () => {
         <div className="bg-[#f6f6f6] pb-[122px]">
             <div className="max-w-[1519px] h-screen mx-auto">
                 <div className="flex items-center gap-[22px]">
-                    <div className="w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center">
+                    <Link to={"/"}><div className="w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center">
                         <Link to="/">
                             <span>
                                 <svg
@@ -72,7 +72,7 @@ const ChangePassword: React.FC = () => {
                                 </svg>
                             </span>
                         </Link>
-                    </div>
+                    </div></Link>
                     <div>
                         <h1 className="lg:text-3xl font-degular font-medium text-textColor">
                             Change Password

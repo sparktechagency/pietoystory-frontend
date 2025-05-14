@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { message } from 'antd';
 import useAxiosPublic from '../../../hooks/UseAxiosPublic';
 
 
 
 
-const Quote: React.FC = () => {
+const QuotePageTwo: React.FC = () => {
     const axiosPublic = useAxiosPublic()
     const [frequency, setFrequency] = useState(0);
     const [dogCount, setDogCount] = useState(1);
     const [selecetedArea, setSelectedeArea] = useState(null);
     const [areaClean, setAreaClean] = useState(null);
     const [selectAreaSqar, setSelectAreaSqar] = useState(null);
-    const [searchParams] = useSearchParams();
-    const postCode = searchParams.get('zip-code');
     const token = localStorage.getItem("token")
 
     const config = {
@@ -40,6 +38,11 @@ const Quote: React.FC = () => {
 
 
 
+    // if (selecetedArea) {
+    //     console.log(`selected area ${selecetedArea.split(" ")}`);
+    // } else {
+    //     console.log("No area selected");
+    // }
 
     const [price, setPrice] = useState(0)
 
@@ -296,11 +299,17 @@ const Quote: React.FC = () => {
 
 
 
+
+
+    const [zipData, setZipData] = useState<string | null>("");
+    const [loading, setLoading] = useState<boolean>(false);
+
+
     const handleSubmit = async () => {
 
 
-        if (!postCode) {
-            return message.error("Select a postcode.");
+        if (!zipData) {
+            return message.error("Enter a postcode.");
         }
 
         if (!frequencyLabels[frequency]) {
@@ -318,11 +327,23 @@ const Quote: React.FC = () => {
             return message.error("Please select your clean area!")
         }
 
-        navigate(`/checkout?postCode=${postCode}&frequency=${frequencyLabels[frequency]}&dog=${dogCount}&selectedArea=${selectAreaSqar}&cleanArea=${areaClean}&price=${price}`)
 
 
 
-        // Continue with form submission logic here...
+        try {
+            setLoading(true);
+            const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData }, config);
+            if (res) {
+                navigate(`/checkout-page-two?postCode=${zipData}&frequency=${frequencyLabels[frequency]}&dog=${dogCount}&selectedArea=${selectAreaSqar}&cleanArea=${areaClean}&price=${price}`)
+
+            }
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.message || "Something went wrong!";
+            message.error(errorMessage);
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
 
@@ -338,15 +359,17 @@ const Quote: React.FC = () => {
             <div className=' max-w-[1519px] mx-auto lg:px-0 px-4 ' >
                 <div className='' >
                     <div className='flex flex-row items-center gap-5 cursor-pointer ' >
-                        <div className=' lg:w-[55px] lg:h-[53px] w-[33px] h-[30px]  bg-white rounded-full flex items-center  justify-center  ' >
-                            <Link to={"/"}>
+                        <Link to={"/"}>
+                            <div className=' lg:w-[55px] lg:h-[53px] w-[33px] h-[30px]  bg-white rounded-full flex items-center  justify-center  ' >
+
                                 <span>
                                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
                                     </svg>
                                 </span>
-                            </Link>
-                        </div>
+
+                            </div>
+                        </Link>
                         <div>
                             <h1 className=' lg:text-3xl text-xl font-degular text-textColor ' >Back</h1>
                         </div>
@@ -368,7 +391,10 @@ const Quote: React.FC = () => {
                         {/* Zip Code */}
                         <input
                             type="text"
-                            defaultValue={postCode}
+                            name='zip_code'
+                            onChange={(e) => {
+                                setZipData(e.target.value)
+                            }}
                             placeholder="Zip Code"
                             className="w-full border border-gray-300 px-4 lg:px-6 py-3 lg:py-4 text-sm placeholder-gray-400 focus:outline-none rounded-[20px]"
                         />
@@ -569,8 +595,8 @@ const Quote: React.FC = () => {
                                 </div>
                                 <div>
                                     <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >
-                                        $0{
-                                            getDiscount ? totalPrice : <></>
+                                        $ {
+                                            getDiscount ? <> {price/2} </> : <>0</>
                                         }
                                     </p>
                                 </div>
@@ -599,7 +625,7 @@ const Quote: React.FC = () => {
                                 </div>
                                 <div>
                                     <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >
-                                        ${
+                                        $ {
                                             grantTotal
                                         }
                                     </p>
@@ -608,11 +634,14 @@ const Quote: React.FC = () => {
                         </div>
 
                         <button onClick={handleSubmit} className=' py-4 px-12 bg-bgColor w-full rounded-2xl mt-9 text-textColor text-2xl font-degular flex text-center justify-center mx-auto ' >
-                            <span className=' flex items-center gap-2 ' >Continue <span>
-                                <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 7.34293L13.5298 7.34293L8.27482 2.1361L9.92604 0.5L18 8.5L9.92604 16.5L8.27482 14.8639L13.5298 9.65707L0 9.65707V7.34293Z" fill="black" />
-                                </svg>
-                            </span> </span>
+                            <span className=' flex items-center gap-2 ' >{
+                                loading ? "loading.." : <><span>Continue</span></>
+                            } <span>
+                                    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 7.34293L13.5298 7.34293L8.27482 2.1361L9.92604 0.5L18 8.5L9.92604 16.5L8.27482 14.8639L13.5298 9.65707L0 9.65707V7.34293Z" fill="black" />
+                                    </svg>
+                                </span>
+                            </span>
                         </button>
 
 
@@ -623,6 +652,4 @@ const Quote: React.FC = () => {
     )
 }
 
-export default Quote
-
-// to={"/checkout"}
+export default QuotePageTwo

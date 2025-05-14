@@ -29,7 +29,7 @@ const CreateAccount: React.FC = () => {
             if (res.status === 201) {
                 toast.success(res.data.message);
                 form.resetFields();
-                return navigate(`/user-otp-verify`)
+                return navigate(`/user-otp-verify?email=${values.email||values.phone_number}`)
             }
         } catch (error: any) {
             console.log(error)

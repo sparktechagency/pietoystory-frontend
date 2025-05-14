@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/privacy-policy">Privacy Policy</Link></li>
               <li><Link to="/term-condiction">Terms and conditions</Link></li>
-              <li><Link to="/refer-list">Refer a friend</Link></li>
+              <li><Link to="/refer">Refer a friend</Link></li>
             </ul>
           </div>
 
