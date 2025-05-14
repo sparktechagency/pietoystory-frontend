@@ -19,7 +19,7 @@ const ReOrderPage: React.FC = () => {
   }
 
   const axiosPublic = useAxiosPublic();
-  const [profileData, setProfileData] = useState<any>(null); // Use `any` if you're not using an interface
+  const [profileData, setProfileData] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -170,7 +170,7 @@ const ReOrderPage: React.FC = () => {
 
 
   const userDetails = JSON.stringify(formData);
-  const parsedDetails = JSON.parse(userDetails);
+
 
 
 

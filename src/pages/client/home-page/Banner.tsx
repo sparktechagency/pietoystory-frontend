@@ -58,7 +58,7 @@ const Banner: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="mt-5 relative w-full max-w-[590px]">
                 <input
-                  className="border border-white hover:outline-none focus:outline-none py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] placeholder:text-2xl font-degular"
+                  className="border border-white hover:outline-none focus:outline-none py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] placeholder:text-2xl text-2xl font-degular"
                   type="text"
                   onChange={(e) => setZipData(e.target.value)}
                   placeholder="Zip Code"

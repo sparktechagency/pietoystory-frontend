@@ -38,6 +38,7 @@ const StripePayment = ({ data, userDetails }) => {
                 setClientSecret(response.data?.data?.client_secret);  
                 setPaymentId(response.data?.data?.id);               
             } catch (error:any) {
+                console.log(error)
                 message.error("Error creating payment intent:", error.response.data.message);
             }
         };

@@ -84,7 +84,7 @@ const Home: React.FC = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        window.location.href = ""
+        window.location.href = "/"
     }
     return (
         <div>
@@ -101,15 +101,17 @@ const Home: React.FC = () => {
                     {/* Nav menu - Desktop only */}
                     <div className="hidden lg:block w-[1006px] mx-auto">
                         <nav className="flex justify-between px-16 items-center bg-[#b9ecff] h-16 rounded-full font-degular font-medium text-xl">
-                            <NavLink  className={"text-black"}  to="/">Home</NavLink>
-                            <a className={"text-black"}  href="#about">About Us</a>
-                            <a className={"text-black"}  href="#touch">Contact Us</a>
-                            <NavLink className={"text-black"}  to="/refer">Referrals</NavLink>
+                            <NavLink className={"text-black"} to="/">Home</NavLink>
+                            <a className={"text-black"} href="#about">About Us</a>
+                            <a className={"text-black"} href="#touch">Contact Us</a>
+                            <NavLink className={"text-black"} to="/refer">Referrals</NavLink>
                         </nav>
                     </div>
 
                     {/* Create Account - Desktop only */}
-                    <div className="hidden lg:block relative" ref={dropdownRef}>
+                    <div className="hidden   lg:block relative" ref={dropdownRef}>
+
+
                         {
                             token && profileData ? (
                                 <button
@@ -120,7 +122,7 @@ const Home: React.FC = () => {
                                         <img
                                             src={`${profileData.avatar}`}
                                             alt="Profile Avatar"
-                                            className="w-12 h-12 rounded-full"
+                                            className="w-12 h-12 border-2 border-black p-0.5 rounded-full"
                                         />
                                     ) : (
                                         <svg width="63" height="62" viewBox="0 0 63 62" fill="none">
@@ -135,7 +137,34 @@ const Home: React.FC = () => {
                                         {profileData.full_name || "User"}
                                     </span>
                                 </button>
-                            ) : (
+                            ) : <>
+                                <div className="relative flex justify-center items-center h-[70px] w-44 bg-[#b9ecff] rounded-full">
+                                    <svg
+                                        className="animate-spin h-5 w-5 text-black"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <circle
+                                            className="opacity-25"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            strokeWidth="4"
+                                        ></circle>
+                                        <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </>
+                        }
+
+                        {
+                            !token && !profileData && (
                                 <Link
                                     to={`/create-account`}
                                     className="flex items-center bg-[#b9ecff] rounded-full h-[70px] px-4 space-x-2 "
@@ -207,7 +236,7 @@ const Home: React.FC = () => {
                                         </Link>
                                     </div>
                                     <div>
-                                        <button className=" font-degular border border-[#FF5E5E] py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center w-full mt-7 text-[#FF5E5E] bg-[#FFFFFF]  ">
+                                        <button onClick={handleLogout} className=" font-degular border border-[#FF5E5E] py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center w-full mt-7 text-[#FF5E5E] bg-[#FFFFFF]  ">
                                             <span>
                                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10.016 19.5323C10.016 19.2756 10.1182 19.0294 10.2999 18.848C10.4817 18.6665 10.7282 18.5645 10.9852 18.5645H18.7386C18.8243 18.5645 18.9064 18.5305 18.967 18.47C19.0276 18.4095 19.0617 18.3275 19.0617 18.2419V2.75806C19.0617 2.67251 19.0276 2.59046 18.967 2.52997C18.9064 2.46947 18.8243 2.43548 18.7386 2.43548H10.9852C10.7282 2.43548 10.4817 2.33353 10.2999 2.15204C10.1182 1.97055 10.016 1.7244 10.016 1.46774C10.016 1.21108 10.1182 0.964932 10.2999 0.783445C10.4817 0.601958 10.7282 0.5 10.9852 0.5H18.7386C19.9869 0.5 21 1.51161 21 2.75806V18.2419C21 18.8408 20.7617 19.4152 20.3377 19.8386C19.9136 20.2621 19.3384 20.5 18.7386 20.5H10.9852C10.7282 20.5 10.4817 20.398 10.2999 20.2166C10.1182 20.0351 10.016 19.7889 10.016 19.5323Z" fill="#FF5E5E" />
@@ -218,7 +247,7 @@ const Home: React.FC = () => {
 
                                             </span>
 
-                                            <span onClick={handleLogout} >Logout</span>
+                                            <span o >Logout</span>
 
                                         </button>
                                     </div>
