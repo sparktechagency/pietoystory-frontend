@@ -245,9 +245,9 @@ const Home: React.FC = () => {
                 >
                     <nav className="flex flex-col gap-y-4 font-degular text-[15px]">
                         <NavLink to="/" onClick={onClose}>Home</NavLink>
-                        <NavLink to="/" onClick={onClose}>About Us</NavLink>
-                        <NavLink to="/contact" onClick={onClose}>Contact Us</NavLink>
-                        <NavLink to="/referrals" onClick={onClose}>Referrals</NavLink>
+                        <a href="#about" onClick={onClose}>About Us</a>
+                        <a href="#touch" onClick={onClose}>Contact Us</a>
+                        <NavLink to="/refer" onClick={onClose}>Referrals</NavLink>
 
                         {/* Create Account inside drawer (mobile only) */}
                         {

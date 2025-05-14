@@ -84,6 +84,11 @@ const Navbar: React.FC = () => {
     window.location.href = "";
   };
 
+
+  
+
+
+
   return (
     <div className=" bg-[#f6f6f6] ">
       <div className="max-w-[1519px] mx-auto flex gap-x-4 items-center justify-between py-2 lg:px-0 px-4">
@@ -106,6 +111,7 @@ const Navbar: React.FC = () => {
 
         {/* Create Account - Desktop only */}
         <div className="hidden lg:block relative" ref={dropdownRef}>
+          
           {token && profileData ? (
             <button
               onClick={() => setAccountOpen(!accountOpen)}
@@ -317,7 +323,7 @@ const Navbar: React.FC = () => {
             Contact Us
           </NavLink>
           {profileData && (
-            <NavLink to="/referrals" onClick={onClose}>
+            <NavLink to="/refer" onClick={onClose}>
               Referrals
             </NavLink>
           )}
@@ -404,7 +410,7 @@ const Navbar: React.FC = () => {
               </div>
               <div>
                 <Link
-                  to="/my-reffer"
+                  to="/refer"
                   className=" font-degular border border-white py-[14px] px-6 rounded-[20px] shadow-md flex flex-row gap-x-[13px] items-center  mb-7 "
                 >
                   <span>
