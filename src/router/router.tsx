@@ -20,6 +20,7 @@ import UserRegister from "../components/client/user-register/UserRegister";
 import PrivateRoute from "../private-route/PrivateRoute";
 import QuotePageTwo from "../components/client/quote-page-two/QuotePageTwo";
 import CheckoutPageTwo from "../components/client/quote-page-two/CheckoutPageTwo";
+import ReOrderPage from "../pages/client/re-order-page/ReOrderPage";
 
 export const router = createBrowserRouter([
     {
@@ -92,6 +93,11 @@ export const router = createBrowserRouter([
         path: "/quote",
         element: <Quote></Quote>
     },
+    {
+        path : "/reorder",
+        element : <ReOrderPage></ReOrderPage>
+    }
+    ,
     {
         path: "/payment",
         element: <StripePayment />

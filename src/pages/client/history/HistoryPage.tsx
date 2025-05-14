@@ -43,9 +43,9 @@ type EnquiryData = {
     updated_at: string;
 };
 type apiResponse = {
-    ok : boolean;
+    ok: boolean;
     message: string;
-    data : EnquiryData[]
+    data: EnquiryData[]
 }
 const PreviousHistory: React.FC = () => {
     const token = localStorage.getItem('token');
@@ -76,8 +76,8 @@ const PreviousHistory: React.FC = () => {
         }
         fetchData();
     }, []);
-    if(data.length===0){
-        return(
+    if (data.length === 0) {
+        return (
             <div className=' flex h-screen justify-center items-center ' >
                 <h1 className=' text-xl font-degular text-center font-semibold ' >loading..</h1>
             </div>
@@ -128,10 +128,10 @@ const PreviousHistory: React.FC = () => {
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.amount_of_dogs}</td>
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.total_area}</td>
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">{item.area_to_clean}</td>
-                                    <td className=" text-center px-10 py-[26px] text-[26px] font-degular font-bold ">{item.cost}</td>
+                                    <td className=" text-center px-10 py-[26px] text-[26px] font-degular font-bold ">$ {item.cost || item?.cost}</td>
                                     <td className=" text-center px-10 py-[26px] text-xl font-degular font-thin">
-                                        <Link to={"/quote-page"}><button className=" py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
-                                            <Link to={"/quote-page"}>Reorder</Link>
+                                        <Link to={`/reorder?postCode=${item?.zip_code}&frequency=${item?.how_often}&dog=${item?.amount_of_dogs}&selectedArea=${item?.total_area}&cleanArea=${item?.area_to_clean}&price=${item?.cost}`}><button className=" py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
+                                            <Link to={`/reorder?postCode=${item?.zip_code}&frequency=${item?.how_often}&dog=${item?.amount_of_dogs}&selectedArea=${item?.total_area}&cleanArea=${item?.area_to_clean}&price=${item?.cost}`}>Reorder</Link>
                                         </button></Link>
                                     </td>
                                 </tr>

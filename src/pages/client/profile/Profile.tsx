@@ -14,9 +14,11 @@ const Profile: React.FC = () => {
         },
     };
 
-    const [profileImage, setProfileImage] = useState<string>("/images/defaultIMg/defaultImage.png"); // Default image initially
+    const [profileImage, setProfileImage] = useState<string>("");
     const [avatar, setAvatar] = useState<File | null>(null); // Store selected image file
     const [loading, setLoading] = useState<boolean>(false);
+
+    console.log(avatar)
 
     const [formData, setFormData] = useState({
         full_name: "",
@@ -32,6 +34,7 @@ const Profile: React.FC = () => {
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
+                setLoading(true)
                 const res = await axiosPublic.get(`/profile`, config);
                 setUserLoginType(res.data.data);
 
@@ -63,6 +66,8 @@ const Profile: React.FC = () => {
                 }
             } catch (error) {
                 console.error("Error fetching profile data:", error);
+            }finally{
+                setLoading(false)
             }
         };
 
@@ -119,26 +124,38 @@ const Profile: React.FC = () => {
             form.append(`dog_names[${index}]`, dog);
         });
 
-        // If an image was uploaded, append it to the form data
         if (avatar) {
-            form.append("avatar", avatar); // Send the new image if uploaded
-        } else if (profileImage !== "/images/defaultIMg/defaultImage.png") {
-            form.append("avatar", profileImage); // Keep the previous image if no new image uploaded
+            form.append("avatar", avatar);
+        } else if (profileImage && !profileImage.includes("blob:")) {
+            console.log(`default image upload`)
+            form.append("avatar_url", profileImage);
         }
 
         try {
             setLoading(true);
             const response = await axiosPublic.post("/update-profile", form, config);
-            if(response){
-                return message.success(`Profile update successfully`)
+            if (response) {
+                return message.success(`Profile updated successfully`);
             }
         } catch (error: any) {
-            return message.error("Profile update fail")
-            // return message.error(error.response.data.message);
+            console.log(error);
+            return message.error("Profile update failed");
         } finally {
             setLoading(false);
         }
     };
+
+
+    if(loading){
+        return(
+            <div className=' h-screen flex justify-center items-center  ' >
+                <h1 className=' font-semibold font-degular text-xl ' >Loading...</h1>
+            </div>
+        )
+    }
+
+
+
 
 
 
@@ -173,7 +190,7 @@ const Profile: React.FC = () => {
                         <div className="flex flex-col items-center bg-white mb-6 py-11 rounded-[20px]">
                             <div className="relative">
                                 <img
-                                    src={profileImage || "/images/defaultIMg/defaultImage.png"} // Show uploaded image or default if none
+                                    src={profileImage} // Show uploaded image or default if none
                                     alt="Profile"
                                     className="w-24 h-24 rounded-full object-cover"
                                 />

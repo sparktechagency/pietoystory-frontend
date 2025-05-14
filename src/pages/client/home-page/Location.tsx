@@ -46,8 +46,8 @@ const Location: React.FC = () => {
                     ))}
                 </div>
                 <button className=' bg-bgColor rounded-[40px] mx-auto block mt-10 lg:w-[480px] px-9 lg:px-0   '>
-                    <Link to="/quote" className='flex items-center gap-3 font-medium text-center justify-self-center py-4 text-2xl '>
-                        Get a Quote
+                    <Link to="/quote-page" className='flex items-center gap-3 font-medium text-center justify-self-center py-4 text-2xl '>
+                        Get Instant Quote
                         <span>
                             <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0.838664 12.0459L10.4057 2.47885L3.00806 2.51289L3.01875 0.188399L14.3848 0.136102L14.3325 11.5021L12.008 11.5128L12.042 4.1152L2.47501 13.6822L0.838664 12.0459Z" fill="black" />

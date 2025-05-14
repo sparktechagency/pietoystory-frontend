@@ -7,6 +7,10 @@ import { message } from 'antd';
 
 const Checkout: React.FC = () => {
 
+
+
+    const [loading, setLoading] = useState<boolean>(false)
+
     const token = localStorage.getItem("token");
     const config = {
         headers: {
@@ -147,6 +151,8 @@ const Checkout: React.FC = () => {
         agreement: false,
     });
 
+    const { full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, agreement } = formData;
+
     useEffect(() => {
         if (profileData) {
             setFormData((prevData) => ({
@@ -174,6 +180,48 @@ const Checkout: React.FC = () => {
             [name]: type === "checkbox" ? checked : value,
         }));
     };
+
+
+    const payload = {
+        full_address,first_name,last_name,dog_name,additional_comments,contact_email,contact_number,zip_code:postCode,area_to_clean:cleanArea,how_often:frequency,amount_of_dogs:dog,total_area:selectedArea,use_free_cleanup : 1
+
+    }
+
+
+    const handleSubmit = async () => {
+        console.log(`form toggle`)
+        if (!full_address) {
+            return message.error("Enter your full address.")
+        }
+        if (!first_name) {
+            return message.error(`Enter your first name.`)
+        }
+        if (!last_name) {
+            console.log(`enter your last name`)
+            return message.error(`Enter your last name.`)
+        }
+        if (!contact_email) {
+            return message.error("Enter your message");
+        }
+        if (!contact_number) {
+            return message.error("Enter your phone number.")
+        }
+        if (!agreement) {
+            return message.error(`Please our aggree our term & condiction!`)
+        }
+        try {
+            setLoading(true);
+            const res = await axiosPublic.post("/payment-success",payload,config);
+            console.log(res);
+            return message.success("Service purchase successfully.")
+        } catch (error) {
+            console.log(error)
+            message.error(`Something went wrong.`)
+
+        } finally {
+            setLoading(false)
+        }
+    }
 
 
 
@@ -482,9 +530,36 @@ const Checkout: React.FC = () => {
 
 
                         <div>
-                            {
-                                isChecked ? <></> : <><StripePayment data={data} userDetails={userDetails} ></StripePayment></>
-                            }
+                            {isChecked ? (
+                                <button
+                                    onClick={handleSubmit}
+                                    className="block mx-auto bg-bgColor px-7 py-4 w-full mt-5 rounded-[30px] text-center text-xl font-degular font-semibold"
+                                >
+                                    {loading ? (
+                                        <div className="flex items-center gap-2 justify-center">
+                                            Submitting...
+                                            <span>
+                                                <svg
+                                                    width="14"
+                                                    height="15"
+                                                    viewBox="0 0 14 15"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M0.31779 12.5459L9.88479 2.97885L2.48719 3.01289L2.49788 0.688399L13.8639 0.636102L13.8116 12.0021L11.4871 12.0128L11.5211 4.6152L1.95414 14.1822L0.31779 12.5459Z"
+                                                        fill="black"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        "Submit"
+                                    )}
+                                </button>
+                            ) : (
+                                <StripePayment data={data} userDetails={userDetails} />
+                            )}
                         </div>
 
 
