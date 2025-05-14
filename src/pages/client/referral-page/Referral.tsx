@@ -39,29 +39,6 @@ const Referral: React.FC = () => {
     },
   };
 
-  const baseURL = window.location.origin;
-  const referralLink = `${baseURL}/user-register?referral_code=${user?.referral_code}`;
-
-  // 📌 Fetch referral data
-  useEffect(() => {
-    const fetchReferralData = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axiosPublic.get(`/all-referred-info`, config);
-        setTotalRefer(data?.totalRefer);
-        setTotalReferList(data?.totalReferList);
-        setUser(data?.user);
-        setUserCoinData(data?.userCoinData);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReferralData();
-  }, []);
-
   // 📌 Fetch profile data
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -69,8 +46,8 @@ const Referral: React.FC = () => {
         setLoading(true);
         const { data } = await axiosPublic.get<UserProfileApiResponse>(`/profile`, config);
         setProfileData(data?.data);
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        return message.error(error.response.data.message)
       } finally {
         setLoading(false);
       }
@@ -79,13 +56,50 @@ const Referral: React.FC = () => {
     fetchProfileData();
   }, []);
 
-  // 📌 Handle copy
+
+
+
+
+
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const res = await axiosPublic.get(`/all-referred-info`, config);
+        if (res.data) {
+          setTotalRefer(res.data?.totalRefer);
+          setTotalReferList(res.data?.totalReferList);
+          setUser(res.data?.user);
+          setUserCoinData(res.data?.userCoinData);
+        }
+      } catch (error: any) {
+        return message.error(error.response.data?.message)
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
+
+  const baseURl = window.location.origin;
+
+  const referralLink = `${baseURl}/user-register?referral_code=${user?.referral_code}`;
+
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
     message.success("Copy successfully.");
     setTimeout(() => setCopied(false), 2000);
   };
+
+
+
+
+
+
+
+
 
   // 📌 Toggle Drawer
   const showDrawer = () => setOpen(true);
@@ -427,7 +441,7 @@ const Referral: React.FC = () => {
       </Drawer>
 
 
-      
+
       <div className="bg-[#f6f6f6] pb-10 lg:pb-[76px] ">
         <div className="max-w-[1519px] mx-auto ">
           <div className="relative flex flex-col items-center">
@@ -561,17 +575,7 @@ const Referral: React.FC = () => {
         </div>
       </div>
 
-      <Banner></Banner>
-            <PromisseRefer></PromisseRefer>
 
-            <About></About>
-            <Location></Location>
-
-
-            <ChooseUs></ChooseUs>
-
-
-            <GetTouchPage></GetTouchPage>
     </div>
   );
 };
