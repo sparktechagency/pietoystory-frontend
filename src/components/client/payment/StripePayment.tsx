@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import CheckoutForm from "./CheckoutFrom";
 import useAxiosPublic from "../../../hooks/UseAxiosPublic";
 import { message, Spin } from 'antd';
+import { useNavigate } from "react-router-dom";
 
 // 🚀 Stripe publishable key
 const stripePromise = loadStripe("pk_test_51R5URpFLtaovuyYZIfRsWYtWarN29hwk4CE93lpgduD1wb4xEMHNpjIfA13e16Cj5DZdvlt8B65aLal1S3jbgiqM00JmcGBQDa");
@@ -16,7 +17,7 @@ const StripePayment = ({ data, userDetails }) => {
     const axiosPublic = useAxiosPublic();
     const price = data?.price;
 
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         const createPaymentIntent = async () => {
@@ -38,6 +39,7 @@ const StripePayment = ({ data, userDetails }) => {
                 setPaymentId(response.data?.data?.id);               
             } catch (error:any) {
                 message.error("Error creating payment intent:", error.response.data.message);
+                return navigate("/")
             }
         };
 
