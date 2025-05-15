@@ -32,18 +32,22 @@ const MainLayout: React.FC = () => {
     };
 
     return (
-        <div>
+        <div  >
             {/* <Navbar /> */}
-            <Outlet />
-            <Footer />
+            <div className="flex flex-col h-screen">
+                <div className="flex-grow  ">
+                    <Outlet />
+                </div>
+                <Footer />
+            </div>
 
             {/* 📌 Scroll to Top Button */}
             {showButton && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300"
+                    className="fixed bottom-5 right-5 bg-[#b9ecff] text-white p-3 rounded-full shadow-lg transition-all duration-300"
                 >
-                    <ArrowUpCircle size={24} />
+                    <ArrowUpCircle size={24} className=' text-black ' />
                 </button>
             )}
         </div>
