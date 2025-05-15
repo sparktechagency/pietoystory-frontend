@@ -90,6 +90,7 @@ const Referral: React.FC = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
     message.success("Copy successfully.");
+    console.log(`copy`)
     setTimeout(() => setCopied(false), 2000);
   };
 
