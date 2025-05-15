@@ -47,6 +47,7 @@ const PreviousHistory: React.FC = () => {
         fetchData();
     }, []);
 
+    
     if (loading) {
         return (
             <div className='flex h-screen justify-center items-center'>
@@ -64,7 +65,7 @@ const PreviousHistory: React.FC = () => {
     }
 
     return (
-        <div className="bg-[#f6f6f6] min-h-screen">
+        <div className="bg-[#f6f6f6]  ">
             <div className="max-w-[1520px] mx-auto">
                 <div className='flex justify-between items-center pt-11'>
                     <div className='flex items-center gap-5'>
@@ -103,8 +104,16 @@ const PreviousHistory: React.FC = () => {
                                         <td className="text-center px-10 py-[26px] text-xl font-degular font-thin">{item.area_to_clean}</td>
                                         <td className="text-center px-10 py-[26px] text-[26px] font-degular font-bold">${item.cost}</td>
                                         <td className="text-center px-10 py-[26px] text-xl font-degular font-thin">
-                                            <Link to={`/reorder?postCode=${item.zip_code}&frequency=${item.how_often}&dog=${item.amount_of_dogs}&selectedArea=${item.total_area}&cleanArea=${item.area_to_clean}&price=${item.cost}`}>
-                                                <button className="py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition">
+                                            <Link
+                                                to={`${item.cost > 0
+                                                        ? `/reorder?postCode=${item.zip_code}&frequency=${item.how_often}&dog=${item.amount_of_dogs}&selectedArea=${item.total_area}&cleanArea=${item.area_to_clean}&price=${item.cost}`
+                                                        : ""
+                                                    }`}
+                                            >
+                                                <button
+                                                    className="py-2.5 px-[47px] bg-bgColor rounded-[20px] text-xl font-thin font-degular transition"
+                                                    disabled={item.cost <= 0}
+                                                >
                                                     Reorder
                                                 </button>
                                             </Link>

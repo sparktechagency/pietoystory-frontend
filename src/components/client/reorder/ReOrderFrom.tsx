@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/client/footer/Footer'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import StripePayment from '../../../components/client/payment/StripePayment'
 import useAxiosPublic from '../../../hooks/UseAxiosPublic'
 import { message } from 'antd';
+import ReOrderStripeFrom from './ReOrderStripeFrom'
 
-const CheckoutPageTwo: React.FC = () => {
+const ReOrderFrom: React.FC = () => {
+
+
+
+    const [loading, setLoading] = useState<boolean>(false)
 
     const token = localStorage.getItem("token");
     const config = {
@@ -15,7 +20,7 @@ const CheckoutPageTwo: React.FC = () => {
     }
 
     const axiosPublic = useAxiosPublic();
-    const [profileData, setProfileData] = useState<any>(null); // Use `any` if you're not using an interface
+    const [profileData, setProfileData] = useState<any>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,6 +41,8 @@ const CheckoutPageTwo: React.FC = () => {
         fetchData();
     }, []);
 
+
+
     const [searchParam] = useSearchParams();
 
     const postCode = searchParam.get("postCode") ?? "";
@@ -48,11 +55,6 @@ const CheckoutPageTwo: React.FC = () => {
 
 
 
-    // If you want to see the actual object in the console:
-
-    const [dogName, setDogName] = useState<string[]>([]);
-
-
 
 
     // refer info api 
@@ -63,7 +65,6 @@ const CheckoutPageTwo: React.FC = () => {
             try {
                 const res = await axiosPublic.get("/all-referred-info", config);
                 setCoinRemaning(res.data?.userCoinData?.remaining_coins)
-                console.log(res.data?.userCoinData?.remaining_coins)
             } catch (error) {
 
             } finally {
@@ -81,7 +82,6 @@ const CheckoutPageTwo: React.FC = () => {
         const fetchData = async () => {
             try {
                 let res = await axiosPublic.get(`/discount-charge`, config);
-                console.log(`response is ${res}`)
                 if (res.status === 200) {
                     setDiscount(res.data?.getDiscount);
                     setCharge(res.data?.getCharge);
@@ -124,7 +124,7 @@ const CheckoutPageTwo: React.FC = () => {
         dog: Number(dog),
         selectedArea: selectedArea,
         cleanArea: cleanArea,
-        price: Number(grantTotal)
+        amount: Number(grantTotal)
     }
 
 
@@ -133,7 +133,6 @@ const CheckoutPageTwo: React.FC = () => {
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIsChecked(e.target.checked);
-        console.log("Checkbox Value:", e.target.checked);
     };
 
     const [formData, setFormData] = useState({
@@ -147,6 +146,8 @@ const CheckoutPageTwo: React.FC = () => {
         agreement: false,
     });
 
+    const { full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, agreement } = formData;
+
     useEffect(() => {
         if (profileData) {
             setFormData((prevData) => ({
@@ -159,10 +160,10 @@ const CheckoutPageTwo: React.FC = () => {
         }
     }, [profileData]);
 
-    const [loading,setLoading] = useState<boolean>(false)
 
 
     const userDetails = JSON.stringify(formData);
+
 
 
 
@@ -174,14 +175,13 @@ const CheckoutPageTwo: React.FC = () => {
             [name]: type === "checkbox" ? checked : value,
         }));
     };
-        const { full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, agreement } = formData;
+
 
     const payload = {
         full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, zip_code: postCode, area_to_clean: cleanArea, how_often: frequency, amount_of_dogs: dog, total_area: selectedArea, use_free_cleanup: 1
 
     }
 
-    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         console.log(`form toggle`)
@@ -207,10 +207,7 @@ const CheckoutPageTwo: React.FC = () => {
         try {
             setLoading(true);
             const res = await axiosPublic.post("/payment-success", payload, config);
-            const response = await axiosPublic.get("/all-referred-info", config);
-            setDiscount(response.data?.getDiscount);
-            setCharge(response.data?.getCharge);
-            navigate("/")
+            console.log(res);
             return message.success("Service purchase successfully.")
         } catch (error) {
             console.log(error)
@@ -224,6 +221,13 @@ const CheckoutPageTwo: React.FC = () => {
 
 
 
+    if (!profileData) {
+        return (
+            <div className=' flex flex-col justify-center items-center h-screen ' >
+                <h1 className=' font-semibold font-degular text-xl ' >loading...</h1>
+            </div>
+        )
+    }
 
 
 
@@ -232,7 +236,7 @@ const CheckoutPageTwo: React.FC = () => {
             <div className=' max-w-[1519px] mx-auto   pb-12 px-4 lg:px-0 ' >
                 <div className=' lg:block hidden' >
                     <div className='flex items-center gap-5 cursor-pointer ' >
-                        <Link to={"/quote-page"}>
+                        <Link to={"/history"}>
                             <div className=' w-[55px] h-[53px] bg-white rounded-full flex items-center  justify-center  ' >
                                 <span>
                                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -555,7 +559,7 @@ const CheckoutPageTwo: React.FC = () => {
                                     )}
                                 </button>
                             ) : (
-                                <StripePayment data={data} userDetails={userDetails} />
+                                <ReOrderStripeFrom data={data} userDetails={userDetails} />
                             )}
                         </div>
 
@@ -569,4 +573,4 @@ const CheckoutPageTwo: React.FC = () => {
     )
 }
 
-export default CheckoutPageTwo
+export default ReOrderFrom

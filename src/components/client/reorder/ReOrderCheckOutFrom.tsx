@@ -5,7 +5,7 @@ import useAxiosPublic from "../../../hooks/UseAxiosPublic";
 import { useNavigate } from "react-router-dom";
 // import "./CheckoutForm.css"; // Custom CSS for Stripe Elements
 
-const CheckoutForm = ({ paymentId, paymentData, userDetails, secret }) => {
+const ReOrderCheckOutFrom = ({ paymentId, paymentData, userDetails, secret }) => {
     const parsedDetails = JSON.parse(userDetails);
     const token = localStorage.getItem("token")
     const axiosPublic = useAxiosPublic()
@@ -88,7 +88,7 @@ const CheckoutForm = ({ paymentId, paymentData, userDetails, secret }) => {
                 return;
             } else {
 
-                console.log("PaymentMethod:", paymentMethod);
+                
             }
 
 
@@ -202,4 +202,4 @@ const CheckoutForm = ({ paymentId, paymentData, userDetails, secret }) => {
     );
 };
 
-export default CheckoutForm;
+export default ReOrderCheckOutFrom;
