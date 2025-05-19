@@ -7,8 +7,10 @@ import { router } from './router/router.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} >
+    <div className='' >
+      <RouterProvider router={router} >
 
-    </RouterProvider>
+      </RouterProvider>
+    </div>
   </StrictMode>,
 )

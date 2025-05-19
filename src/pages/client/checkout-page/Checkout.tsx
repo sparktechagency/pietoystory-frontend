@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/client/footer/Footer'
 import { Link, useSearchParams } from 'react-router-dom'
-import StripePayment from '../../../components/client/payment/StripePayment'
 import useAxiosPublic from '../../../hooks/UseAxiosPublic'
-import { message } from 'antd';
+import { message, Spin } from 'antd';
 
 const Checkout: React.FC = () => {
 
@@ -225,6 +224,49 @@ const Checkout: React.FC = () => {
     }
 
 
+    // payment intent related 
+
+    const [clientSecret, setClientSecret] = useState("");
+    const [paymentId, setPaymentId] = useState("");
+
+
+    useEffect(() => {
+        const createPaymentIntent = async () => {
+            try {
+                const response = await axiosPublic.post(
+                    "/payment-intent",
+                    {
+                        amount: price,
+                        payment_method_types: ["card"]
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+                setClientSecret(response.data?.data?.client_secret);
+                setPaymentId(response.data?.data?.id);
+            } catch (error: any) {
+                message.error("Error creating payment intent:", error.response.data.message);
+                return navigate("/")
+            }
+        };
+
+        createPaymentIntent();
+    }, [price]);
+
+
+
+
+
+
+    const appearance = {
+        theme: "stripe",
+    };
+
+
 
 
 
@@ -399,21 +441,8 @@ const Checkout: React.FC = () => {
                                 </label>
                             </div>
                         </div>
-                        
+
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -560,7 +589,22 @@ const Checkout: React.FC = () => {
                                     )}
                                 </button>
                             ) : (
-                                <StripePayment data={data} userDetails={userDetails} />
+                                <div className="max-w-[600px] mx-auto mt-3">
+                                    {clientSecret ? (
+                                        <Elements options={{ clientSecret, appearance }} stripe={stripePromise}>
+                                            <CheckoutForm
+                                                paymentData={data}
+                                                paymentId={paymentId}
+                                                userDetails={userDetails}
+                                                secret={clientSecret}
+                                            />
+                                        </Elements>
+                                    ) : (
+                                        <div className="flex justify-center items-center h-20">
+                                            <Spin size="large" tip="Loading payment form..." />
+                                        </div>
+                                    )}
+                                </div>
                             )}
                         </div>
 

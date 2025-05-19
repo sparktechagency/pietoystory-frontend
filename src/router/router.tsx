@@ -11,7 +11,6 @@ import Home from "../pages/client/home-page/Home";
 import Referral from "../pages/client/referral-page/Referral";
 import Profile from "../pages/client/profile/Profile";
 import HistoryPage from "../pages/client/history/HistoryPage";
-import Checkout from "../pages/client/checkout-page/Checkout";
 import Quote from "../pages/client/quote-page/Quote";
 import StripePayment from "../components/client/payment/StripePayment";
 import UserOtpVerify from "../components/client/user-otp-verify/UserOtpVerify";
@@ -85,10 +84,7 @@ export const router = createBrowserRouter([
         path: "/history",
         element: <PrivateRoute><HistoryPage></HistoryPage></PrivateRoute>
     },
-    {
-        path: "/checkout",
-        element: <Checkout></Checkout>
-    },
+
     {
         path: "/quote",
         element: <Quote></Quote>
@@ -108,10 +104,15 @@ export const router = createBrowserRouter([
     },
     {
         path: "/quote-page",
-        element: <PrivateRoute><QuotePageTwo></QuotePageTwo></PrivateRoute>
+        element: <QuotePageTwo></QuotePageTwo>
     },
     {
         path: "/checkout-page-two",
         element: <CheckoutPageTwo></CheckoutPageTwo>
-    }
+    },
+    // {
+    //     path: "/checkout",
+    //     element: <CheckoutForm></CheckoutForm>
+    // }
+
 ])

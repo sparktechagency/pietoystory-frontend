@@ -94,7 +94,7 @@ const GetTouchPage: React.FC = () => {
                     </svg>
 
                   </span>
-                  <p>example@gmail.com</p>
+                  <p>info@clearpathwaste.com</p>
                 </div>
 
                 {/* Location */}
