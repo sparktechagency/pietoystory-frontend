@@ -4,16 +4,9 @@ import { Copy } from "lucide-react";
 import { Button, Drawer, message } from "antd";
 import moment from "moment";
 import useAxiosPublic from "../../../hooks/UseAxiosPublic";
-import { motion, AnimatePresence } from 'framer-motion';
 import { Link, NavLink } from 'react-router-dom';
 import { UserProfile, UserProfileApiResponse } from "../../../type/UserProfileDataType";
-import { MenuOutlined } from '@ant-design/icons';
-import Banner from "../home-page/Banner";
-import PromisseRefer from "../home-page/PromisseRefer";
-import About from "../home-page/About";
-import Location from "../home-page/Location";
-import ChooseUs from "../home-page/ChooseUs";
-import GetTouchPage from "../home-page/GetTouchPage";
+
 
 const Referral: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -27,8 +20,6 @@ const Referral: React.FC = () => {
   const [userCoinData, setUserCoinData] = useState(null);
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
   const [open, setOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const axiosPublic = useAxiosPublic();
   const token = localStorage.getItem("token");
@@ -130,12 +121,12 @@ const Referral: React.FC = () => {
 
           <div className='flex items-center gap-[22px] pt-10 ' >
             <Link to={"/"}><div className=' w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center  ' >
-              <Link to={"/"}><span>
+              <span>
                 <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
                 </svg>
 
-              </span></Link>
+              </span>
             </div></Link>
             <div>
               <h1 className=' lg:text-3xl font-degular font-medium  ' >Back</h1>

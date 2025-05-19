@@ -62,7 +62,7 @@ const PromisseRefer: React.FC = () => {
                             the more you earn. It’s our way of saying thanks for helping us spread the clean yard joy!
                         </p>
                         <Link to={"/refer"}><button className='mt-6 px-6 md:px-20 py-3 bg-bgColor rounded-[20px] font-degular text-base md:text-xl'>
-                            <Link to="/refer">Refer a friend</Link>
+                            Refer a friend
                         </button></Link>
                     </div>
 

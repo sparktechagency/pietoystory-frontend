@@ -24,10 +24,12 @@ const Banner: React.FC = () => {
 
     try {
       setLoading(true);
-      const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData }, config);
+      const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData });
 
-      navigate(`/quote?zip-code=${zipData}`);
-      console.log(res);
+      if(res.status===200){
+        setZipData("")
+        navigate(`/quote?zip-code=${zipData}`);
+      }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Something went wrong!";
       message.error(errorMessage);
@@ -58,8 +60,8 @@ const Banner: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="mt-5 relative w-full max-w-[590px]">
                 <input
-                  className="border border-white hover:outline-none focus:outline-none py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] placeholder:text-2xl text-2xl font-degular"
-                  type="text"
+                  className="border border-white hover:outline-none focus:outline-none py-3 lg:py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] lg:placeholder:text-2xl lg:text-2xl font-degular"
+                  type="number"
                   onChange={(e) => setZipData(e.target.value)}
                   placeholder="Zip Code"
                 />

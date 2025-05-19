@@ -6,8 +6,9 @@ import {
   LockOutlined,
   MailOutlined,
   MenuOutlined,
+  PhoneOutlined,
 } from "@ant-design/icons";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import {
   loginApiPayloadType,
@@ -23,6 +24,9 @@ const LoginFrom: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  // const locattion = useLocation()
+
+  // locattion.state?.pathname
 
   const [form] = Form.useForm();
   const [showPhone, setShowPhone] = useState(false);
@@ -64,6 +68,7 @@ const LoginFrom: React.FC = () => {
 
 
 
+
   return (
     <>
 
@@ -81,45 +86,27 @@ const LoginFrom: React.FC = () => {
               style={{ marginTop: "8px" }}
             >
               <Form.Item
-                name={"email"}
-                style={{ marginTop: "20px", marginBottom: "0" }}
+                required
+                rules={[{ required: true, message: "Enter your email or phone number" }]}
+                name={showPhone ? "phone_number" : "email"}
+                style={{ marginTop: "20px", width: "100%" }}
               >
                 <div className="relative">
-                  {showPhone ? (
-                    <Input
-                      size="large"
-                      placeholder="Enter your phone number"
-                      prefix={<MailOutlined />}
-                      className="rounded-xl custom-placeholder  "
-                      style={{
-                        padding: "14px 20px",
-                        outline: "none",
-                        border: `1px solid #00000033`,
-                      }}
-                    />
-                  ) : (
-                    <Input
-                      size="large"
-                      placeholder="Enter your email"
-                      prefix={<MailOutlined />}
-                      className="rounded-xl custom-placeholder  "
-                      style={{
-                        padding: "14px 20px",
-                        outline: "none",
-                        border: `1px solid #00000033`,
-                      }}
-                    />
-                  )}
+                  <Input
+                    size="large"
+                    type={showPhone ? "tel" : "email"}
+                    placeholder={showPhone ? "Enter your phone number" : "Enter your email"}
+                    prefix={showPhone ? <PhoneOutlined /> : <MailOutlined />}
+                    className="rounded-xl custom-placeholder w-full"
+                    style={{ padding: "14px 20px", outline: "none", border: `1px solid #00000033` }}
+                  />
+
                   <button
                     type="button"
                     onClick={() => setShowPhone(!showPhone)}
-                    className="absolute right-3 top-2 mt-2 text-sm text-blue-600 hover:underline"
+                    className="text-sm text-blue-600 hover:underline absolute right-3 top-1/2 transform -translate-y-1/2 z-10"
                   >
-                    {showPhone ? (
-                      <span className="mt-2">'Use Email'</span>
-                    ) : (
-                      <span className="!mt-3">Use Phone Number </span>
-                    )}
+                    {showPhone ? <> <p className=' text-[#404040]  ' >Use email address</p> </> : <> <p className=' text-[#404040] '  >Use phone number</p> </>}
                   </button>
                 </div>
               </Form.Item>

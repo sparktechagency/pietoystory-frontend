@@ -11,14 +11,16 @@ import {
     PhoneOutlined,
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { RegistrationFormValues } from '../../../type/registrationType';
-import useAxiosPublic from '../../../hooks/UseAxiosPublic';
-import { ApiResponse } from '../../../type/apiResponseType';
 import toast, { Toaster } from 'react-hot-toast';
+import useAxiosPublic from '../../../hooks/UseAxiosPublic';
+import { RegistrationFormValues } from '../../../type/registrationType';
+import { ApiResponse } from '../../../type/apiResponseType';
+import { IoClose } from 'react-icons/io5';
+import LoginFromModal from './LoginFromModal';
 
 
 
-const CreateAccount: React.FC = () => {
+const RegistrationModal: React.FC = ({ setOpenRegistrationModal }) => {
     const axiosPublic = useAxiosPublic();
     const [form] = Form.useForm()
     const navigate = useNavigate()
@@ -47,6 +49,18 @@ const CreateAccount: React.FC = () => {
             setLoading(false)
         }
     }
+
+
+    // login modal related function
+
+    const [openLogInModal, setOpenLoginModal] = useState<boolean>(false)
+
+    const handleOpenLogInModal = () => {
+        console.log(`modal open`)
+        setOpenLoginModal(true)
+        setOpenRegistrationModal(false)
+    }
+
 
 
     return (
@@ -100,7 +114,7 @@ const CreateAccount: React.FC = () => {
                                             onClick={() => setShowPhone(!showPhone)}
                                             className="text-sm text-blue-600 hover:underline absolute right-3 top-1/2 transform -translate-y-1/2 z-10"
                                         >
-                                            {showPhone ? <> <p className=' text-[#404040]  ' >Use email address</p> </> : <> <p className=' text-[#404040] '  >Use phone number</p> </> }
+                                            {showPhone ? <> <p className=' text-[#404040]  ' >Use email address</p> </> : <> <p className=' text-[#404040] '  >Use phone number</p> </>}
                                         </button>
                                     </div>
                                 </Form.Item>
@@ -193,9 +207,9 @@ const CreateAccount: React.FC = () => {
 
                             <p className="text-center text-sm text-[#000000] lg:pb-16 ">
                                 Already have an account?{' '}
-                                <Link to="/login" className=" text-black ">
-                                    <span className=' text-[#0063E5] underline ' >Login here</span>
-                                </Link>
+                                <p className=" text-black cursor-pointer ">
+                                    <span onClick={handleOpenLogInModal} className=' text-[#0063E5] underline ' >Login here</span>
+                                </p>
                             </p>
                         </div>
                     </div>
@@ -215,8 +229,25 @@ const CreateAccount: React.FC = () => {
                 />
             </div>
 
+
+            {openLogInModal && (
+                <div className="fixed inset-0 w-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-5 rounded-lg shadow-lg w-7/12 mx-auto relative">
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setOpenLoginModal(false)}
+                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                        >
+                            <IoClose size={24} />
+                        </button>
+
+                        <LoginFromModal></LoginFromModal>
+                    </div>
+                </div>
+            )}
+
         </>
     );
 };
 
-export default CreateAccount;
+export default RegistrationModal;
