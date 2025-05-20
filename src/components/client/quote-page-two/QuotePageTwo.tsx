@@ -18,6 +18,7 @@ import { RegistrationFormValues } from '../../../type/registrationType';
 import { ApiResponse } from '../../../type/apiResponseType';
 import { loginApiPayloadType, loginApiResponseType } from '../../../type/loginTypes';
 import Swal from 'sweetalert2';
+import { FaPaw, FaStar } from 'react-icons/fa';
 
 
 
@@ -39,8 +40,8 @@ const QuotePageTwo: React.FC = () => {
     };
 
     const frequencyLabels = [
-        "Once a week",
-        "Two times a week",
+        "once per week",
+        "2x per week",
         "Bi-weekly",
         "Once a month",
     ];
@@ -48,6 +49,7 @@ const QuotePageTwo: React.FC = () => {
     useEffect(() => {
         // Only update state when selecetedArea changes
         const selectArea = selecetedArea ? parseFloat(selecetedArea.split(" ")[0]) : null;
+        console.log(`selectArea is ${selectArea} `)
         if (selectArea !== null) {
             setSelectAreaSqar(selectArea * 43560);
         }
@@ -62,24 +64,24 @@ const QuotePageTwo: React.FC = () => {
 
         // 1 acer 
 
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 43560) {
             setPrice(65)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 43560) {
             setPrice(69)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 43560) {
             setPrice(76)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 43560) {
             setPrice(82)
         }
-        // Two times a week
+        // 2x per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 43560) {
             setPrice(100)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 43560) {
             setPrice(105)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 43560) {
             setPrice(108)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 43560) {
             setPrice(112)
         }
 
@@ -109,25 +111,25 @@ const QuotePageTwo: React.FC = () => {
 
 
         // 2 acer 
-        // Once a week
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        // once per week
+        if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 87120) {
             setPrice(90)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 87120) {
             setPrice(96)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 87120) {
             setPrice(103)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 87120) {
             setPrice(110)
         }
-        // Two times a week
+        // 2x per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 87120) {
             setPrice(140)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 87120) {
             setPrice(146)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 87120) {
             setPrice(152)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 87120) {
             setPrice(158)
         }
 
@@ -159,25 +161,25 @@ const QuotePageTwo: React.FC = () => {
 
 
 
-        // Once a week
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        // once per week
+        if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 130680) {
             setPrice(120)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 130680) {
             setPrice(128)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 130680) {
             setPrice(133)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 130680) {
             setPrice(140)
         }
-        // Two times a week
+        // 2x per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 130680) {
             setPrice(180)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 130680) {
             setPrice(186)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 130680) {
             setPrice(192)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 130680) {
             setPrice(199)
         }
 
@@ -210,25 +212,25 @@ const QuotePageTwo: React.FC = () => {
 
 
 
-        // Once a week
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        // once per week
+        if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 174240) {
             setPrice(165)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 174240) {
             setPrice(174)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 174240) {
             setPrice(183)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selectAreaSqar === 174240) {
             setPrice(193)
         }
-        // Two times a week
+        // 2x per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 174240) {
             setPrice(210)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 174240) {
             setPrice(220)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 174240) {
             setPrice(230)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selectAreaSqar === 174240) {
             setPrice(240)
         }
 
@@ -535,7 +537,7 @@ const QuotePageTwo: React.FC = () => {
 
                             {/* Dog Count */}
                             <div>
-                                <label className="block font-degular font-medium lg:text-xl text-lg text-[#404040] mb-5">
+                                <label className="block font-degular font-medium lg:text-xl  text-lg text-[#404040] mb-5">
                                     How Many Dogs
                                 </label>
                                 <div className="flex items-center gap-3">
@@ -545,16 +547,37 @@ const QuotePageTwo: React.FC = () => {
                                         max="4"
                                         value={dogCount}
                                         onChange={(e) => setDogCount(Number(e.target.value))}
-                                        className="w-full accent-gray-700 mb-3"
+                                        className="w-full accent-gray-700 mb-3 border  "
                                     />
                                 </div>
-                                <div className="flex justify-between mt-2 text-gray-700 text-lg font-semibold">
-                                    {[1, 2, 3, 4].map((num) => (
+                                <div className="flex justify-between  text-gray-700 text-lg  font-semibold">
+                                    {[1, 2, 3, 4].map((num, i) => (
                                         <span
-                                            className="text-[#404040] font-degular font-semibold text-[28px]"
+                                            className="text-[#404040]  font-degular font-semibold text-[28px]"
                                             key={num}
                                         >
-                                            {num}
+                                            {/* {Array.from({ length: num }, (_, i) => (
+                                                <FaPaw size={19} key={i} className="inline-block  " />
+                                            ))} */}
+
+                                            <div className=' flex justify-between ' >
+                                                {i === 1 ? (
+                                                    <><span className=' flex flex-row gap-1 items-center  ml-12 ' > <FaPaw size={17} /> <FaPaw size={15} /> </span></>
+                                                ) : i === 2 ? (
+                                                    <><span className=' flex flex-row gap-1 ml-6 items-center  ' > <FaPaw size={17} /> <FaPaw size={15} /> <FaPaw size={15} /> </span></>
+                                                ) : i === 3 ? (
+                                                    <><span className=' flex flex-row gap-1 items-center  ' > <FaPaw size={17} /> <FaPaw size={15} /> <FaPaw size={15} /> <FaPaw size={15} /> </span></>
+
+                                                ) : (
+                                                    <>
+                                                        <span>
+                                                            <FaPaw size={15} />
+                                                        </span>
+                                                    </>
+                                                )
+                                                }
+                                            </div>
+
                                         </span>
                                     ))}
                                 </div>
@@ -571,10 +594,10 @@ const QuotePageTwo: React.FC = () => {
                                         <option disabled selected value="">
                                             -select total area size-
                                         </option>
-                                        <option>1 acre</option>
-                                        <option>2 acre</option>
-                                        <option>3 acre</option>
-                                        <option>4 acre</option>
+                                        <option>0.2 Acre</option>
+                                        <option>0.2-1/3 Acre</option>
+                                        <option>1/3-1/2 Acre</option>
+                                        <option>1/2-3/4 </option>
                                     </select>
 
                                     {/* Custom Dropdown Icon */}
@@ -660,14 +683,14 @@ const QuotePageTwo: React.FC = () => {
                                         <p className='text-[#343434] lg:text-xl font-degular ' > {dogCount} </p>
                                     </div>
                                 </div>
-                                <div className='flex justify-between items-center ' >
+                                {/* <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total area:</h1>
                                     </div>
                                     <div>
                                         <p className='text-[#343434] lg:text-xl font-degular ' >{selectAreaSqar} sq ft</p>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Area to clean:</h1>
@@ -711,7 +734,6 @@ const QuotePageTwo: React.FC = () => {
                                 <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >One time charge:</h1>
-                                        <p className=' lg:text-lg font-degular text-[#343434] ' >Monthly</p>
                                     </div>
                                     <div>
                                         <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >{
@@ -947,7 +969,7 @@ const QuotePageTwo: React.FC = () => {
 
             {loginModal && (
                 <div className="fixed inset-0 w-full flex items-center justify-center border border-black bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-5 rounded-lg shadow-lg lg:w-7/12 mx-auto relative">
+                    <div className="bg-white p-5 rounded-lg shadow-lg lg:max-w-7 w-full mx-auto relative">
                         {/* Close Button */}
                         <button
                             onClick={() => setLoginModal(false)}
@@ -957,11 +979,11 @@ const QuotePageTwo: React.FC = () => {
                         </button>
 
                         <>
-                            <div className="flex flex-col lg:flex-row mx-auto pt-12 px-4 gap-8">
+                            <div className="flex flex-col lg:flex-row mx-auto pt-32 ">
                                 {/* Left Side - Form */}
                                 <div className="w-full lg:w-1/2 flex items-center justify-center">
-                                    <div className="w-full max-w-xl">
-                                        <h2 className="text-3xl font-bold text-black mb-6">Login Your Account</h2>
+                                    <div className="w-full  ">
+                                        <h2 className=" text-xl lg:text-3xl font-bold text-black mb-6">Login Your Account</h2>
                                         <Form form={form} onFinish={handleLogin} layout="vertical">
 
 
@@ -986,7 +1008,7 @@ const QuotePageTwo: React.FC = () => {
                                                         onClick={() => setShowPhone(!showPhone)}
                                                         className="text-sm text-blue-600 hover:underline absolute right-3 top-1/2 transform -translate-y-1/2 z-10"
                                                     >
-                                                        {showPhone ? <> <p className=' text-[#404040]  ' >Use email address</p> </> : <> <p className=' text-[#404040] '  >Use phone number</p> </>}
+                                                        {showPhone ? <> <p className=' text-[#404040]  ' >Use email address</p> </> : <> <p className=' text-[#404040] '  >Phone number</p> </>}
                                                     </button>
                                                 </div>
                                             </Form.Item>
@@ -1064,9 +1086,9 @@ const QuotePageTwo: React.FC = () => {
 
                                         <p className="text-center mt-6 text-[#000000] font-degular lg:text-lg lg:pb-20 ">
                                             Don’t have an account?{" "}
-                                            <p onClick={handleOpenRegistrationModal} className="text-[#0063E5] underline cursor-pointer ">
+                                            <span onClick={handleOpenRegistrationModal} className="text-[#0063E5] underline cursor-pointer ">
                                                 <span>Register Here</span>
-                                            </p>
+                                            </span>
                                         </p>
 
 
@@ -1074,11 +1096,11 @@ const QuotePageTwo: React.FC = () => {
                                 </div>
 
                                 {/* Right Side - Image */}
-                                <div className=" ">
+                                <div className=" lg:ml-[10%] ">
                                     <img
                                         src="/images/registration/regImg.png"
                                         alt="Registration Illustration"
-                                        className="object-cover rounded-xl mt-[22%] mx-auto block "
+                                        className="object-cover rounded-xl lg:h-[422px] h-[200px] mt-4 lg:mt-0 block mx-auto  "
                                     />
                                 </div>
                             </div>
