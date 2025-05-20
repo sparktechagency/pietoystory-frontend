@@ -969,7 +969,7 @@ const QuotePageTwo: React.FC = () => {
 
             {loginModal && (
                 <div className="fixed inset-0 w-full flex items-center justify-center border border-black bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-5 rounded-lg shadow-lg lg:max-w-7 w-full mx-auto relative">
+                    <div className="bg-white p-5 rounded-lg shadow-lg lg:max-w-7xl w-full mx-auto relative">
                         {/* Close Button */}
                         <button
                             onClick={() => setLoginModal(false)}
@@ -981,7 +981,7 @@ const QuotePageTwo: React.FC = () => {
                         <>
                             <div className="flex flex-col lg:flex-row mx-auto pt-32 ">
                                 {/* Left Side - Form */}
-                                <div className="w-full lg:w-1/2 flex items-center justify-center">
+                                <div className=" lg:w-1/2  flex items-center justify-center">
                                     <div className="w-full  ">
                                         <h2 className=" text-xl lg:text-3xl font-bold text-black mb-6">Login Your Account</h2>
                                         <Form form={form} onFinish={handleLogin} layout="vertical">
