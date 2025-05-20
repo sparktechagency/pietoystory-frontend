@@ -6,9 +6,9 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Footer from "../footer/Footer";
 // import "./CheckoutForm.css"; // Custom CSS for Stripe Elements
 
-const CheckoutForm = ({ clientSecretKey }) => {
+const CheckoutForm = ({ clientSecretKey,paymentId }) => {
 
-
+console.log(`paymentId is ${paymentId}`)
 
     // checkout related function 
 
@@ -194,6 +194,11 @@ const CheckoutForm = ({ clientSecretKey }) => {
 
     }
 
+    const payloadTwo = {
+        full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, zip_code: postCode, area_to_clean: cleanArea, how_often: frequency, amount_of_dogs: dog, total_area: selectedArea, use_free_cleanup: 0,payment_intent_id:paymentId
+
+    }
+
 
     const handleSubmits = async () => {
         if (!full_address) {
@@ -308,7 +313,10 @@ const CheckoutForm = ({ clientSecretKey }) => {
 
             // ✅ Step 5: Call the Payment Success API
             await sendPaymentSuccess();
+            console.log(error)
         } catch (error: any) {
+            navigate("/")
+            console.log(error)
             console.error("Payment Failed:", error.message);
             message.error(`Payment Failed: ${error.message}`);
         } finally {
@@ -323,18 +331,19 @@ const CheckoutForm = ({ clientSecretKey }) => {
 
     const sendPaymentSuccess = async () => {
         try {
-            const response = await axiosPublic.post("/payment-success", payload, {
+            const response = await axiosPublic.post("/payment-success", payloadTwo, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response)
             if (response.status === 200) {
                 message.success("Payment information successfully sent to the server!");
                 navigate("/");
             }
         } catch (apiError: any) {
+            console.log(apiError)
+            navigate("/")
             console.error("API Error:", apiError.message);
             message.error(`API Error: ${apiError.response?.data?.message || "Something went wrong."}`);
         }

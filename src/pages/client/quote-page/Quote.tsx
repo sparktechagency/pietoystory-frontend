@@ -19,6 +19,7 @@ import { RegistrationFormValues } from '../../../type/registrationType';
 import { ApiResponse } from '../../../type/apiResponseType';
 import { loginApiPayloadType, loginApiResponseType } from '../../../type/loginTypes';
 import Swal from 'sweetalert2';
+import { FaPaw } from 'react-icons/fa';
 
 
 
@@ -348,7 +349,7 @@ const Quote: React.FC = () => {
     // hidden scroll 
 
     useEffect(() => {
-        if (openRegistrationModal) {
+        if (openRegistrationModal || loginModal) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "auto";
@@ -358,7 +359,7 @@ const Quote: React.FC = () => {
         return () => {
             document.body.style.overflow = "auto";
         };
-    }, [openRegistrationModal]);
+    }, [openRegistrationModal, loginModal]);
 
 
     // registration modal 
@@ -431,7 +432,7 @@ const Quote: React.FC = () => {
     };
 
 
-    const handleOpenRegistrationModal = ()=>{
+    const handleOpenRegistrationModal = () => {
         setOpenRegistrationModal(true);
         setLoginModal(false)
     }
@@ -516,7 +517,7 @@ const Quote: React.FC = () => {
 
                             {/* Dog Count */}
                             <div>
-                                <label className="block font-degular font-medium lg:text-xl text-lg text-[#404040] mb-5">
+                                <label className="block font-degular font-medium lg:text-xl  text-lg text-[#404040] mb-5">
                                     How Many Dogs
                                 </label>
                                 <div className="flex items-center gap-3">
@@ -526,16 +527,37 @@ const Quote: React.FC = () => {
                                         max="4"
                                         value={dogCount}
                                         onChange={(e) => setDogCount(Number(e.target.value))}
-                                        className="w-full accent-gray-700 mb-3"
+                                        className="w-full accent-gray-700 mb-3 border  "
                                     />
                                 </div>
-                                <div className="flex justify-between mt-2 text-gray-700 text-lg font-semibold">
-                                    {[1, 2, 3, 4].map((num) => (
+                                <div className="flex justify-between  text-gray-700 text-lg  font-semibold">
+                                    {[1, 2, 3, 4].map((num, i) => (
                                         <span
-                                            className="text-[#404040] font-degular font-semibold text-[28px]"
+                                            className="text-[#404040]  font-degular font-semibold text-[28px]"
                                             key={num}
                                         >
-                                            {num}
+                                            {/* {Array.from({ length: num }, (_, i) => (
+                                                                            <FaPaw size={19} key={i} className="inline-block  " />
+                                                                        ))} */}
+
+                                            <div className=' flex justify-between ' >
+                                                {i === 1 ? (
+                                                    <><span className=' flex flex-row gap-1 items-center  ml-12 ' > <FaPaw size={17} /> <FaPaw size={15} /> </span></>
+                                                ) : i === 2 ? (
+                                                    <><span className=' flex flex-row gap-1 ml-6 items-center  ' > <FaPaw size={17} /> <FaPaw size={15} /> <FaPaw size={15} /> </span></>
+                                                ) : i === 3 ? (
+                                                    <><span className=' flex flex-row gap-1 items-center  ' > <FaPaw size={17} /> <FaPaw size={15} /> <FaPaw size={15} /> <FaPaw size={15} /> </span></>
+
+                                                ) : (
+                                                    <>
+                                                        <span>
+                                                            <FaPaw size={15} />
+                                                        </span>
+                                                    </>
+                                                )
+                                                }
+                                            </div>
+
                                         </span>
                                     ))}
                                 </div>
@@ -552,10 +574,10 @@ const Quote: React.FC = () => {
                                         <option disabled selected value="">
                                             -select total area size-
                                         </option>
-                                        <option>1 acre</option>
-                                        <option>2 acre</option>
-                                        <option>3 acre</option>
-                                        <option>4 acre</option>
+                                        <option>0.2 Acre</option>
+                                        <option>0.2-1/3 Acre</option>
+                                        <option>1/3-1/2 Acre</option>
+                                        <option>1/2-3/4 </option>
                                     </select>
 
                                     {/* Custom Dropdown Icon */}
@@ -641,14 +663,14 @@ const Quote: React.FC = () => {
                                         <p className='text-[#343434] lg:text-xl font-degular ' > {dogCount} </p>
                                     </div>
                                 </div>
-                                <div className='flex justify-between items-center ' >
+                                {/* <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total area:</h1>
                                     </div>
                                     <div>
                                         <p className='text-[#343434] lg:text-xl font-degular ' >{selectAreaSqar} sq ft</p>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Area to clean:</h1>
@@ -928,7 +950,7 @@ const Quote: React.FC = () => {
 
             {loginModal && (
                 <div className="fixed inset-0 w-full flex items-center justify-center border border-black bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-5 rounded-lg shadow-lg lg:w-7/12 mx-auto relative">
+                    <div className="bg-white px-3 rounded-lg shadow-lg lg:w-7/12 w-full mx-auto relative">
                         {/* Close Button */}
                         <button
                             onClick={() => setLoginModal(false)}
@@ -938,11 +960,11 @@ const Quote: React.FC = () => {
                         </button>
 
                         <>
-                            <div className="flex flex-col lg:flex-row mx-auto pt-12 px-4 gap-8">
+                            <div className="flex flex-col lg:flex-row mx-auto pt-12 ">
                                 {/* Left Side - Form */}
                                 <div className="w-full lg:w-1/2 flex items-center justify-center">
                                     <div className="w-full max-w-xl">
-                                        <h2 className="text-3xl font-bold text-black mb-6">Login Your Account</h2>
+                                        <h2 className="lg:text-3xl text-xl font-bold text-black mb-6">Login Your Account</h2>
                                         <Form form={form} onFinish={handleLogin} layout="vertical">
 
 
@@ -967,7 +989,7 @@ const Quote: React.FC = () => {
                                                         onClick={() => setShowPhone(!showPhone)}
                                                         className="text-sm text-blue-600 hover:underline absolute right-3 top-1/2 transform -translate-y-1/2 z-10"
                                                     >
-                                                        {showPhone ? <> <p className=' text-[#404040]  ' >Use email address</p> </> : <> <p className=' text-[#404040] '  >Use phone number</p> </>}
+                                                        {showPhone ? <> <p className=' text-[#404040]  ' >Email address</p> </> : <> <p className=' text-[#404040] '  >Phone number</p> </>}
                                                     </button>
                                                 </div>
                                             </Form.Item>
@@ -1046,20 +1068,20 @@ const Quote: React.FC = () => {
                                         <div>
                                             <p className="text-center mt-6 text-[#000000] font-degular lg:text-lg lg:pb-20 ">
                                                 Don’t have an account?{" "}
-                                                <p onClick={handleOpenRegistrationModal} className="text-[#0063E5] underline cursor-pointer ">
+                                                <span onClick={handleOpenRegistrationModal} className="text-[#0063E5] underline cursor-pointer ">
                                                     <span>Register Here</span>
-                                                </p>
+                                                </span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Right Side - Image */}
-                                <div className=" ">
+                                <div className=" lg:ml-[10%] ">
                                     <img
                                         src="/images/registration/regImg.png"
                                         alt="Registration Illustration"
-                                        className="object-cover rounded-xl mt-[22%] mx-auto block "
+                                        className="object-cover rounded-xl lg:h-[422px] h-[200px] mt-4 lg:mt-0 block mx-auto  "
                                     />
                                 </div>
                             </div>

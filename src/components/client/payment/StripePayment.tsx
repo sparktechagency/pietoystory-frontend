@@ -11,6 +11,7 @@ const stripePromise = loadStripe("pk_test_51R5URpFLtaovuyYZIfRsWYtWarN29hwk4CE93
 const StripePayment = () => {
     const token = localStorage.getItem("token");
     const [clientSecret, setClientSecret] = useState("");
+    const [paymentId,setPaymentId] = useState<null>(null)
     const [loading, setLoading] = useState(false);
     const axiosPublic = useAxiosPublic();
     const [searchParam] = useSearchParams()
@@ -37,6 +38,7 @@ const StripePayment = () => {
                 );
 
                 setClientSecret(response.data?.data?.client_secret);
+                setPaymentId(response.data.data?.id)
             } catch (error: any) {
                 message.error(`Error creating payment intent: ${error.response?.data?.message || error.message}`);
                 // navigate("/");
@@ -60,7 +62,7 @@ const StripePayment = () => {
                 </div>
             ) : clientSecret ? (
                 <Elements options={{ clientSecret, appearance }} stripe={stripePromise}>
-                    <CheckoutForm clientSecretKey = {clientSecret} />
+                    <CheckoutForm clientSecretKey = {clientSecret} paymentId = {paymentId} />
                 </Elements>
             ) : (
                 <p className="text-center text-gray-500">Failed to load payment form.</p>

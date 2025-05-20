@@ -32,7 +32,6 @@ const LoginFrom: React.FC = () => {
   const [showPhone, setShowPhone] = useState(false);
 
   let handleSubmit = async (values: loginApiPayloadType) => {
-    console.log(values);
     try {
       setLoading(true);
       let res = await axiosPublic.post<loginApiResponseType>(`/login`, values);
@@ -73,10 +72,10 @@ const LoginFrom: React.FC = () => {
     <>
 
       <div className=" bg-[#f6f6f6] ">
-        <div className="flex flex-col lg:flex-row max-w-[1519px]  mx-auto pt-8 lg:pt-20 lg:px-0 px-4 lg:gap-x-20">
+        <div className="flex flex-col lg:flex-row max-w-[1519px]  mx-auto pt-32 lg:pt-20 lg:px-0 px-4  lg:gap-x-20">
           {/* Left Side - Form */}
           <div className="w-full max-w-[748px]">
-            <h2 className="text-3xl font-bold text-black mb-6">
+            <h2 className="lg:text-3xl text-xl font-bold text-black mb-6">
               Login To Your Account
             </h2>
             <Form
@@ -140,15 +139,15 @@ const LoginFrom: React.FC = () => {
 
               <div className="flex flex-col items-center lg:flex-row lg:items-center justify-between lg:my-9 my-3 ">
                 <Form.Item
-                  name="remember"
-                  required
-                  rules={[
-                    {
-                      required: true,
-                      message: "Remember me",
-                    },
-                  ]}
-                  valuePropName="checked"
+                  // name="remember"
+                  // required
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Remember me",
+                  //   },
+                  // ]}
+                  // valuePropName="checked"
                 >
                   <Checkbox
                     style={{ color: "#000000" }}
@@ -195,7 +194,7 @@ const LoginFrom: React.FC = () => {
             <img
               src="/images/registration/regImg.png"
               alt="Registration Illustration"
-              className="object-cover rounded-xl lg:h-[422px] mt-4 lg:mt-0 block mx-auto  "
+              className="object-cover rounded-xl lg:h-[422px] h-[200px] mt-4 lg:mt-0 block mx-auto  "
             />
           </div>
         </div>
