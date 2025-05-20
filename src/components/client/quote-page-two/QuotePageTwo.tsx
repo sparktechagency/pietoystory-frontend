@@ -1038,15 +1038,7 @@ const QuotePageTwo: React.FC = () => {
 
                                             <div className="flex flex-col items-center lg:flex-row lg:items-center justify-between lg:my-9 my-3 ">
                                                 <Form.Item
-                                                    name="remember"
-                                                    required
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message: "Remember me",
-                                                        },
-                                                    ]}
-                                                    valuePropName="checked"
+
                                                 >
                                                     <Checkbox
                                                         style={{ color: "#000000" }}

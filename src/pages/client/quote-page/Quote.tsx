@@ -950,7 +950,7 @@ const Quote: React.FC = () => {
 
             {loginModal && (
                 <div className="fixed inset-0 w-full flex items-center justify-center border border-black bg-black bg-opacity-50 z-50">
-                    <div className="bg-white px-3 rounded-lg shadow-lg lg:w-7/12 w-full mx-auto relative">
+                    <div className="bg-white px-3 rounded-lg shadow-lg lg:w-9/12 w-full mx-auto relative">
                         {/* Close Button */}
                         <button
                             onClick={() => setLoginModal(false)}
@@ -1019,15 +1019,7 @@ const Quote: React.FC = () => {
 
                                             <div className="flex flex-col items-center lg:flex-row lg:items-center justify-between lg:my-9 my-3 ">
                                                 <Form.Item
-                                                    name="remember"
-                                                    required
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message: "Remember me",
-                                                        },
-                                                    ]}
-                                                    valuePropName="checked"
+                                                    
                                                 >
                                                     <Checkbox
                                                         style={{ color: "#000000" }}
