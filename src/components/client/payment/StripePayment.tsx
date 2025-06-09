@@ -11,12 +11,14 @@ const stripePromise = loadStripe("pk_test_51R5URpFLtaovuyYZIfRsWYtWarN29hwk4CE93
 const StripePayment = () => {
     const token = localStorage.getItem("token");
     const [clientSecret, setClientSecret] = useState("");
-    const [paymentId,setPaymentId] = useState<null>(null)
+    const [paymentId, setPaymentId] = useState<null>(null)
     const [loading, setLoading] = useState(false);
     const axiosPublic = useAxiosPublic();
     const [searchParam] = useSearchParams()
     const navigate = useNavigate();
     const price = searchParam.get('price');
+    const amount = parseInt(price);
+    console.log(amount)
     useEffect(() => {
         const createPaymentIntent = async () => {
             if (!price) return;
@@ -26,7 +28,7 @@ const StripePayment = () => {
                 const response = await axiosPublic.post(
                     "/payment-intent",
                     {
-                        amount: price,
+                        amount: Number(amount),
                         payment_method_types: ["card"],
                     },
                     {
@@ -40,6 +42,7 @@ const StripePayment = () => {
                 setClientSecret(response.data?.data?.client_secret);
                 setPaymentId(response.data.data?.id)
             } catch (error: any) {
+                console.log(error)
                 message.error(`Error creating payment intent: ${error.response?.data?.message || error.message}`);
                 // navigate("/");
             } finally {
@@ -62,7 +65,7 @@ const StripePayment = () => {
                 </div>
             ) : clientSecret ? (
                 <Elements options={{ clientSecret, appearance }} stripe={stripePromise}>
-                    <CheckoutForm clientSecretKey = {clientSecret} paymentId = {paymentId} />
+                    <CheckoutForm clientSecretKey={clientSecret} paymentId={paymentId} />
                 </Elements>
             ) : (
                 <p className="text-center text-gray-500">Failed to load payment form.</p>

@@ -13,7 +13,6 @@ import {
     TeamOutlined,
     PhoneOutlined,
 } from '@ant-design/icons';
-import RegistrationModal from '../../../components/client/modal/RegistrationModal';
 import toast, { Toaster } from 'react-hot-toast';
 import { RegistrationFormValues } from '../../../type/registrationType';
 import { ApiResponse } from '../../../type/apiResponseType';
@@ -28,12 +27,14 @@ const Quote: React.FC = () => {
     const axiosPublic = useAxiosPublic()
     const [frequency, setFrequency] = useState(0);
     const [dogCount, setDogCount] = useState(1);
-    const [selecetedArea, setSelectedeArea] = useState(null);
+    const [selecetedArea, setSelectedeArea] = useState("");
     const [areaClean, setAreaClean] = useState(null);
-    const [selectAreaSqar, setSelectAreaSqar] = useState(null);
+    // const [selecetedArea, setSelectAreaSqar] = useState(null);
     const [searchParams] = useSearchParams();
     const postCode = searchParams.get('zip-code');
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
+
+
 
     const config = {
         headers: {
@@ -42,19 +43,17 @@ const Quote: React.FC = () => {
     };
 
     const frequencyLabels = [
-        "Once a week",
-        "Two times a week",
-        "Bi-weekly",
-        "Once a month",
+        "2x per week",
+        "once per week",
+        "bi weekly",
+        "once a month",
     ];
 
-    useEffect(() => {
-        // Only update state when selecetedArea changes
-        const selectArea = selecetedArea ? parseFloat(selecetedArea.split(" ")[0]) : null;
-        if (selectArea !== null) {
-            setSelectAreaSqar(selectArea * 43560);
-        }
-    }, [selecetedArea]);
+
+
+    const areIs = selecetedArea.split(' ')[0];
+
+
 
 
 
@@ -65,96 +64,96 @@ const Quote: React.FC = () => {
 
         // 1 acer 
 
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 43560) {
             setPrice(65)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 43560) {
             setPrice(69)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 43560) {
             setPrice(76)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 43560) {
             setPrice(82)
         }
-        // Two times a week
+        // once per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selecetedArea === 43560) {
             setPrice(100)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selecetedArea === 43560) {
             setPrice(105)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selecetedArea === 43560) {
             setPrice(108)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 43560) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selecetedArea === 43560) {
             setPrice(112)
         }
 
-        // Bi-weekly
+        // bi weekly
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 43560) {
             setPrice(53)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 43560) {
             setPrice(56)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 43560) {
             setPrice(61)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 43560) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 43560) {
             setPrice(67)
         }
 
-        // Once a month
+        // once a month
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once a month" && selecetedArea === 43560) {
             setPrice(42)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once a month" && selecetedArea === 43560) {
             setPrice(46.2)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once a month" && selecetedArea === 43560) {
             setPrice(52)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 43560) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once a month" && selecetedArea === 43560) {
             setPrice(59)
         }
 
 
         // 2 acer 
-        // Once a week
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        // 2x per week
+        if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 87120) {
             setPrice(90)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 87120) {
             setPrice(96)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 87120) {
             setPrice(103)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 87120) {
             setPrice(110)
         }
-        // Two times a week
+        // once per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selecetedArea === 87120) {
             setPrice(140)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selecetedArea === 87120) {
             setPrice(146)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selecetedArea === 87120) {
             setPrice(152)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 87120) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selecetedArea === 87120) {
             setPrice(158)
         }
 
-        // Bi-weekly
+        // bi weekly
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 87120) {
             setPrice(72)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 87120) {
             setPrice(80)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 87120) {
             setPrice(88)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 87120) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 87120) {
             setPrice(95)
         }
 
-        // Once a month
+        // once a month
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once a month" && selecetedArea === 87120) {
             setPrice(58)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once a month" && selecetedArea === 87120) {
             setPrice(65)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once a month" && selecetedArea === 87120) {
             setPrice(72)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 87120) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once a month" && selecetedArea === 87120) {
             setPrice(80)
         }
 
@@ -162,49 +161,49 @@ const Quote: React.FC = () => {
 
 
 
-        // Once a week
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        // 2x per week
+        if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 130680) {
             setPrice(120)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 130680) {
             setPrice(128)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 130680) {
             setPrice(133)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 130680) {
             setPrice(140)
         }
-        // Two times a week
+        // once per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selecetedArea === 130680) {
             setPrice(180)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selecetedArea === 130680) {
             setPrice(186)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selecetedArea === 130680) {
             setPrice(192)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 130680) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selecetedArea === 130680) {
             setPrice(199)
         }
 
-        // Bi-weekly
+        // bi weekly
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 130680) {
             setPrice(100)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 130680) {
             setPrice(107)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 130680) {
             setPrice(114)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 130680) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 130680) {
             setPrice(121)
         }
 
-        // Once a month
+        // once a month
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once a month" && selecetedArea === 130680) {
             setPrice(70)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once a month" && selecetedArea === 130680) {
             setPrice(85)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once a month" && selecetedArea === 130680) {
             setPrice(90)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 130680) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once a month" && selecetedArea === 130680) {
             setPrice(95)
         }
 
@@ -213,49 +212,49 @@ const Quote: React.FC = () => {
 
 
 
-        // Once a week
-        if (dogCount === 1 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        // 2x per week
+        if (dogCount === 1 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 174240) {
             setPrice(165)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 174240) {
             setPrice(174)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 174240) {
             setPrice(183)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "2x per week" && selecetedArea === 174240) {
             setPrice(193)
         }
-        // Two times a week
+        // once per week
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once per week" && selecetedArea === 174240) {
             setPrice(210)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once per week" && selecetedArea === 174240) {
             setPrice(220)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once per week" && selecetedArea === 174240) {
             setPrice(230)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Two times a week" && selectAreaSqar === 174240) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once per week" && selecetedArea === 174240) {
             setPrice(240)
         }
 
-        // Bi-weekly
+        // bi weekly
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 174240) {
             setPrice(130)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 174240) {
             setPrice(140)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 174240) {
             setPrice(150)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Bi-weekly" && selectAreaSqar === 174240) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "bi weekly" && selecetedArea === 174240) {
             setPrice(160)
         }
 
-        // Once a month
+        // once a month
 
-        else if (dogCount === 1 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+        else if (dogCount === 1 && frequencyLabels[frequency] === "once a month" && selecetedArea === 174240) {
             setPrice(90)
-        } else if (dogCount === 2 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+        } else if (dogCount === 2 && frequencyLabels[frequency] === "once a month" && selecetedArea === 174240) {
             setPrice(100)
-        } else if (dogCount === 3 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+        } else if (dogCount === 3 && frequencyLabels[frequency] === "once a month" && selecetedArea === 174240) {
             setPrice(110)
-        } else if (dogCount === 4 && frequencyLabels[frequency] === "Once a month" && selectAreaSqar === 174240) {
+        } else if (dogCount === 4 && frequencyLabels[frequency] === "once a month" && selecetedArea === 174240) {
             setPrice(120)
         }
 
@@ -266,85 +265,89 @@ const Quote: React.FC = () => {
 
 
 
-    }, [dogCount, frequency, selectAreaSqar]);
+    }, [dogCount, frequency, selecetedArea]);
 
 
     // discount api integrate 
 
 
 
-    const [getDiscount, setDiscount] = useState<boolean>(true);
-    const [charge, setCharge] = useState<boolean>(true)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let res = await axiosPublic.get(`/discount-charge`, config);
-                if (res.status === 200) {
-                    setDiscount(res.data?.getDiscount);
-                    setCharge(res.data?.getCharge);
-                }
-            } catch (error) {
 
-            } finally {
-
-            }
-        }
-        fetchData();
-    }, [])
 
 
 
     const navigate = useNavigate();
 
-    const [totalPrice, setTotalPrice] = useState(price); // Initial value is the original price
-    const [grantTotal, setGrantTotal] = useState(price);
-
-    // Calculation Logic
-    useEffect(() => {
-        let calculatedPrice = getDiscount ? price * 0.5 : price;
-
-        if (charge) {
-            calculatedPrice += 15;
-        }
-
-        setTotalPrice(calculatedPrice);
-        setGrantTotal(calculatedPrice);
-    }, [price, getDiscount, charge]);
 
 
-    const [openRegistrationModal, setOpenRegistrationModal] = useState<boolean>(false);
+
+
+
     const [loginModal, setLoginModal] = useState<boolean>(false)
-    const handleSubmit = async () => {
+    const [openRegistrationModal, setOpenRegistrationModal] = useState<boolean>(false);
+    const [response, setResponse] = useState(null);
+    const [triggerFetch, setTriggerFetch] = useState(false);
 
 
-        if (!postCode) {
-            return message.error("Select a postcode.");
-        }
+    const handleSubmit = () => {
+        if (!postCode) return message.error("Select a postcode.");
+        if (!frequencyLabels[frequency]) return message.error("Select a time.");
+        if (dogCount <= 0) return message.error("Please select a dog!");
+        if (!selecetedArea) return message.error("Please select your area!");
+        if (!token) return setLoginModal(true);
 
-        if (!frequencyLabels[frequency]) {
-            return message.error("Select a time.");
-        }
-
-        if (dogCount <= 0) {
-            return message.error("Please select a dog!");
-        }
-
-        if (!selecetedArea) {
-            return message.error("Please select your area!");
-        }
-        if (!token) {
-            setLoginModal(true);
-        }
-
-
-        token && navigate(
-            `/payment?postCode=${postCode}&frequency=${frequencyLabels[frequency]}&dog=${dogCount}&selectedArea=${selectAreaSqar}&cleanArea=${areaClean}&price=${price}`
-        );
-
-
-
+        // Trigger the API call via state
+        setTriggerFetch(true);
     };
+
+
+    useEffect(() => {
+        if (!triggerFetch) return;
+
+        const fetchQuote = async () => {
+            try {
+                const res = await axiosPublic.get(
+                    `/quote?zip_code=${postCode}&how_often=${frequency}&how_many_dogs=${dogCount}&total_area_size=${Number(areIs)}&area_to_clean=${areaClean}`,
+                    config
+                );
+
+                setResponse(res.data);
+                console.log(res)
+
+                if (token) {
+                    navigate(
+                        `/payment?postCode=${postCode}` +
+                        `&frequency=${frequencyLabels[frequency]}` +
+                        `&dog=${dogCount}` +
+                        `&selectedArea=${selecetedArea}` +
+                        `&cleanArea=${areaClean}` +
+                        `&price=${res.data.total_cost}`
+                    );
+                }
+
+                console.log(res);
+            } catch (error) {
+                console.error(error);
+                message.error("Failed to fetch quote.");
+            } finally {
+                setTriggerFetch(false); // reset trigger
+            }
+        };
+
+        fetchQuote();
+    }, [triggerFetch]);
+
+
+
+
+
+
+
+
+
+
+
 
     // hidden scroll 
 
@@ -370,14 +373,13 @@ const Quote: React.FC = () => {
 
         try {
             setLoading(true);
-            let res = await axiosPublic.post<ApiResponse>(`/register`, values);
+            let res = await axiosPublic.post<ApiResponse>(`/ register`, values);
             if (res.status === 201) {
                 toast.success(res.data.message);
                 form.resetFields();
-                return navigate(`/user-otp-verify?email=${values.email || values.phone_number}`)
+                return navigate(`/ user - otp - verify ? email = ${values.email || values.phone_number} `)
             }
         } catch (error: any) {
-            console.log(error);
             const errorMessage =
                 error.response?.data?.message?.email?.[0] ||
                 error.response?.data?.message?.phone_number?.[0] ||
@@ -400,11 +402,9 @@ const Quote: React.FC = () => {
         setOpenRegistrationModal(false)
     }
     let handleLogin = async (values: loginApiPayloadType) => {
-        console.log(values);
         try {
             setLoading(true);
-            let res = await axiosPublic.post<loginApiResponseType>(`/login`, values);
-            console.log(res)
+            let res = await axiosPublic.post<loginApiResponseType>(`/ login`, values);
             if (res.status === 200) {
                 localStorage.setItem(`token`, res.data?.token);
                 Swal.fire({
@@ -507,7 +507,7 @@ const Quote: React.FC = () => {
                                             className={`${idx === frequency
                                                 ? "font-degular text-[16px] font-medium text-[#404040]"
                                                 : ""
-                                                }`}
+                                                } `}
                                         >
                                             {label}
                                         </span>
@@ -574,10 +574,10 @@ const Quote: React.FC = () => {
                                         <option disabled selected value="">
                                             -select total area size-
                                         </option>
-                                        <option>0.2 Acre</option>
-                                        <option>0.2-1/3 Acre</option>
-                                        <option>1/3-1/2 Acre</option>
-                                        <option>1/2-3/4 </option>
+                                        <option>1 Acre</option>
+                                        <option>2 Acre</option>
+                                        <option>3 Acre</option>
+                                        <option>4 Acre</option>
                                     </select>
 
                                     {/* Custom Dropdown Icon */}
@@ -668,7 +668,7 @@ const Quote: React.FC = () => {
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total area:</h1>
                                     </div>
                                     <div>
-                                        <p className='text-[#343434] lg:text-xl font-degular ' >{selectAreaSqar} sq ft</p>
+                                        <p className='text-[#343434] lg:text-xl font-degular ' >{selecetedArea} sq ft</p>
                                     </div>
                                 </div> */}
                                 <div className='flex justify-between items-center ' >
@@ -689,7 +689,7 @@ const Quote: React.FC = () => {
                                         <p className=' lg:text-lg font-degular text-[#343434] ' >{frequencyLabels[frequency]}</p>
                                     </div>
                                     <div>
-                                        <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' > ${price} </p>
+                                        <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' > ${response?.price_per_visit} </p>
                                     </div>
                                 </div>
                             </div>
@@ -702,9 +702,10 @@ const Quote: React.FC = () => {
                                     </div>
                                     <div>
                                         <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >
-                                            ${
-                                                getDiscount ? <>{price / 2}</> : <>0</>
-                                            }
+                                            $
+                                            {/* {
+                                                response.getDiscount ? <>{response?.discount_amount}</> : <>0</>
+                                            } */}
                                         </p>
                                     </div>
                                 </div>
@@ -717,9 +718,11 @@ const Quote: React.FC = () => {
                                         <p className=' lg:text-lg font-degular text-[#343434] ' >Monthly</p>
                                     </div>
                                     <div>
-                                        <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >{
-                                            charge ? <>+ $15.00</> : <>$0</>
-                                        }</p>
+                                        <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >
+                                            {
+                                                response?.getCharge ? <>+ $15.00</> : <>$0</>
+                                            }
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -733,8 +736,9 @@ const Quote: React.FC = () => {
                                     <div>
                                         <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >
                                             ${
-                                                grantTotal
+                                                response?.total_cost
                                             }
+
                                         </p>
                                     </div>
                                 </div>
@@ -753,6 +757,20 @@ const Quote: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             {/* registration modal  */}
@@ -1019,7 +1037,7 @@ const Quote: React.FC = () => {
 
                                             <div className="flex flex-col items-center lg:flex-row lg:items-center justify-between lg:my-9 my-3 ">
                                                 <Form.Item
-                                                    
+
                                                 >
                                                     <Checkbox
                                                         style={{ color: "#000000" }}
