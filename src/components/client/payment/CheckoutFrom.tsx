@@ -6,9 +6,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Footer from "../footer/Footer";
 // import "./CheckoutForm.css"; // Custom CSS for Stripe Elements
 
-const CheckoutForm = ({ clientSecretKey,paymentId }) => {
+const CheckoutForm = ({ clientSecretKey, paymentId }) => {
 
-console.log(`paymentId is ${paymentId}`)
 
     // checkout related function 
 
@@ -51,9 +50,11 @@ console.log(`paymentId is ${paymentId}`)
     const postCode = searchParam.get("postCode") ?? "";
     const frequency = searchParam.get("frequency") ?? "";
     const dog = searchParam.get("dog") ?? "";
-    const selectedArea = searchParam.get("selectedArea") ?? "";
+    const area = searchParam.get("selectedArea") ?? "";
+    const selectedArea = area.split(' ')[0];
     const cleanArea = searchParam.get("cleanArea") ?? "";
     const price = parseFloat(searchParam.get("price") ?? "0");
+
 
 
 
@@ -72,7 +73,6 @@ console.log(`paymentId is ${paymentId}`)
                 setCoinRemaning(res.data?.userCoinData?.remaining_coins)
                 if (res.data?.userCoinData?.remaining_coins > 0) {
                     setCoinRemaning(res.data?.userCoinData?.remaining_coins);
-                    console.log(coinRemaning)
                 }
             } catch (error) {
 
@@ -100,7 +100,6 @@ console.log(`paymentId is ${paymentId}`)
                     setCharge(res.data?.getCharge);
                 }
             } catch (error) {
-
             }
         }
         fetchData();
@@ -188,6 +187,7 @@ console.log(`paymentId is ${paymentId}`)
         }));
     };
 
+    // payment_intent_id`, `user_id`, `zip_code`, `how_often`, `amount_of_dogs`, `total_area`, `area_to_clean
 
     const payload = {
         full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, zip_code: postCode, area_to_clean: cleanArea, how_often: frequency, amount_of_dogs: dog, total_area: selectedArea, use_free_cleanup: 1
@@ -195,9 +195,11 @@ console.log(`paymentId is ${paymentId}`)
     }
 
     const payloadTwo = {
-        full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, zip_code: postCode, area_to_clean: cleanArea, how_often: frequency, amount_of_dogs: dog, total_area: selectedArea, use_free_cleanup: 0,payment_intent_id:paymentId
+        full_address, first_name, last_name, dog_name, additional_comments, contact_email, contact_number, zip_code: postCode, area_to_clean: cleanArea, how_often: frequency, amount_of_dogs: dog, total_area: selectedArea, use_free_cleanup: 0, payment_intent_id: paymentId,
+        cost: price
 
     }
+
 
 
     const handleSubmits = async () => {
@@ -313,10 +315,8 @@ console.log(`paymentId is ${paymentId}`)
 
             // ✅ Step 5: Call the Payment Success API
             await sendPaymentSuccess();
-            console.log(error)
         } catch (error: any) {
             navigate("/")
-            console.log(error)
             console.error("Payment Failed:", error.message);
             message.error(`Payment Failed: ${error.message}`);
         } finally {
@@ -342,7 +342,6 @@ console.log(`paymentId is ${paymentId}`)
                 navigate("/");
             }
         } catch (apiError: any) {
-            console.log(apiError)
             navigate("/")
             console.error("API Error:", apiError.message);
             message.error(`API Error: ${apiError.response?.data?.message || "Something went wrong."}`);
