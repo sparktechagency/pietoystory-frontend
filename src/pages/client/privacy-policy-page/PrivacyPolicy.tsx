@@ -1,16 +1,19 @@
 import React from 'react'
 import Footer from '../../../components/client/footer/Footer'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const PrivacyPolicy: React.FC = () => {
-
+    const navigate = useNavigate();
+    const navigateHomePage = () => {
+        navigate("/")
+    }
     return (
         <>
             <div className='pt-[46px] pb-[65px] bg-[#f6f6f6]  ' >
                 <div className=' ' >
                     <div className=' max-w-[1519px] mx-auto flex flex-col lg:flex-row items-start gap-7 ' >
                         {/* left side  */}
-                        <div className='flex items-center gap-[22px] ' >
+                        <div onClick={navigateHomePage} className='flex items-center gap-[22px] cursor-pointer ' >
                             <div className=' w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center  ' >
                                 <Link to={"/"}><span>
                                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +39,7 @@ const PrivacyPolicy: React.FC = () => {
                             />
 
                             {/* Gradient Overlay */}
-                            <div className="absolute rounded-[20px] inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <div className="absolute rounded-[20px] inset-0 bg-gradient-thttps://www.youtube.com/watch?v=rmW6T72_RAU&list=PL_XxuZqN0xVAO0uVm0ClJ3wsKHJw6G_TL&index=2&pp=iAQBo-t from-black/80 to-transparent"></div>
 
                             {/* Centered Text */}
                             <div className="absolute inset-0 flex items-center top-[300px] justify-center">
