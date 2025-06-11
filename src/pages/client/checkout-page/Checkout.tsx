@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/client/footer/Footer'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import useAxiosPublic from '../../../hooks/UseAxiosPublic'
 import { message, Spin } from 'antd';
 
@@ -222,6 +222,8 @@ const Checkout: React.FC = () => {
             setLoading(false)
         }
     }
+
+    const navigate = useNavigate()
 
 
     // payment intent related 

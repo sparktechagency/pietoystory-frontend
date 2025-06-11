@@ -6,7 +6,7 @@ import { message, Spin } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CheckoutForm from "./CheckoutFrom";
 
-const stripePromise = loadStripe("pk_test_51R5URpFLtaovuyYZIfRsWYtWarN29hwk4CE93lpgduD1wb4xEMHNpjIfA13e16Cj5DZdvlt8B65aLal1S3jbgiqM00JmcGBQDa");
+const stripePromise = loadStripe("pk_test_51RRcCAE6wLIwI0dV6iJfhM4HIuSPibFrtt7SEQgCWIRB8SxgNmftndfacTd1Cu15akZHEkPx3NSu13qVMPZNwU7u00KpR9KvVP");
 
 const StripePayment = () => {
     const token = localStorage.getItem("token");
