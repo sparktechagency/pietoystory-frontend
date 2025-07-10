@@ -29,6 +29,7 @@ const CreateAccount: React.FC = () => {
         try {
             setLoading(true);
             let res = await axiosPublic.post<ApiResponse>(`/register`, values);
+            console.log(res)
             if (res.status === 201) {
                 toast.success(res.data.message);
                 form.resetFields();

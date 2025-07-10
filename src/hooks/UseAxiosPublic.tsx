@@ -3,7 +3,7 @@ const axiosPublic = axios.create({
 
     // baseURL: 'http://localhost:3000'
 
-    baseURL: 'http://10.0.80.16:8000/api'
+    baseURL: 'http://10.10.10.65:8001/api'
 })
 
 const useAxiosPublic = () => {

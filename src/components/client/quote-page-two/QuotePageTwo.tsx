@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { message, Form, Button, Input, Checkbox } from 'antd';
 import useAxiosPublic from '../../../hooks/UseAxiosPublic';
 import { IoClose } from 'react-icons/io5';
@@ -19,10 +19,55 @@ import { ApiResponse } from '../../../type/apiResponseType';
 import { loginApiPayloadType, loginApiResponseType } from '../../../type/loginTypes';
 import Swal from 'sweetalert2';
 import { FaPaw, FaStar } from 'react-icons/fa';
+import { debounce } from 'lodash';
 
 
 
 const QuotePageTwo: React.FC = () => {
+
+    const handleOpenLoginModal = () => {
+        setLoginModal(true)
+        setOpenRegistrationModal(false)
+    }
+    let handleLogin = async (values: loginApiPayloadType) => {
+        console.log(values);
+        try {
+            setLoading(true);
+            let res = await axiosPublic.post<loginApiResponseType>(`/login`, values);
+            console.log(res)
+            if (res.status === 200) {
+                localStorage.setItem(`token`, res.data?.token);
+                window.location.href = "/";
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                setLoginModal(false)
+                form.resetFields();
+                return;
+            }
+        } catch (error: any) {
+            return Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: error.response?.data?.message,
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleOpenRegistrationModal = () => {
+        setOpenRegistrationModal(true);
+        setLoginModal(false)
+    }
+
+
     const [form] = Form.useForm()
     const axiosPublic = useAxiosPublic()
     const [frequency, setFrequency] = useState(0);
@@ -63,8 +108,40 @@ const QuotePageTwo: React.FC = () => {
 
 
 
+    const handleSubmit = async () => {
+        if (!zipCode) return message.error("Enter your zip code");
+        if (!frequencyLabels[frequency]) return message.error("Select a time.");
+        if (dogCount <= 0) return message.error("Please select a dog!");
+        if (!selectAreaSqar) return message.error("Please select your area!");
 
-    const [price, setPrice] = useState(0)
+        if (!token) {
+            setLoginModal(true);
+            return;
+        }
+
+        try {
+            // Check zip code validity before navigation
+            const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipCode });
+
+            if (res.status === 200 && responseData?.total_cost) {
+                navigate(
+                    `/payment?postCode=${zipCode}` +
+                    `&frequency=${frequencyLabels[frequency]}` +
+                    `&dog=${dogCount}` +
+                    `&selectedArea=${selectAreaSqar}` +
+                    `&cleanArea=${areaClean}` +
+                    `&discountPrice=${responseData?.discount_amount}` +
+                    `&price=${responseData?.total_cost}`
+                );
+            }
+        } catch (error) {
+            console.log(error)
+            const errorMessage =
+                error.response?.data?.message || "Something went wrong. Please try again later.";
+            message.error(errorMessage);
+        }
+    };
+
 
 
 
@@ -95,54 +172,39 @@ const QuotePageTwo: React.FC = () => {
 
 
 
-    const handleSubmit = async () => {
-        // ✅ Validation checks
-        if (!zipCode) {
-            return message.error("Enter your zip code");
-        }
-
-        if (!frequencyLabels[frequency]) {
-            return message.error("Select a time.");
-        }
-
-        if (dogCount <= 0) {
-            return message.error("Please select a dog!");
-        }
-
-        if (!selecetedArea) {
-            return message.error("Please select your area!");
-        }
-
-        // 🔍 If there is no token, open the registration modal
-        if (!token) {
-            setLoginModal(true);
-            return; // Prevents further execution
-        }
-
-        try {
-            // 🛡️ Sending zip code to the server (data sent in the request body for POST)
-            const res = await axiosPublic.post(`/check-zip-code`, {
-                zip_code: zipCode,
-            });
-
-            const response = await axiosPublic.get(`/quote?zip_code=${zipCode}&how_often=${frequency}&how_many_dogs=${dogCount}&total_area_size=${selectAreaSqar}&area_to_clean=${areaClean}`, config);
-
-            console.log(response);
-            setResponseData(response?.data);
-
-            // ✅ If the zip code is valid, navigate to the payment page
-            if (res.status === 200) {
-                navigate(
-                    `/payment?postCode=${zipCode}&frequency=${frequencyLabels[frequency]}&dog=${dogCount}&selectedArea=${selectAreaSqar}&cleanArea=${areaClean}&price=${responseData?.total_cost}`
+    const fetchQuote = useCallback(
+        debounce(async (params) => {
+            try {
+                const response = await axiosPublic.get(
+                    `/quote?zip_code=${params.zipCode}` +
+                    `&how_often=${params.frequency}` +
+                    `&how_many_dogs=${params.dogCount}` +
+                    `&total_area_size=${params.selectAreaSqar}` +
+                    `&area_to_clean=${params.areaClean}`,
+                    config
                 );
+                console.log(response)
+                setResponseData(response.data);
+            } catch (err) {
+                console.error(err);
+                // Show error only if logged in
+                if (!token) {
+                    // message.error("Zip code not serviceable");
+                    return handleOpenLoginModal();
+                } else if (!token) {
+                    return handleOpenLoginModal();
+                }
             }
-        } catch (error: any) {
-            console.error(error.response?.data?.message);
+        }, 10),
+        [token] // token added as dependency here
+    );
 
-            const errorMessage = error.response?.data?.message || "Something went wrong. Please try again later.";
-            message.error(errorMessage);
-        }
-    };
+    useEffect(() => {
+        // Remove token check here so guests can fetch data too
+        if (!zipCode || !frequency || !dogCount || !selectAreaSqar || !areaClean) return;
+
+        fetchQuote({ zipCode, frequency, dogCount, selectAreaSqar, areaClean });
+    }, [zipCode, frequency, dogCount, selectAreaSqar, areaClean]);
 
 
 
@@ -197,46 +259,6 @@ const QuotePageTwo: React.FC = () => {
 
 
 
-    const handleOpenLoginModal = () => {
-        setLoginModal(true)
-        setOpenRegistrationModal(false)
-    }
-    let handleLogin = async (values: loginApiPayloadType) => {
-        console.log(values);
-        try {
-            setLoading(true);
-            let res = await axiosPublic.post<loginApiResponseType>(`/login`, values);
-            console.log(res)
-            if (res.status === 200) {
-                localStorage.setItem(`token`, res.data?.token);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: res.data.message,
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                setLoginModal(false)
-                form.resetFields();
-                return;
-            }
-        } catch (error: any) {
-            return Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: error.response?.data?.message,
-                showConfirmButton: false,
-                timer: 1500,
-            });
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleOpenRegistrationModal = () => {
-        setOpenRegistrationModal(true);
-        setLoginModal(false)
-    }
 
 
 

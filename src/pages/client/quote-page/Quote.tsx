@@ -3,6 +3,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { message, Form, Button, Input, Checkbox } from 'antd';
 import useAxiosPublic from '../../../hooks/UseAxiosPublic';
 import { IoClose } from 'react-icons/io5';
+import { debounce } from 'lodash';
+import { useCallback } from 'react';
 import {
     UserOutlined,
     MailOutlined,
@@ -27,6 +29,7 @@ const Quote: React.FC = () => {
     const axiosPublic = useAxiosPublic()
     const [frequency, setFrequency] = useState(0);
     const [dogCount, setDogCount] = useState(1);
+    const [discountPrice, setDiscountPrice] = useState(0);
     const [selecetedArea, setSelectedeArea] = useState("");
     const [areaClean, setAreaClean] = useState(null);
     const [selecetedSqarArea, setSelectAreaSqar] = useState(null);
@@ -108,46 +111,82 @@ const Quote: React.FC = () => {
     };
 
     /* ---------- 2. effect: fetch quote when trigger turns true ---------- */
-    useEffect(() => {
-        if (!triggerFetch) return;
 
-        const fetchQuote = async () => {
+    // ✅ Real-time debounced quote fetch
+    const fetchQuote = useCallback(
+        debounce(async (params) => {
             try {
                 const res = await axiosPublic.get(
-                    `/quote?zip_code=${postCode}` +
-                    `&how_often=${frequency}` +
-                    `&how_many_dogs=${dogCount}` +
-                    `&total_area_size=${selecetedSqarArea}` +
-                    `&area_to_clean=${areaClean}`,
+                    `/quote?zip_code=${params.postCode}` +
+                    `&how_often=${params.frequency}` +
+                    `&how_many_dogs=${params.dogCount}` +
+                    `&total_area_size=${params.selecetedSqarArea}` +
+                    `&area_to_clean=${params.areaClean}`,
                     config
                 );
-
-                setResponse(res.data);    // ⬅️  price now in state → renders instantly
+                
+                setResponse(res.data);
             } catch (err) {
-                console.error(err);
-                message.error("Failed to fetch quote.");
-            } finally {
-                setTriggerFetch(false);   // reset for next submit
+                if(err){
+                    handleOpenLoginModal()
+                }
             }
-        };
+        }, 10),
+        []
+    );
 
-        fetchQuote();
-    }, [triggerFetch]);
-
-    /* ---------- 3. effect: navigate only after price arrives ---------- */
+    // ✅ Watch input fields and fetch in real time
     useEffect(() => {
-        if (token && response?.total_cost) {
-            navigate(
-                `/payment?postCode=${postCode}` +
-                `&frequency=${frequencyLabels[frequency]}` +
-                `&dog=${dogCount}` +
-                `&selectedArea=${selecetedSqarArea}` +
-                `&cleanArea=${areaClean}` +
-                `&price=${response.total_cost}`      // ✅ always the latest price
-            );
-        }
-    }, [response, token]);
+        if (
+            !postCode ||
+            !frequency ||
+            !dogCount ||
+            !selecetedSqarArea ||
+            !areaClean
+        )
+            return;
 
+        fetchQuote({
+            postCode,
+            frequency,
+            dogCount,
+            selecetedSqarArea,
+            areaClean,
+        });
+    }, [postCode, frequency, dogCount, selecetedSqarArea, areaClean]);
+
+
+
+
+
+
+
+
+
+
+    const handleContinue = () => {
+        if (!token) {
+            setLoginModal(true);
+            return;
+        }
+        if (!response?.total_cost)
+            return message.error("Please wait for the quote to be fetched.");
+
+        navigate(
+            `/payment?postCode=${postCode}` +
+            `&frequency=${frequencyLabels[frequency]}` +
+            `&dog=${dogCount}` +
+            `&selectedArea=${selecetedSqarArea}` +
+            `&cleanArea=${areaClean}` +
+            `&discountPrice=${response?.discount_amount}` +
+            `&price=${response.total_cost}`
+        );
+    };
+
+
+
+
+    console.log(`response is ${response}`)
 
 
 
@@ -182,11 +221,11 @@ const Quote: React.FC = () => {
 
         try {
             setLoading(true);
-            let res = await axiosPublic.post<ApiResponse>(`/ register`, values);
+            let res = await axiosPublic.post<ApiResponse>(`/register`, values);
             if (res.status === 201) {
                 toast.success(res.data.message);
                 form.resetFields();
-                return navigate(`/ user - otp - verify ? email = ${values.email || values.phone_number} `)
+                return navigate(`/user-otp-verify?email = ${values.email || values.phone_number} `)
             }
         } catch (error: any) {
             const errorMessage =
@@ -213,9 +252,10 @@ const Quote: React.FC = () => {
     let handleLogin = async (values: loginApiPayloadType) => {
         try {
             setLoading(true);
-            let res = await axiosPublic.post<loginApiResponseType>(`/ login`, values);
+            let res = await axiosPublic.post<loginApiResponseType>(`/login`, values);
             if (res.status === 200) {
                 localStorage.setItem(`token`, res.data?.token);
+                window.location.href = "/"
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -472,14 +512,14 @@ const Quote: React.FC = () => {
                                         <p className='text-[#343434] lg:text-xl font-degular ' > {dogCount} </p>
                                     </div>
                                 </div>
-                                {/* <div className='flex justify-between items-center ' >
+                                <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total area:</h1>
                                     </div>
                                     <div>
-                                        <p className='text-[#343434] lg:text-xl font-degular ' >{selecetedArea} sq ft</p>
+                                        <p className='text-[#343434] lg:text-xl font-degular ' >{response?.total_area}</p>
                                     </div>
-                                </div> */}
+                                </div>
                                 <div className='flex justify-between items-center ' >
                                     <div className='  ' >
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Area to clean:</h1>
@@ -511,10 +551,10 @@ const Quote: React.FC = () => {
                                     </div>
                                     <div>
                                         <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >
-                                            $
-                                            {/* {
-                                                response.getDiscount ? <>{response?.discount_amount}</> : <>0</>
-                                            } */}
+                                            
+                                           $ {
+                                                response?.getDiscount ? <>{response?.discount_amount}</> : <>0</>
+                                            }
                                         </p>
                                     </div>
                                 </div>
@@ -553,7 +593,7 @@ const Quote: React.FC = () => {
                                 </div>
                             </div>
 
-                            <button onClick={handleSubmit} className=' py-4 px-12 bg-bgColor w-full rounded-2xl mt-9 text-textColor text-2xl font-degular flex text-center justify-center mx-auto ' >
+                            <button onClick={handleContinue} className=' py-4 px-12 bg-bgColor w-full rounded-2xl mt-9 text-textColor text-2xl font-degular flex text-center justify-center mx-auto ' >
                                 <span className=' flex items-center gap-2 ' >Continue <span>
                                     <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 7.34293L13.5298 7.34293L8.27482 2.1361L9.92604 0.5L18 8.5L9.92604 16.5L8.27482 14.8639L13.5298 9.65707L0 9.65707V7.34293Z" fill="black" />
@@ -910,29 +950,6 @@ const Quote: React.FC = () => {
                     </div>
                 </div>
             )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

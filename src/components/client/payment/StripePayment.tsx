@@ -6,7 +6,7 @@ import { message, Spin } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CheckoutForm from "./CheckoutFrom";
 
-const stripePromise = loadStripe("pk_test_51RRcCAE6wLIwI0dV6iJfhM4HIuSPibFrtt7SEQgCWIRB8SxgNmftndfacTd1Cu15akZHEkPx3NSu13qVMPZNwU7u00KpR9KvVP");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 
 const StripePayment = () => {
     const token = localStorage.getItem("token");
@@ -42,9 +42,8 @@ const StripePayment = () => {
                 setClientSecret(response.data?.data?.client_secret);
                 setPaymentId(response.data.data?.id)
             } catch (error: any) {
-                console.log(error)
                 message.error(`Error creating payment intent: ${error.response?.data?.message || error.message}`);
-                // navigate("/");
+                navigate("/");
             } finally {
                 setLoading(false);
             }

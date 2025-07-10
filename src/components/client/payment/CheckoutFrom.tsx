@@ -4,6 +4,7 @@ import { Button, message } from "antd";
 import useAxiosPublic from "../../../hooks/UseAxiosPublic";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Footer from "../footer/Footer";
+import Swal from "sweetalert2";
 // import "./CheckoutForm.css"; // Custom CSS for Stripe Elements
 
 const CheckoutForm = ({ clientSecretKey, paymentId }) => {
@@ -54,6 +55,7 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
     const selectedArea = area.split(' ')[0];
     const cleanArea = searchParam.get("cleanArea") ?? "";
     const price = parseFloat(searchParam.get("price") ?? "0");
+    const discountPrice = parseFloat(searchParam.get("discountPrice") ?? "0");
 
 
 
@@ -75,8 +77,6 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
                     setCoinRemaning(res.data?.userCoinData?.remaining_coins);
                 }
             } catch (error) {
-
-            } finally {
 
             }
         }
@@ -174,7 +174,7 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
 
 
 
-    const userDetails = JSON.stringify(formData);
+
 
 
 
@@ -224,6 +224,7 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
         try {
             setLoading(true);
             const res = await axiosPublic.post("/payment-success", payload, config);
+            console.log(`response is ${res}`)
             const response = await axiosPublic.get("/all-referred-info", config);
             setDiscount(response.data?.getDiscount);
             setCharge(response.data?.getCharge);
@@ -311,14 +312,25 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
 
             if (confirmError) return handleError(confirmError.message);
 
-            message.success("Payment Successful!");
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Payment successfull",
+                showConfirmButton: false,
+                timer: 1500
+            });
 
             // ✅ Step 5: Call the Payment Success API
             await sendPaymentSuccess();
         } catch (error: any) {
             navigate("/")
-            console.error("Payment Failed:", error.message);
-            message.error(`Payment Failed: ${error.message}`);
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: `Payment Failed: ${error.message}`,
+                showConfirmButton: false,
+                timer: 1500
+            });
         } finally {
             setLoading(false);
         }
@@ -338,7 +350,7 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
                 },
             });
             if (response.status === 200) {
-                message.success("Payment information successfully sent to the server!");
+                // message.success("Payment information successfully sent to the server!");
                 navigate("/");
             }
         } catch (apiError: any) {
@@ -594,7 +606,7 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
                                     </div>
                                     <div>
                                         <p className='text-[#FF434B] lg:text-[26px] text-sm font-semibold font-degular ' >
-                                            ${getDiscount ? <>{totalPrice}</> : ""}
+                                            ${discountPrice}
                                         </p>
                                     </div>
                                 </div>
@@ -620,7 +632,7 @@ const CheckoutForm = ({ clientSecretKey, paymentId }) => {
                                     <div>
                                         <p className='text-[#343434] lg:text-[26px] font-semibold font-degular ' >
                                             ${
-                                                getDiscount && charge ? <>{grantTotal}</> : <>{price}</>
+                                                price.toFixed(2)
                                             }
                                         </p>
                                     </div>
