@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const PrivacyPolicy: React.FC = () => {
     const navigate = useNavigate();
+    window.scrollTo(0,0);
     const navigateHomePage = () => {
         navigate("/")
     }
