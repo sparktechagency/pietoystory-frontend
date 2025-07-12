@@ -3,6 +3,7 @@ import Footer from '../../../components/client/footer/Footer'
 import { Link } from 'react-router-dom'
 
 const TermCondiction: React.FC = () => {
+    window.scrollTo(0,0);
     return (
         <div>
             <div className='pt-[46px] pb-[65px] bg-[#f6f6f6]  ' >
