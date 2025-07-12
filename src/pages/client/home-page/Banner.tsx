@@ -78,7 +78,7 @@ const Banner: React.FC = () => {
                 {/* Button below input on small/medium screens */}
                 <button
                   type="submit"
-                  className="block lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl flex items-center justify-center"
+                  className=" lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl flex items-center justify-center"
                   disabled={loading}
                 >
                   {loading ? "Loading..." : "Instant Quote"}

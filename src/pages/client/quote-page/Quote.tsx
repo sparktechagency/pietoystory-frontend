@@ -122,7 +122,6 @@ const Quote: React.FC = () => {
                     `&how_many_dogs=${params.dogCount}` +
                     `&total_area_size=${params.selecetedSqarArea}` +
                     `&area_to_clean=${params.areaClean}`,
-                    config
                 );
                 
                 setResponse(res.data);
@@ -517,7 +516,7 @@ const Quote: React.FC = () => {
                                         <h1 className=' text-[#343434] lg:text-[22px] font-degular  font-semibold' >Total area:</h1>
                                     </div>
                                     <div>
-                                        <p className='text-[#343434] lg:text-xl font-degular ' >{response?.total_area}</p>
+                                        <p className='text-[#343434] lg:text-xl font-degular ' >{selecetedSqarArea}</p>
                                     </div>
                                 </div>
                                 <div className='flex justify-between items-center ' >
