@@ -11,8 +11,8 @@ const TermCondiction: React.FC = () => {
                     <div className=' max-w-[1519px] mx-auto flex flex-col lg:flex-row items-start gap-7 ' >
                         {/* left side  */}
                         <div className='flex items-center gap-[22px] ' >
-                            <div className=' w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center  ' >
-                                <Link to={"/"}><span>
+                            <div className='  ' >
+                                <Link className='w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center ' to={"/"}><span>
                                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15.414 7.914H3.828L8.328 12.414L6.914 13.828L0 6.914L6.914 3.8147e-06L8.328 1.414L3.828 5.914H15.414V7.914Z" fill="black" />
                                     </svg>
