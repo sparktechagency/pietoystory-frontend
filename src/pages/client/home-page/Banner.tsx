@@ -57,8 +57,8 @@ const Banner: React.FC = () => {
             </div>
 
             {/* Input + Button Responsive */}
-            <form onSubmit={handleSubmit}>
-              <div className="mt-5 relative w-full max-w-[590px]">
+            <form className=" "  onSubmit={handleSubmit}>
+              <div className="mt-5 relative w-full max-w-[590px]  ">
                 <input
                   className="border border-white hover:outline-none focus:outline-none py-3 lg:py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] lg:placeholder:text-2xl lg:text-2xl font-degular"
                   type="number"
