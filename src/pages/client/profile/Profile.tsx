@@ -134,6 +134,7 @@ const Profile: React.FC = () => {
         try {
             setLoading(true);
             const response = await axiosPublic.post("/update-profile", form, config);
+            console.log(response)
             if (response) {
                 return message.success(`Profile updated successfully`);
             }
@@ -216,7 +217,7 @@ const Profile: React.FC = () => {
                                 type="text"
                                 name="full_name" // Make sure to use 'full_name' since it's in the state
                                 className="w-full hover:outline-none hover:ring-0 bg-[#f6f6f6] focus:outline-none p-2 rounded-md"
-                                value={formData.full_name}
+                                value={formData.full_name || "" }
                                 onChange={handleInputChange}
                             />
                         </fieldset>
@@ -227,7 +228,7 @@ const Profile: React.FC = () => {
                                 type="email"
                                 name="email"
                                 className="w-full hover:outline-none hover:ring-0  bg-[#f6f6f6]  focus:outline-none  p-2 rounded-md"
-                                value={formData.email}
+                                value={formData.email ? formData.email  : ""}
                                 onChange={handleInputChange}
                                 disabled={userLoginType.login_type === "email"}
                             />
@@ -239,7 +240,7 @@ const Profile: React.FC = () => {
                                 type="tel"
                                 name="phone_number"
                                 className="w-full hover:outline-none hover:ring-0  bg-[#f6f6f6]  focus:outline-none  p-2 rounded-md"
-                                value={formData.phone_number}
+                                value={formData.phone_number ? formData?.phone_number : "" }
                                 onChange={handleInputChange}
                                 disabled={userLoginType.login_type === "phone_number"}
                             />
@@ -251,7 +252,7 @@ const Profile: React.FC = () => {
                                 type="text"
                                 name="home_address"
                                 className="w-full hover:outline-none hover:ring-0  bg-[#f6f6f6]  focus:outline-none  p-2 rounded-md"
-                                value={formData.home_address}
+                                value={formData.home_address ? formData?.home_address : ""}
                                 onChange={handleInputChange}
                             />
                         </fieldset>
@@ -262,7 +263,7 @@ const Profile: React.FC = () => {
                                 type="text"
                                 name="city"
                                 className="w-full hover:outline-none hover:ring-0  bg-[#f6f6f6]  focus:outline-none  p-2 rounded-md"
-                                value={formData.city}
+                                value={formData.city ? formData.city : "city nai" }
                                 onChange={handleInputChange}
                             />
                         </fieldset>
@@ -273,7 +274,7 @@ const Profile: React.FC = () => {
                                 type="text"
                                 name="state"
                                 className="w-full hover:outline-none hover:ring-0  bg-[#f6f6f6]  focus:outline-none  p-2 rounded-md"
-                                value={formData.state}
+                                value={formData.state ? formData.state : "data nai" }
                                 onChange={handleInputChange}
                             />
                         </fieldset>

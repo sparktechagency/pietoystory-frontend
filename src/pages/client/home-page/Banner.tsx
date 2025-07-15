@@ -26,7 +26,7 @@ const Banner: React.FC = () => {
       setLoading(true);
       const res = await axiosPublic.post(`/check-zip-code`, { zip_code: zipData });
 
-      if(res.status===200){
+      if (res.status === 200) {
         setZipData("")
         navigate(`/quote?zip-code=${zipData}`);
       }
@@ -57,10 +57,10 @@ const Banner: React.FC = () => {
             </div>
 
             {/* Input + Button Responsive */}
-            <form className=" "  onSubmit={handleSubmit}>
+            <form className=" " onSubmit={handleSubmit}>
               <div className="mt-5 relative w-full max-w-[590px]  ">
                 <input
-                  className="border border-white hover:outline-none focus:outline-none py-3 lg:py-6 px-9 pr-44 w-full rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] lg:placeholder:text-2xl lg:text-2xl font-degular"
+                  className="border border-white hover:outline-none  lg:flex hidden focus:outline-none py-3 lg:py-6 px-9 pr-44  rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] lg:placeholder:text-2xl lg:text-2xl font-degular"
                   type="number"
                   onChange={(e) => setZipData(e.target.value)}
                   placeholder="Zip Code"
@@ -69,16 +69,24 @@ const Banner: React.FC = () => {
                 {/* Button inside input on large screens */}
                 <button
                   type="submit"
-                  className="hidden lg:block text-lg absolute top-1/2 -translate-y-1/2 right-1 bg-white text-black py-5 px-12 w-[220px] rounded-[40px] font-degular "
+                  className="hidden lg:block text-lg absolute top-1/2 -translate-y-1/2 right-[85px] bg-white text-black py-5   w-[240px] rounded-[40px] font-degular "
                   disabled={loading}
                 >
-                  {loading ? "Loading..." : "Instant Quote"}
+                  {loading ? "Loading..." : "Get Instant Quote"}
                 </button>
+
+                <input
+                  className="border border-white w-[50%] py-3 px-6 pr-20 rounded-[40px] bg-[#BAE9FF99] placeholder:text-[#505050] text-base lg:text-2xl font-degular focus:outline-none hover:outline-none lg:hidden"
+                  type="number"
+                  onChange={(e) => setZipData(e.target.value)}
+                  placeholder="Zip Code"
+                />
+
 
                 {/* Button below input on small/medium screens */}
                 <button
                   type="submit"
-                  className=" lg:hidden mt-4 bg-white text-black py-4 px-8 w-full rounded-[40px] font-degular text-xl flex items-center justify-center"
+                  className=" lg:hidden mt-4 bg-white text-black py-4 px-8 w-[50%] rounded-[40px] font-degular text-xl flex items-center justify-center"
                   disabled={loading}
                 >
                   {loading ? "Loading..." : "Instant Quote"}
