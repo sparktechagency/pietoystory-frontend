@@ -8,8 +8,8 @@ import {
   MenuOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, {  useState } from "react";
 import {
   loginApiPayloadType,
   loginApiResponseType,
@@ -42,7 +42,7 @@ const LoginFrom: React.FC = () => {
           icon: "success",
           title: res.data.message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 10500,
         });
         navigate("/");
         form.resetFields();

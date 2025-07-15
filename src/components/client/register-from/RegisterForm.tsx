@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button } from 'antd';
 import {
     UserOutlined,
     MailOutlined,
@@ -28,7 +28,7 @@ const CreateAccount: React.FC = () => {
 
         try {
             setLoading(true);
-            let res = await axiosPublic.post<ApiResponse>(`/register`, values);
+            const res = await axiosPublic.post<ApiResponse>(`/register`, values);
             console.log(res)
             if (res.status === 201) {
                 toast.success(res.data.message);
